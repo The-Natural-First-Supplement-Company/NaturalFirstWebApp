@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using NaturalFirstAPI.Model;
+
 namespace NaturalFirstAPI
 {
     public class Program
@@ -12,6 +16,12 @@ namespace NaturalFirstAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                var connectionString = builder.Configuration.GetConnectionString("myConnectionString");
+                options.UseMySql(connectionString, null, null);
+            });
 
             var app = builder.Build();
 

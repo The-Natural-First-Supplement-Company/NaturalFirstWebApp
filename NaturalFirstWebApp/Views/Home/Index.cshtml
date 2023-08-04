@@ -1,8 +1,24 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "_HomeLayout";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="login-container">
+    <div class="company">
+        <h2><img src="~/images/logo.png" alt="logo" /></h2>
+    </div>
+    <h1>Sign In</h1>
+    <form id="login-form" asp-action="">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        <div id="captcha"></div>
+        <input type="text" id="captcha-input" placeholder="Enter the Captcha" required>
+        <button type="submit">Sign In</button>
+    </form>
+    <div class="options">
+        <a href="@Url.Action("ForgotPassword","Home")">Forgot Password?</a>
+        <a href="@Url.Action("SignUp","Home")">Sign Up</a>
+    </div>
 </div>
+<script src="~/js/Home/captcha.js"></script>

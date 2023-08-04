@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "SignUp Page";
+    Layout = "_HomeLayout";
+}
+
+<div class="login-container" id="sign-up">
+    <div class="company">
+        <h2><img src="~/images/logo.png" alt="logo" /></h2>
+    </div>
+    <h1>Sign Up</h1>
+    <form id="sign-up-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <div class="verification-container">
+            <label for="verification-code">Verification Code:</label>
+            <input type="text" id="verification-code" required>
+            <button type="button" id="send-verification-btn" onclick="sendVerificationCode()">Send</button>
+        </div>
+        <p id="wait-time">Please wait 60 seconds for the next verification code.</p>
+        <label for="create-password">Create Password:</label>
+        <input type="password" id="create-password" required>
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" required>
+        <label for="invitation-code">Invitation Code:</label>
+        <input type="text" id="invitation-code" readonly>
+        <button type="button" id="generate-invitation-code-btn" onclick="generateInvitationCode()" style="margin-bottom: 10px;
+          padding: 3px;">
+            Generate Invitation Code
+        </button>
+        <button type="submit">Sign Up</button>
+    </form>
+    <div class="options">
+        <a href="index.html">Back to Sign In</a>
+    </div>
+</div>
+
+<script src="~/js/Home/signup.js"></script>

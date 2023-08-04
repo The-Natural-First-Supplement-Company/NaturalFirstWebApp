@@ -18,7 +18,20 @@ namespace NaturalFirstWebApp.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        //[HttpPost]
+        //public IActionResult Login(string email, string password)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+
+        //    }
+        //}
+
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+        public IActionResult ForgotPassword()
         {
             return View();
         }
