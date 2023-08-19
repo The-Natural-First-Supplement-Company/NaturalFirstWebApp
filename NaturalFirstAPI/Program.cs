@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NaturalFirstAPI.Model;
+using Newtonsoft.Json.Serialization;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace NaturalFirstAPI
 {
@@ -16,11 +18,10 @@ namespace NaturalFirstAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            
-            builder.Services.AddDbContext<AppDbContext>(options =>
+
+            builder.Services.AddCors(c =>
             {
-                var connectionString = builder.Configuration.GetConnectionString("myConnectionString");
-                options.UseMySql(connectionString, null, null);
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
 
             var app = builder.Build();

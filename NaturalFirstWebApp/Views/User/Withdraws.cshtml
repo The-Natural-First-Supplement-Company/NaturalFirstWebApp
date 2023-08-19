@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewData["Title"] = "Withdraws";
+    Layout = "_User1Layout";
+}
+<link rel="stylesheet" href="~/css/withdraws.css" />
+
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Index","User")">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">Withdraws</div>
+                    </div>
+                    <div class="navbar-right">
+                        <span class="record-text"
+                              style="vertical-align: middle; position: relative;">Records</span>
+                        <i class="fas fa-chevron-right" style="vertical-align: middle;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <div class="article-content">
+                <div class="balance">
+                    Balance: <span id="balance">0.00</span>
+                    <span class="all">&nbsp;All&nbsp;</span>
+                </div>
+                <form id="bankForm">
+                    <!-- First Div: Real Name -->
+                    <div class="info-item"><span id="header">Bank account</span></div>
+                    <div class="info-item">
+                        <div class="item-text">Bank</div>
+                        <div class="item-value">Yes Bank</div>
+                    </div>
+
+                    <!-- Second Div: Bank Selection -->
+                    <div class="info-item">
+                        <div class="item-text">Realname</div>
+                        <div class="item-value">Abc kumar</div>
+                    </div>
+
+                    <!-- Third Div: Bank Account Number -->
+                    <div class="info-item">
+                        <div class="item-text">Account</div>
+                        <div class="item-value">12345678</div>
+                    </div>
+
+                    <!-- Fourth Div: IFSC Code -->
+                    <div class="info-item">
+                        <div class="item-text">IFSC</div>
+                        <div class="item-value">KKB03466</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="item-text">Amount:<br></div>
+                        <div class="veri-code"><input type="text" placeholder="Please enter the amount"></div>
+                        <div class="send">Rs.</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="item-text">Password:<br></div>
+                        <div class="input-new-pswd">
+                            <input type="password" placeholder="Please enter the payment password">
+                        </div>
+                    </div>
+                </form>
+                <div class="center-button">
+                    <button type="submit" id="submitButton">Submit</button>
+                </div>
+            </div>
+            <p class="tandc">
+                1: Valid members can apply for withdrawal. The number of withdrawals in unlimited. The withdrawal amount is 110rs.<br>2: IFSC should be 11 characters and 5th character should be 0. If you fill in wrong bank information, your  withdrawal will fail.<br>3: Withdrawal fee: 8%<br>4: Withdrawal time: 1-2 days<br>
+                <br>
+                <br><br>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const backButton = document.querySelector('.back-text');
+
+    backButton.addEventListener('click', () => {
+        window.history.back();
+    });
+</script>

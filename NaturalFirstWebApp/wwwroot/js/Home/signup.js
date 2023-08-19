@@ -1,50 +1,132 @@
 ﻿let waitingTime = 60;
 let timer;
+var code;
+let isEmailVerified;
+
+$(document).ready(function () {
+    var url = window.location.href;
+    //var regex = /\/SignUp\/([^/]+)/; // Matches anything after "/page/"
+    var regex = /\?([^/]+)/; // Matches anything after "/page/"
+    var typingTimer;
+    var doneTypingInterval = 1000; // 1 second
+
+
+    var match = url.match(regex);
+    if (match) {
+        var dynamicValue = match[1];
+        $("#ReferralCode").val(dynamicValue);
+    }
+
+    $('#verification-code').on('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    });
+
+    function doneTyping() {
+        if ($('#verification-code').val() == code) {
+            alert("Email verified successfully.");
+            isEmailVerified = true;
+        } else {
+            alert('Verification code is incorrect!');
+        }
+    }
+});
+
+$('#SubmitSignUp').click(function () {
+    if (validate() == true) {
+        SignUp();
+    }
+    else {
+        alert('Please provide mandatory fields!')
+    }
+});
 
 function sendVerificationCode() {
-    // Simulate sending the verification code
-    // In a real-world scenario, you would send the code via email or other means
-    generateVerificationCode();
+    let email = $('#Email').val();
+    if ($('#Email').val() != null && $('#Email').val() != undefined && $('#Email').val() != "") {
+        $.ajax({
+            url: "/Home/SendOTP", // Replace with your API endpoint
+            type: "GET",
+            data: { email: $('#Email').val() },
+            dataType: "json",
+            success: function (response) {
+                code = response;
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
 
-    // Disable the button temporarily and start the timer
-    const sendVerificationBtn = document.getElementById('send-verification-btn');
-    sendVerificationBtn.disabled = true;
-    timer = setInterval(updateWaitingTime, 1000);
-}
+        let isButtonDisabled = false;
+        if (!isButtonDisabled) {
+            isButtonDisabled = true;
+            $(this).prop("disabled", true);
 
-function generateVerificationCode() {
-    // Generate a random 6-digit verification code
-    const code = Math.floor(100000 + Math.random() * 900000);
-
-    // Display the code in the input field for demonstration purposes
-    const verificationCodeInput = document.getElementById('verification-code');
-    verificationCodeInput.value = code;
-}
-
-function updateWaitingTime() {
-    const waitTimeElement = document.getElementById('wait-time');
-    if (waitingTime > 0) {
-        waitingTime--;
-        waitTimeElement.textContent = `Please wait ${waitingTime} seconds for the next verification code.`;
+            setTimeout(function () {
+                isButtonDisabled = false;
+                $("#disable-button").prop("disabled", false);
+            }, 15000); // 60 seconds in milliseconds
+        }
     } else {
-        // Enable the button and reset the waiting time
-        const sendVerificationBtn = document.getElementById('send-verification-btn');
-        sendVerificationBtn.disabled = false;
-        waitingTime = 60;
-        clearInterval(timer);
-        waitTimeElement.textContent = '';
+        alert('Please provide email id for verification code.');
     }
 }
 
-function generateInvitationCode() {
-    // Generate a random 6-character invitation code
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let invitationCode = '';
-    for (let i = 0; i < 6; i++) {
-        invitationCode += characters.charAt(Math.floor(Math.random() * characters.length));
+function SignUp() {
+    let _data = {
+        "Email": $('#Email').val(),
+        "Password": $('#Password').val(),
+        "ReferralCode": $('#ReferralCode').val()
+    };
+    $.ajax({
+        url: "/Home/SignUp", // Replace with your API endpoint
+        type: "POST",
+        data: { signUp : _data },
+        dataType: "json",
+        success: function (response) {
+            if (response.StatusId === 1) {
+                alert(response);
+                $('#Back2Home').click();
+            }
+            else
+            {
+                alert(response);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+
+    let isButtonDisabled = false;
+    if (!isButtonDisabled) {
+        isButtonDisabled = true;
+        $(this).prop("disabled", true);
+
+        setTimeout(function () {
+            isButtonDisabled = false;
+            $("#disable-button").prop("disabled", false);
+        }, 15000); // 60 seconds in milliseconds
+    }
+}
+
+function validate() {
+    let result = true;
+
+    if ($('#Email').val() == null || $('#Email').val() == undefined) {
+        alert('Email is mandatroy!');
+        result = false;
     }
 
-    // Display the code in the input field for demonstration purposes
-    const invitationCodeInput = document.getElementById('invitation-code');
-    invitationCodeInput.value = invitationCode;
+    if ($('#ReferralCode').val() == null || $('#ReferralCode').val() == undefined) {
+        alert('Please use a referral link to SignUp!');
+        result = false;
+    }
+
+    if ($('#Password').val() === $('#confirm-password').val() && $('#Password').val() == null) {
+        alert('Password is mandatroy!');
+        result = false;
+    }
+
+    return result;
 }

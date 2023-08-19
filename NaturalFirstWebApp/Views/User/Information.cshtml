@@ -1,0 +1,77 @@
+﻿@using Microsoft.AspNetCore.Html;
+@model NaturalFirstWebApp.Models.User
+@{
+    ViewData["Title"] = "Information";
+    Layout = "_User1Layout";
+}
+
+<link rel="stylesheet" href="~/css/settings.css">
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Index","User")">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                        @*<i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                        <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>*@
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">Personal Information</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <form asp-action="Information" method="post" class="article-content" enctype="multipart/form-data">
+                <div class="info-item">
+                    <div class="item-text">ID</div>
+                    <div class="item-value">@Html.DisplayFor(model => model.Id)</div>
+                </div>
+                <div class="info-item">
+                    <div class="item-text">Account</div>
+                    <div class="item-value">@Html.DisplayFor(model => model.Email)</div>
+                </div>
+                <div class="info-item">
+                    <div class="item-text">Nickname</div>
+                    <div class="input-nickname">
+                        <input asp-for="NickName" class="form-control" />
+                        @*<input type="text" placeholder="Your Nickname" value="yash">*@
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="item-text">Current Avatar</div>
+                    <div class="item-image">
+                        @ConvertByteArrayToImage(Model.ProfilePic)
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="item-text">Modify Avatar</div>
+                    <input type="file" name="imageFile" id="imageFile" />
+                </div>
+                <div class="center-button">
+                    <button id="submitButton">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public IHtmlContent ConvertByteArrayToImage(byte[]? byteArray)
+    {
+        if (byteArray != null && byteArray.Length > 0)
+        {
+            var imageBase64 = Convert.ToBase64String(byteArray);
+            var html = $"<img src='data:image/jpeg;base64,{imageBase64}' />";
+            return new HtmlString(html);
+        }
+        else
+        {
+            return Html.Raw("No Image"); // Or display a placeholder image
+        }
+    }
+}

@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "Salary";
+    Layout = "_UserLayout";
+}
+<link rel="stylesheet" href="../css/salary.css">
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Index","User")">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div>Salary</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <div class="article-content">
+                <p>
+                    <font color="#000000">
+                        Weekly salary:
+                        <br>
+                        <br>
+                    </font>
+                    <img src="~/images/salary1.jpg" alt="" max-width: 100%;>
+                    <br>
+                    <font>
+                        <br>
+                    </font>
+                </p>
+                <p>
+                    <font color="#000000">
+                        Monthly salary:
+                        <br>
+                        <br>
+                    </font>
+                    <img src="~/images/salary2.jpg" alt="" max-width: 100%;>
+                    <br>
+                    <font>
+                        <br>
+                    </font>
+                </p>
+                <p>
+                    <font>
+                        <br>
+                    </font>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const backButton = document.querySelector('.back-text');
+
+    backButton.addEventListener('click', () => {
+        window.history.back();
+    });
+</script>

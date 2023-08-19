@@ -1,0 +1,62 @@
+﻿@model NaturalFirstWebApp.ViewModels.ResetPassword
+
+@{
+    ViewData["Title"] = "PaymentReset";
+    Layout = "_User1Layout";
+}
+
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Index","User")">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                        @*<i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                        <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>*@
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">Payment Password</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <form class="article-content" asp-action="" method="post">
+                <div class="info-item">
+                    <div class="item-text">Email</div>
+                    <input class="item-value"  type="text" name="Email" value="@ViewBag.Email" readonly/>
+
+                    @*<div class="item-value" name="Email">@ViewBag.Email</div>*@
+                </div>
+                <div class="info-item">
+                    <div class="item-text">Code</div>
+                    <div class="veri-code"><input type="text" placeholder="Verification Code" id="verification-code" name="VerificationCode" /></div>
+                    <div class="send"><button onclick="sendVerificationCode()">Send</button></div>
+                </div>
+                <div class="info-item">
+                    <div class="item-text">Password</div>
+                    <div class="input-new-pswd">
+                        <input type="password" placeholder="New password" name="Password">
+                    </div>
+                    <span>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "error" })</span>
+                </div>
+                <div class="info-item">
+                    <div class="item-text">Confirm</div>
+                    <div class="input-new-pswd">
+                        <input type="password" placeholder="Confirm password">
+                    </div>
+                    <span>@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "error" })</span>
+                </div>
+                <div class="center-button">
+                    <button id="submitButton" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/user/reset_payment_password.js"></script>

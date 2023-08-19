@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Recharge";
+    Layout = "_User1Layout";
+}
+
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Index","User")">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">Recharge</div>
+                    </div>
+                    <div class="navbar-right">
+                        <span class="record-text" style="vertical-align: middle; position: relative;">Records</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <div class="article-content">
+                <div class="balance">
+                    Balance: <span id="balance">0.00</span>
+                </div>
+                <form id="bankForm">
+                    <div class="info-item">
+                        <div class="item-text amount">Amount:<br></div>
+                        <div class="veri-code"><input type="text" placeholder="Please enter the amount"></div>
+                        <div class="send">Rs.</div>
+                    </div>
+                    <div class="info-item payment-channel">
+                        <div class="pay-head">Payment Channel</div>
+                        <div class="pay-option">
+                            <div class="item-text pay-type">
+                                <i class="fa-solid fa-money-bill-1">&nbsp;&nbsp;</i>UPI
+                            </div>
+                            <div class="payment-option">
+                                <input type="radio" id="upi" name="paymentOption">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="center-button">
+                    <button type="submit" id="submitButton" disabled>Proceed</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+

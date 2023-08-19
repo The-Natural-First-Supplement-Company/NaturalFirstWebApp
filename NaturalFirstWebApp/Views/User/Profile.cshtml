@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "_User1Layout";
+}
+
+<link rel="stylesheet" href="~/css/me.css">
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left" style="padding-left:10px;">
+                        <a href="@Url.Action("Index","User")">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                        @*<i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                        <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>*@
+                    </div>
+                    <div class="title">
+                        <div>Profile</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <!-- Profile Details -->
+            <div class="profile-details">
+                <div class="profile-info">
+                    <div class="profile-info-wrapper">
+                        <div class="profile-content">
+                            <div class="profile-image">
+                                <!-- Replace with an actual image URL -->
+                                <img src="../images/logo.png" alt="Profile Image">
+                            </div>
+                            <div class="profile-text">
+                                <p><span id="user-mail">user@example.com</span></p>
+                                <p><span id="user-id">ID : 123456</span></p>
+                            </div>
+                        </div>
+                        <div class="settings-icon">
+                            <!-- Settings Icon -->
+                            <a href="@Url.Action("Settings","User")">
+                                <i class="fas fa-cog"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="wallet-separator"></div>
+                <div class="wallet">
+                    <div class="wallet-section">
+                        <div class="wallet-label">Recharge Wallet</div>
+                        <span class="recharge-value">&#x20b9; 100</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="wallet-section">
+                        <div class="wallet-label">Balance Wallet</div>
+                        <span class="balance-value">&#x20b9; 250</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat">
+                    <p>Total Earnings</p>
+                    <p><span class="stat-value">123456</span></p>
+                </div>
+                <div class="separator" style="margin-top: inherit;"></div>
+                <div class="stat">
+                    <p>Team Income</p>
+                    <p><span class="stat-value">789012</span></p>
+                </div>
+                <div class="separator" style="margin-top: inherit;"></div>
+                <div class="stat">
+                    <p>Income Today</p>
+                    <p><span class="stat-value">345678</span></p>
+                </div>
+            </div>
+
+            <!-- Customer Service -->
+            <div class="customer-service">
+                <i class="fas fa-headset" style="color: #b572b5;"></i>
+                <p>Customer Service</p>
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popup">
+    <div class="popup-content">
+        <h2>Customer Service</h2>
+        <a href="https://wa.me/+919416862907" target="_blank">
+            <i class="fab fa-whatsapp" style="color: #7ACC72"></i>
+            <span>Contact Number: <span id="mobile-number" style="color: rgb(225 40 40); text-decoration: underline;">+91 94168 62907</span></span>
+        </a>
+        <button class="close-button">Close</button>
+    </div>
+</div>
+
+<script>
+    const customerServiceDiv = document.querySelector('.customer-service');
+    const popUp = document.querySelector('.popup');
+    const closeButton = document.querySelector('.close-button');
+
+
+    customerServiceDiv.addEventListener('click', () => {
+        popUp.classList.toggle('active');
+    });
+
+    closeButton.addEventListener('click', () => {
+        popUp.classList.remove('active');
+    });
+
+</script>
+@*<script>
+    const settingsIcon = document.querySelector('.settings-icon');
+
+    settingsIcon.addEventListener('click', () => {
+        // Add your link address for the settings page
+        window.location.href = './me/security-settings.html';
+    });
+</script>*@
+

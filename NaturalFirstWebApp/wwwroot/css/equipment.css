@@ -1,0 +1,276 @@
+﻿* {
+    list-style-type: none;
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+body {
+    height: 100%;
+    font-family: \5fae\8f6f\96c5\9ed1, \5b8b\4f53, Arial;
+    max-width: 640px;
+    margin: 0 auto;
+    background: #b8e5b8;
+    color: #333;
+}
+
+.app {
+    height: 100%;
+    font-size: 1rem;
+    max-width: 640px;
+    margin: 0 auto;
+    display: block;
+}
+
+.article {
+    position: relative;
+    min-height: 100%;
+    color: #fff;
+}
+
+
+
+.nav-bar .nav-bar-fixed {
+    z-index: 1000;
+    background-color: #e2ebeb;
+    color: #c45454;
+    max-width: 640px;
+    margin: 0 auto;
+    right: 0;
+    border-radius: 15px;
+}
+
+.nav-bar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    line-height: var(--van-line-height-lg);
+    text-align: center;
+    background: var(--van-nav-bar-background-color);
+    /* -webkit-user-select: none; */
+    user-select: none;
+}
+
+.nav-bar .navbar-content {
+    height: 4rem;
+}
+
+.navbar-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: var(--van-nav-bar-height);
+}
+
+/* .navbar-left {
+    padding: 0 6px;
+} */
+
+.title {
+    max-width: 60%;
+    margin: 0 auto;
+    color: var(--van-nav-bar-title-text-color);
+    font-weight: var(--van-font-weight-bold);
+    font-size: var(--van-nav-bar-title-font-size);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.article-wrap {
+    padding: 0 4%;
+}
+
+.article-content {
+    padding: 1rem 0;
+    font-size: 1.2rem;
+}
+
+.article-content {
+    display: flex;
+    flex-wrap: wrap;
+    background: #ddd9d0;
+    width: 94%;
+    margin: 1rem auto 0;
+    border-radius: 2.5rem;
+    padding: 3%;
+    justify-content: space-around;
+    margin-bottom: 100px;
+}
+
+.option {
+    color: #f4f8f8;
+    padding: 1.3rem 2px;
+    position: relative;
+    font-size: 1rem;
+    width: 240px;
+    height: 300px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+    .option div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0px;
+        background-color: #f6fbf8;
+        text-decoration: none;
+        color: #333;
+        border-radius: 10px;
+        /* text-wrap: nowrap; */
+        /* width: 3rem;
+    height: 3rem;
+    margin-bottom: .5rem; */
+    }
+
+        .option div p {
+            padding-top: 10px;
+            text-align: left;
+            font-size: small;
+            padding-bottom: 10px;
+        }
+
+    .option .details img {
+        max-width: 60%;
+        border-radius: 10px;
+        /* max-height: 58%; */
+    }
+
+.details .product-details {
+    block-size: 25px;
+    width: 10rem;
+    background-color: rgb(54, 139, 54);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+/* img {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box; 
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    border: 0;
+    display: block;
+} */
+
+/* .back-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    font-size: 1.3rem;
+} */
+
+/* .back-text {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+} */
+
+.footer {
+    background-color: #333;
+    color: #b8e5b8;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    margin: 0 auto;
+    right: 0;
+    height: 4.2rem;
+    box-shadow: #d8d8d8 0 0 3px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+    .tabs div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tabs span {
+        margin-top: 5px;
+    }
+
+    .tabs i {
+        font-size: 24px;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: #f0f0f0;
+        color: #333;
+        transition: all 0.3s ease;
+    }
+
+        .tabs i.fa-tools {
+            color: red;
+            transform: scale(1.1);
+        }
+
+
+/* Existing styles... */
+
+/* Responsive CSS */
+@media screen and (max-width: 768px) {
+    .title {
+        max-width: 80%;
+        /* Adjust the maximum width for smaller screens */
+    }
+
+    .article-wrap {
+        padding: 0 10px;
+        /* Increase padding for smaller screens */
+    }
+
+    /* .back-icon {
+        font-size: 1.2rem; 
+        margin-right: 3px; 
+    }
+
+    .back-text {
+        font-size: 1rem; 
+        position: relative;
+        top: -1px; 
+    }*/
+
+    .article-content {
+        font-size: 1rem;
+        /* Adjust font size for content */
+    }
+
+    .tabs i {
+        font-size: 20px;
+        padding: 8px;
+    }
+}
+
+/* Additional responsive CSS for smaller screens (566px and below) */
+@media screen and (max-width: 566px) {
+    .nav-bar-fixed {
+        border-radius: 0;
+        /* Remove border-radius for smaller screens */
+    }
+
+    /* .back-icon {
+        font-size: 1rem; 
+        margin-right: 2px;
+    } */
+}

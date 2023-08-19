@@ -1,0 +1,157 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Equipments";
+    Layout = "_UserLayout";
+}
+<link href="~/css/equipment.css" rel="stylesheet" />
+
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left" style="padding-left:10px;">
+                        <a href="@Url.Action("Index","User")">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div>Products</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <div class="article-content">
+                <div class="option">
+                    <!-- <img src="../images/Product1.jpg" alt=""> -->
+                    <div class="details">
+                        <img src="../images/Product1.jpg" alt="">
+                        <p>
+                            <span style="font-size: small; color: brown;">Super Gainer</span> <br>
+                            Invest : <span style="color: rgb(33, 177, 129);">&#x20b9; 730</span> <br>
+                            Cycle : <span style="color: rgb(33, 177, 129);">&#x20b9; 50</span> <br>
+                            Income : <span style="color: rgb(33, 177, 129);">&#x20b9; 29.6</span> <br>
+                            Total : <span style="color: rgb(33, 177, 129);">&#x20b9; 1460</span> <br>
+
+                        </p>
+
+                        <button class="product-details">See Details</button>
+                    </div>
+                </div>
+
+                <div class="option">
+                    <div class="details">
+                        <img src="../images/Product2.png" alt="">
+                        <p>
+                            <span style="font-size: small; color: brown;">Whey Protein</span> <br>
+                            Invest : <span style="color: rgb(33, 177, 129);"> &#x20b9; 3700</span><br>
+                            Cycle : <span style="color: rgb(33, 177, 129);"> &#x20b9; 50</span> <br>
+                            Income : <span style="color: rgb(33, 177, 129);">&#x20b9; 148</span> <br>
+                            Total : <span style="color: rgb(33, 177, 129);">&#x20b9; 7400</span> <br>
+
+                        </p>
+
+                        <button class="product-details">See Details</button>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="details">
+                        <img src="../images/Product3.jpg" alt="">
+                        <p>
+                            <span style="font-size: medium; color: brown;">Creatine</span> <br>
+                            Invest : <span style="color: rgb(33, 177, 129);">&#x20b9; 8200</span> <br>
+                            Cycle : <span style="color: rgb(33, 177, 129);">&#x20b9; 50</span> <br>
+                            Income : <span style="color: rgb(33, 177, 129);">&#x20b9; 328</span> <br>
+                            Total : <span style="color: rgb(33, 177, 129);">&#x20b9; 16400</span> <br>
+
+                        </p>
+
+                        <button class="product-details">See Details</button>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="details">
+                        <img src="../images/Product4.jpg" alt="">
+                        <p>
+                            <span style="font-size: medium; color: brown;">Body Gainer</span> <br>
+                            Invest : <span style="color: rgb(33, 177, 129);">&#x20b9; 17800</span> <br>
+                            Cycle : <span style="color: rgb(33, 177, 129);">&#x20b9; 60</span> <br>
+                            Income : <span style="color: rgb(33, 177, 129);">&#x20b9; 593</span> <br>
+                            Total : <span style="color: rgb(33, 177, 129);">&#x20b9; 35600</span> <br>
+
+                        </p>
+
+                        <button class="product-details">See Details</button>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="details">
+                        <img src="../images/Product5.jpg" alt="">
+                        <p>
+                            <span style="font-size: medium; color: brown;">Whey Protein</span> <br>
+                            Invest : <span style="color: rgb(33, 177, 129);">&#x20b9; 35000</span> <br>
+                            Cycle : <span style="color: rgb(33, 177, 129);">&#x20b9; 60</span> <br>
+                            Income : <span style="color: rgb(33, 177, 129);">&#x20b9; 1166</span> <br>
+                            Total : <span style="color: rgb(33, 177, 129);">&#x20b9; 70000</span> <br>
+
+                        </p>
+
+                        <button class="product-details">See Details</button>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="details">
+                        <img src="../images/Product6.jpg" alt="">
+                        <p>
+                            <span style="font-size: medium; color: brown;">Muscle Protein</span> <br>
+                            Invest : <span style="color: rgb(33, 177, 129);">&#x20b9; 80000</span> <br>
+                            Cycle : <span style="color: rgb(33, 177, 129);">&#x20b9; 60</span> <br>
+                            Income : <span style="color: rgb(33, 177, 129);">&#x20b9; 2666</span> <br>
+                            Total : <span style="color: rgb(33, 177, 129);">&#x20b9; 160000</span> <br>
+
+                        </p>
+
+                        <button class="product-details">See Details</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    const tabs = document.querySelectorAll('.tabs div');
+
+    tabs.forEach(tab => {
+        tab.style.cursor = 'pointer';
+        tab.addEventListener('click', () => {
+            switch (tab.id) {
+                case 'home-tab':
+                    // Add your link address for the Home tab
+                    window.location.href = "home.html";
+                    break;
+                case 'salary-tab':
+                    // Add your link address for the Salary tab
+                    window.location.href = 'salary.html';
+                    break;
+                case 'equipment-tab':
+                    // Add your link address for the Equipment tab
+                    window.location.href = 'equipment.html';
+                    break;
+                case 'me-tab':
+                    // Add your link address for the Me tab
+                    window.location.href = 'me.html';
+                    break;
+                default:
+                    break;
+            }
+        });
+    });
+</script>

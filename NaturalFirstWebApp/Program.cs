@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using NaturalFirstWebApp.Models;
+
 namespace NaturalFirstWebApp
 {
     public class Program
@@ -9,6 +13,30 @@ namespace NaturalFirstWebApp
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+            });
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Use appropriate setting based on your HTTPS configuration
+                options.LoginPath = "/Home/Index"; // Redirect to login page if authentication fails
+                options.LogoutPath = "/Home/Logout"; // Redirect to logout page
+            });
+
+            string apiUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");
+
+            builder.Services.AddHttpClient("MyApiClient", client =>
+            {
+                // Configure the base address and other options
+                client.BaseAddress = new Uri(apiUrl);
+                // Other configuration options
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -19,11 +47,13 @@ namespace NaturalFirstWebApp
                 app.UseHsts();
             }
 
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -2,16 +2,17 @@
     ViewData["Title"] = "Home Page";
     Layout = "_HomeLayout";
 }
+
 <div class="login-container">
-    <div class="company">
-        <h2><img src="~/images/logo.png" alt="logo" /></h2>
+    <div class="company" style="text-align: center;">
+        <h2><img src="~/images/logo-resize.png" alt="logo" /></h2>
     </div>
     <h1>Sign In</h1>
-    <form id="login-form" asp-action="">
+    <form class="form" id="login-form" asp-action="Index" method="post">
         <label for="email">Email:</label>
-        <input type="email" id="email" required>
+        <input type="email" id="email" name="email" required>
         <label for="password">Password:</label>
-        <input type="password" id="password" required>
+        <input type="password" id="password" name="password" required>
         <div id="captcha"></div>
         <input type="text" id="captcha-input" placeholder="Enter the Captcha" required>
         <button type="submit">Sign In</button>
@@ -22,3 +23,9 @@
     </div>
 </div>
 <script src="~/js/Home/captcha.js"></script>
+@if (ViewBag.msg != null)
+{
+    <script>
+        alert('@ViewBag.msg');
+    </script>
+}
