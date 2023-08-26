@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "RechargeHistory";
+    Layout = "_User1Layout";
+}
+<link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+<link href="~/css/rechargerecords.css" rel="stylesheet" />
+<style>
+    table{
+        color:black;
+        font-size:small;
+    }
+
+    table.RechargeHistoryTbl_wrapper{
+        color:black !important;
+    }
+</style>
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Recharge","User")">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">Recharge Records</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <div class="article-content">
+                <div class="member-table">
+                    <table id="RechargeHistoryTbl" class="table table-bordered table-responsive">
+                        <thead>
+                            <tr>
+                                <th id="amount-column">Amount</th>
+                                <th id="type-column">Code</th>
+                                <th id="datetime-column">Date</th>
+                                <th id="status-column">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/moment.js"></script>
+<script src="/js/User/RechargeHistory.js" defer></script>
+<script src="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.js"></script>

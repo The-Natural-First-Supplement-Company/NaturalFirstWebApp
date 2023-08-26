@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "MakePayment";
+    Layout = "_User1Layout";
+}
+
+<link href="~/css/makepayment.css" rel="stylesheet" />
+
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Index","User")">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">Payment</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <form class="article-content" asp-action="MakePayment" method="post">
+                <div class="company">
+                    <h2><img src="../images/logo.png" alt="logo" /></h2>
+                    <input type="text" id="PayCode" maxlength="12" name="PayCode" placeholder="Enter the Card Number" required>
+                </div>
+
+                <div class="center-button">
+                    <button id="submitButton">Make Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.msg != null)
+{
+    <script>
+        alert("@ViewBag.msg");
+        window.location.href = "~/User/Index";
+    </script>
+}
+
+@if (ViewBag.Error != null)
+{
+    <script>
+        alert("@ViewBag.msg");
+        window.location.href = "~/User/Payment";
+    </script>
+}

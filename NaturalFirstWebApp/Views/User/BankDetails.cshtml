@@ -1,0 +1,72 @@
+﻿@model NaturalFirstWebApp.Models.BankDetails
+
+@{
+    ViewData["Title"] = "BankDetails";
+    Layout = "~/Views/Shared/_User1Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/settings.css">
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Index","User")">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                        @*<i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                        <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>*@
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">Link Bank Account</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <div class="article-content">
+                <form id="bankForm">
+                    <!-- First Div: Real Name -->
+                    <div class="info-item">
+                        <label for="realName" class="item-text">Real Name</label>
+                        <div class="input-area">
+                            @*<input type="text" id="RealName" name="RealName" placeholder="Account Holder Name">*@
+                            @Html.DisplayNameFor(model => model.RealName)
+                        </div>
+                    </div>
+
+                    <!-- Second Div: Bank Selection -->
+                    <div class="info-item">
+                        <label for="bankSelect" class="item-text">Bank</label>
+                        <div class="input-area">
+                            @*<input type="text" id="BankName" name="BankName" placeholder="Bank Name">*@
+                            @Html.DisplayNameFor(model => model.BankName)
+                        </div>
+                    </div>
+
+                    <!-- Third Div: Bank Account Number -->
+                    <div class="info-item">
+                        <label for="accountNumber" class="item-text">Account</label>
+                        <div class="input-area">
+                            @*<input type="text" id="AccountNo" name="AccountNo" placeholder="Bank Account Number">*@
+                            @Html.DisplayNameFor(model => model.AccountNo)
+                        </div>
+                    </div>
+
+                    <!-- Fourth Div: IFSC Code -->
+                    <div class="info-item">
+                        <label for="ifscCode" class="item-text">IFSC Code</label>
+                        <div class="input-area">
+                            @*<input type="text" id="IFSCCode" name="IFSCCode" placeholder="IFSC code">*@
+                            @Html.DisplayNameFor(model => model.IFSCCode)
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

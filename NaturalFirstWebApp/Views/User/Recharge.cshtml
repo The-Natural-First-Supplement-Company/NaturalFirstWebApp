@@ -1,9 +1,8 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Recharge";
     Layout = "_User1Layout";
 }
-
+<link href="~/css/recharge.css" rel="stylesheet" />
 <div class="app">
     <div class="article">
         <div class="nav-bar" style="height: 60px;">
@@ -19,7 +18,9 @@
                         <div style="color: black;">Recharge</div>
                     </div>
                     <div class="navbar-right">
-                        <span class="record-text" style="vertical-align: middle; position: relative;">Records</span>
+                        <a href="@Url.Action("RechargeHistory","User")" style="text-decoration:none;">
+                            <span class="record-text" style="vertical-align: middle; position: relative;">Records</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -27,12 +28,14 @@
         <div class="article-wrap">
             <div class="article-content">
                 <div class="balance">
-                    Balance: <span id="balance">0.00</span>
+                    Balance: <span id="balance">@ViewBag.Wallet</span>
                 </div>
-                <form id="bankForm">
+                <form id="bankForm" method="post" asp-action="Recharge">
                     <div class="info-item">
                         <div class="item-text amount">Amount:<br></div>
-                        <div class="veri-code"><input type="text" placeholder="Please enter the amount"></div>
+                        <div class="veri-code">
+                            <input type="number" placeholder="Please enter the amount" name="Amount" required />
+                        </div>
                         <div class="send">Rs.</div>
                     </div>
                     <div class="info-item payment-channel">
@@ -42,18 +45,18 @@
                                 <i class="fa-solid fa-money-bill-1">&nbsp;&nbsp;</i>UPI
                             </div>
                             <div class="payment-option">
-                                <input type="radio" id="upi" name="paymentOption">
+                                <input type="radio" id="upi" name="paymentOption" value="UPI" required>
                             </div>
                         </div>
                     </div>
+                    <div class="center-button">
+                        <button type="submit" id="submitButton" >Proceed</button>
+                    </div>
                 </form>
-                <div class="center-button">
-                    <button type="submit" id="submitButton" disabled>Proceed</button>
-                </div>
             </div>
 
         </div>
     </div>
 </div>
 
-
+<script src="~/js/user/recharge.js"></script>

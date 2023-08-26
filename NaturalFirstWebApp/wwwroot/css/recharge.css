@@ -1,0 +1,460 @@
+﻿* {
+    list-style-type: none;
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+body {
+    height: 100%;
+    font-family: \5fae\8f6f\96c5\9ed1, \5b8b\4f53, Arial;
+    max-width: 640px;
+    margin: 0 auto;
+    background: #b8e5b8;
+    color: #333;
+}
+
+.app {
+    height: 100%;
+    font-size: 1rem;
+    max-width: 640px;
+    margin: 0 auto;
+    display: block;
+}
+
+.article {
+    position: relative;
+    min-height: 100%;
+    color: #fff;
+}
+
+.nav-bar .nav-bar-fixed {
+    z-index: 1000;
+    background-color: #e2ebeb;
+    color: #c45454;
+    max-width: 640px;
+    margin: 0 auto;
+    right: 0;
+    border-radius: 15px;
+}
+
+.nav-bar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    line-height: var(--van-line-height-lg);
+    text-align: center;
+    background: var(--van-nav-bar-background-color);
+    /* -webkit-user-select: none; */
+    user-select: none;
+}
+
+.nav-bar .navbar-content {
+    height: 3rem;
+}
+
+.navbar-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-left {
+    padding: 0 0 0 15px;
+}
+
+.title {
+    max-width: 60%;
+    margin: 0 auto;
+    color: black;
+    font-weight: var(--van-font-weight-bold);
+    font-size: var(--van-nav-bar-title-font-size);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.article-wrap {
+    padding: 0 4%;
+}
+
+.article-content {
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 15px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.item-text {
+    flex: 1;
+    font-size: 15px;
+    color: black;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+#signOutButton {
+    width: 200px;
+    background-color: #E10600;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.1s ease-out;
+}
+
+    #signOutButton:hover {
+        background-color: #f80505;
+    }
+/*
+#submitButton {
+    width: 200px;
+    background-color: #E10600;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.1s ease-out;
+}
+
+    #submitButton:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
+    }
+
+    #submitButton:hover {
+        background-color: #f80505;
+    }*/
+
+#submitButton {
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    background-color:#f35555;
+    color:white;
+}
+#submitButton:hover {
+    width: 150px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    color: #f35555;
+    background-color: white;
+    border:1px solid grey;
+    font-weight:600;
+}
+
+    #submitButton.enabled {
+        background-color: #007bff; /* Enabled button background color */
+        color: #ffffff; /* Enabled button text color */
+    }
+
+        #submitButton.enabled:hover {
+            background-color: #0056b3; /* Hover effect background color */
+        }
+
+    #submitButton.disabled {
+        background-color: #e5e5e5; /* Disabled button background color */
+        color: #a0a0a0; /* Disabled button text color */
+        cursor: not-allowed;
+    }
+
+        /* Style for disabled button on hover (optional) */
+        #submitButton.disabled:hover {
+            background-color: #e5e5e5; /* Hover effect for disabled button */
+        }
+
+.fas .fa-chevron-right {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.back-text {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+}
+
+/* Responsive CSS */
+@media screen and (max-width: 768px) {
+    .title {
+        max-width: 80%;
+    }
+
+    .article-wrap {
+        padding: 0 10px;
+    }
+
+    .navbar-left {
+        font-size: medium;
+    }
+
+    .back-text {
+        position: relative;
+        top: -1px;
+    }
+
+    .article-content {
+        font-size: 1rem;
+    }
+}
+
+/* Additional responsive CSS for smaller screens (566px and below) */
+@media screen and (max-width: 566px) {
+    .nav-bar-fixed {
+        border-radius: 0;
+    }
+
+    .navbar-content {
+        font-size: small;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .input-area {
+        margin-left: -100px;
+    }
+
+    .title div {
+        font-size: small;
+    }
+
+    .navbar-left {
+        font-size: small;
+    }
+
+    #submitButton {
+        font-size: medium;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .input-area {
+        margin-left: -100px;
+    }
+
+    .navbar-content {
+        font-size: small;
+    }
+
+    #submitButton {
+        font-size: medium;
+        width: 125px;
+    }
+}
+
+.veri-code {
+    justify-content: flex-start;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: #f7f6f6;
+    border-radius: 10px;
+    margin-left: 33px;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+    .veri-code input[type="text"] {
+        width: 100%;
+        text-align: right;
+        padding: 8px;
+        font-size: medium;
+        border: none;
+        border-radius: 0;
+        background: none;
+        color: black;
+        outline: none;
+    }
+
+    .veri-code input[type="number"] {
+        width: 100%;
+        text-align: right;
+        padding: 8px;
+        font-size: medium;
+        border: none;
+        border-radius: 0;
+        background: none;
+        color: black;
+        outline: none;
+    }
+
+@media screen and (max-width: 594px) {
+    .veri-code {
+        margin-left: 90px;
+    }
+
+        .veri-code input[type="text"] {
+            font-size: 12px;
+        }
+
+        .veri-code input[type="number"] {
+            font-size: 12px;
+        }
+}
+
+@media screen and (max-width: 434px) {
+    .veri-code {
+        margin-left: -65px;
+    }
+
+        .veri-code input[type="text"] {
+            font-size: 12px;
+        }
+
+        .veri-code input[type="number"] {
+            font-size: 12px;
+        }
+}
+
+@media screen and (max-width: 342px) {
+    .veri-code {
+        margin-left: -55px;
+    }
+
+        .veri-code input[type="text"] {
+            font-size: 8px;
+        }
+
+        .veri-code input[type="number"] {
+            font-size: 8px;
+        }
+}
+
+@media screen and (max-width: 285px) {
+    .input-new-pswd input[type="password"] {
+        font-size: 8px;
+    }
+
+    .veri-code input[type="text"] {
+        font-size: 9px;
+    }
+
+    .veri-code input[type="number"] {
+        font-size: 9px;
+    }
+
+    .send {
+        font-size: 8px;
+    }
+}
+
+
+/* code for the withdraw page */
+
+.balance {
+    color: black;
+    padding: 10px;
+    font-weight: bold;
+}
+
+#header {
+    color: #333;
+    font-weight: bold;
+}
+
+.send {
+    color: #7f7878;
+}
+
+.navbar-right {
+    padding: 0 15px 0 0;
+}
+
+.record-text {
+    top: -2px;
+    cursor: pointer;
+}
+
+.all {
+    background: border-box;
+    color: white;
+    border-radius: 15px;
+    background-color: red;
+}
+
+.payment-head {
+    color: #333;
+}
+
+.payment-channel label {
+    color: #333;
+}
+
+@media screen and (max-width: 434px) {
+    .balance {
+        font-size: 15px;
+    }
+
+    #header {
+        font-size: 15px;
+    }
+
+    .send {
+        font-size: 11px;
+    }
+}
+
+/* code for recharge page */
+
+.payment-channel {
+    color: #333;
+    display: flow;
+}
+
+.pay-option {
+    display: flex;
+    vertical-align: bottom;
+    margin-top: 10px;
+}
+
+.pay-head {
+    font-size: medium;
+}
+
+@media screen and (max-width:430px) {
+    .payment-channel {
+        color: #333;
+        display: flow;
+    }
+
+    .pay-head {
+        font-size: medium;
+    }
+
+    .pay-type {
+        font-size: small;
+    }
+}

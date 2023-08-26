@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewData["Title"] = "MyTeam";
+    Layout = "~/Views/Shared/_User1Layout.cshtml";
+}
+<link href="~/css/MyTeam.css" rel="stylesheet" />
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Index","User")">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">My teams</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <div class="article-content">
+                <div class="total">
+                    Total: <span id="total-teams">0</span>
+                </div>
+                <div class="member-buttons">
+                    <button class="invalid-button">Invalid Member</button>
+                    <button class="valid-button">Valid Member</button>
+                </div>
+                <!-- Member Table -->
+                <div class="member-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th>Registration Time</th>
+                                <th>Product</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be added dynamically using JavaScript -->
+                            <!-- Valid Member Data -->
+                            <tr>
+                                <td>Valid Account 1</td>
+                                <td>2023-08-19 10:00 AM</td>
+                                <td><button class="view-product-button" data-product="Product A">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>Valid Account 2</td>
+                                <td>2023-08-19 11:30 AM</td>
+                                <td><button class="view-product-button" data-product="Product B">View</button></td>
+                            </tr>
+                            <!-- Add more valid member rows as needed -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

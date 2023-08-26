@@ -1,4 +1,4 @@
-﻿
+﻿@model NaturalFirstWebApp.Models.BankDetails
 @{
     ViewData["Title"] = "Withdraws";
     Layout = "_User1Layout";
@@ -20,9 +20,9 @@
                         <div style="color: black;">Withdraws</div>
                     </div>
                     <div class="navbar-right">
-                        <span class="record-text"
-                              style="vertical-align: middle; position: relative;">Records</span>
-                        <i class="fas fa-chevron-right" style="vertical-align: middle;"></i>
+                        <a href="@Url.Action("WithdrawHistory","User")">
+                            <span class="record-text" style="vertical-align: middle; position: relative;">Records</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -38,41 +38,41 @@
                     <div class="info-item"><span id="header">Bank account</span></div>
                     <div class="info-item">
                         <div class="item-text">Bank</div>
-                        <div class="item-value">Yes Bank</div>
+                        <div class="item-value">@Model.BankName</div>
                     </div>
 
                     <!-- Second Div: Bank Selection -->
                     <div class="info-item">
                         <div class="item-text">Realname</div>
-                        <div class="item-value">Abc kumar</div>
+                        <div class="item-value">@Model.RealName</div>
                     </div>
 
                     <!-- Third Div: Bank Account Number -->
                     <div class="info-item">
                         <div class="item-text">Account</div>
-                        <div class="item-value">12345678</div>
+                        <div class="item-value">@Model.AccountNo</div>
                     </div>
 
                     <!-- Fourth Div: IFSC Code -->
                     <div class="info-item">
                         <div class="item-text">IFSC</div>
-                        <div class="item-value">KKB03466</div>
+                        <div class="item-value">@Model.IFSCCode</div>
                     </div>
                     <div class="info-item">
                         <div class="item-text">Amount:<br></div>
-                        <div class="veri-code"><input type="text" placeholder="Please enter the amount"></div>
                         <div class="send">Rs.</div>
+                        <div class="veri-code"><input type="number" name="Amount" placeholder="Please enter the amount"></div>
                     </div>
                     <div class="info-item">
                         <div class="item-text">Password:<br></div>
                         <div class="input-new-pswd">
-                            <input type="password" placeholder="Please enter the payment password">
+                            <input type="password" name="TrnPassword" placeholder="Please enter the payment password">
                         </div>
                     </div>
+                    <div class="center-button">
+                        <button type="submit" id="submitButton">Submit</button>
+                    </div>
                 </form>
-                <div class="center-button">
-                    <button type="submit" id="submitButton">Submit</button>
-                </div>
             </div>
             <p class="tandc">
                 1: Valid members can apply for withdrawal. The number of withdrawals in unlimited. The withdrawal amount is 110rs.<br>2: IFSC should be 11 characters and 5th character should be 0. If you fill in wrong bank information, your  withdrawal will fail.<br>3: Withdrawal fee: 8%<br>4: Withdrawal time: 1-2 days<br>
@@ -82,11 +82,9 @@
         </div>
     </div>
 </div>
-
-<script>
-    const backButton = document.querySelector('.back-text');
-
-    backButton.addEventListener('click', () => {
-        window.history.back();
-    });
-</script>
+@if (ViewBag.StatusId != null && ViewBag.StatusId == 1)
+{
+    <script>
+        alert('@ViewBag.Status');
+    </script>
+}

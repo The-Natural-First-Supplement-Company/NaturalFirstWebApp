@@ -1,0 +1,319 @@
+﻿* {
+    list-style-type: none;
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+body {
+    height: 100%;
+    font-family: \5fae\8f6f\96c5\9ed1, \5b8b\4f53, Arial;
+    max-width: 640px;
+    margin: 0 auto;
+    background: #b8e5b8;
+    color: #333;
+}
+
+.app {
+    height: 100%;
+    font-size: 1rem;
+    max-width: 640px;
+    margin: 0 auto;
+    display: block;
+}
+
+.article {
+    position: relative;
+    min-height: 100%;
+    color: black;
+}
+
+.nav-bar .nav-bar-fixed {
+    z-index: 1000;
+    background-color: #e2ebeb;
+    color: #c45454;
+    max-width: 640px;
+    margin: 0 auto;
+    right: 0;
+    border-radius: 15px;
+}
+
+.nav-bar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    line-height: var(--van-line-height-lg);
+    text-align: center;
+    background: var(--van-nav-bar-background-color);
+    /* -webkit-user-select: none; */
+    user-select: none;
+}
+
+.nav-bar .navbar-content {
+    height: 3rem;
+}
+
+.navbar-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-left {
+    padding: 0 0 0 15px;
+}
+
+.title {
+    max-width: 60%;
+    margin: 0 auto;
+    color: black;
+    font-weight: var(--van-font-weight-bold);
+    font-size: var(--van-nav-bar-title-font-size);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.article-wrap {
+    padding: 0 4%;
+    color:black;
+}
+
+.article-content {
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 15px;
+}
+
+.back-text {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+}
+
+/* Responsive CSS */
+/* @media screen and (max-width: 768px) {
+    .title {
+        max-width: 80%;
+    }
+
+    .article-wrap {
+        padding: 0 10px;
+    }
+
+    .navbar-left {
+        font-size: medium;
+    }
+
+    .back-text {
+        position: relative;
+        top: -1px;
+    }
+
+    .article-content {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 566px) {
+    .nav-bar-fixed {
+        border-radius: 0;
+    }
+
+    .navbar-content {
+        font-size: small;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .title div {
+        font-size: small;
+    }
+
+    .navbar-left {
+        font-size: small;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .navbar-content {
+        font-size: small;
+    }
+} */
+
+.member-table {
+    margin-top: 20px;
+}
+
+    .member-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .member-table th,
+    .member-table td {
+        border: 1px solid #333;
+        padding: 8px;
+        text-align: left;
+        color: #333;
+    }
+
+.no-data-text {
+    text-align: center;
+    opacity: 0.6; /* Adjust the opacity value as needed */
+    margin-top: 10px;
+    color: black
+}
+
+/* Responsive CSS for screen width up to 728px */
+/* @media screen and (max-width: 728px) {
+    .title {
+        font-size: 1.2rem;
+    }
+
+    .article-content {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .title {
+        font-size: 1rem;
+    }
+
+    .article-content {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .title {
+        font-size: 0.8rem;
+    }
+
+    .article-content {
+        font-size: 0.8rem;
+    }
+}*/
+
+/* @media screen and (max-width: 280px) {
+    .title {
+        font-size: 0.7rem;
+    }
+
+    .article-content {
+        font-size: 0.7rem;
+    }
+} */
+
+/* Responsive CSS */
+@media screen and (max-width: 768px) {
+    /* Adjust font sizes and widths for screens up to 768px wide */
+    .title {
+        max-width: 80%;
+        font-size: 1.2rem;
+    }
+
+    .article-wrap {
+        padding: 0 10px;
+    }
+
+    .navbar-left {
+        font-size: medium;
+    }
+
+    .back-text {
+        position: relative;
+        top: -1px;
+    }
+
+    .article-content {
+        font-size: 1rem;
+    }
+}
+
+/* Additional responsive CSS for smaller screens (566px and below) */
+@media screen and (max-width: 566px) {
+    /* Adjust font sizes and widths for screens up to 566px wide */
+    .nav-bar-fixed {
+        border-radius: 0;
+    }
+
+    .navbar-content {
+        font-size: small;
+    }
+
+    .title {
+        max-width: 90%;
+        font-size: 1rem;
+    }
+
+    .article-content {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    /* Adjust font sizes and widths for screens up to 415px wide */
+    .title div {
+        font-size: small;
+    }
+
+    .navbar-left {
+        font-size: small;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    /* Adjust font sizes and widths for screens up to 300px wide */
+    .navbar-content {
+        font-size: small;
+    }
+}
+
+@media screen and (max-width: 434px) {
+    /* Adjust font sizes and widths for screens up to 434px wide */
+    .balance {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 280px) {
+    /* Adjust font sizes and widths for screens up to 280px wide (Samsung Fold) */
+    .title {
+        max-width: 100%; /* Full width for smaller screens */
+        font-size: 0.7rem;
+    }
+
+    .article-wrap {
+        padding: 5px; /* More padding for better readability on smaller screens */
+    }
+
+    .navbar-left {
+        font-size: small;
+    }
+
+    .back-text {
+        position: relative;
+        top: -1px;
+    }
+
+    .article-content {
+        font-size: 0.7rem;
+        padding: 5px;
+    }
+
+    /* Adjust table column widths for better fit on smaller screens */
+    #id-column, #amount-column, #datetime-column, #status-column {
+        width: 25%;
+    }
+}

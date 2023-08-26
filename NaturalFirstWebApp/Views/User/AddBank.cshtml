@@ -1,106 +1,171 @@
-﻿@{
+﻿@model NaturalFirstWebApp.Models.BankDetails
+@{
     ViewData["Title"] = "AddBank";
     Layout = "_User1Layout";
 }
 
-<link rel="stylesheet" href="~/css/settings.css">
-<div class="app">
-    <div class="article">
-        <div class="nav-bar" style="height: 60px;">
-            <div class="nav-bar-fixed">
-                <div class="navbar-content">
-                    <div class="navbar-left">
-                        <a href="@Url.Action("Index","User")">
-                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
-                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
-                        </a>
-                        @*<i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+@if(Model == null)
+{
+    <link rel="stylesheet" href="~/css/settings.css">
+    <div class="app">
+        <div class="article">
+            <div class="nav-bar" style="height: 60px;">
+                <div class="nav-bar-fixed">
+                    <div class="navbar-content">
+                        <div class="navbar-left">
+                            <a href="@Url.Action("Index","User")">
+                                <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                                <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                            </a>
+                            @*<i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
                         <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>*@
+                        </div>
+                        <div class="title">
+                            <div style="color: black;">Link Bank Account</div>
+                        </div>
                     </div>
-                    <div class="title">
-                        <div style="color: black;">Link Bank Account</div>
+                </div>
+            </div>
+            <div class="article-wrap">
+                <div class="article-content">
+                    <form id="bankForm" method="post" asp-action="AddBank">
+                        <!-- First Div: Real Name -->
+                        <div class="info-item">
+                            <label for="realName" class="item-text">Real Name</label>
+                            <div class="input-area">
+                                <input type="text" id="RealName" name="RealName" placeholder="Account Holder Name">
+                            </div>
+                        </div>
+
+                        <!-- Second Div: Bank Selection -->
+                        <div class="info-item">
+                            <label for="bankSelect" class="item-text">Bank</label>
+                            <div class="input-area">
+                                <input type="text" id="BankName" name="BankName" placeholder="Bank Name">
+                            </div>
+                        </div>
+
+                        <!-- Third Div: Bank Account Number -->
+                        <div class="info-item">
+                            <label for="accountNumber" class="item-text">Account</label>
+                            <div class="input-area">
+                                <input type="text" id="AccountNo" name="AccountNo" placeholder="Bank Account Number">
+                            </div>
+                        </div>
+
+                        <!-- Fourth Div: IFSC Code -->
+                        <div class="info-item">
+                            <label for="ifscCode" class="item-text">IFSC Code</label>
+                            <div class="input-area">
+                                <input type="text" id="IFSCCode" name="IFSCCode" placeholder="IFSC code">
+                            </div>
+                        </div>
+
+                        <!-- Fourth Div: IFSC Code -->
+                        <div class="info-item">
+                            <label for="TrnPassword" class="item-text">Trn Password</label>
+                            <div class="input-area">
+                                <input type="password" id="TrnPassword" name="TrnPassword" placeholder="Transaction Password">
+                            </div>
+                        </div>
+                        <div class="center-button">
+                            <button type="submit" id="submitButton">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.Message != null && !string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <script>
+            var message = "@ViewBag.Message";
+            alert(message);
+            window.location.href = "@Url.Action("Index","User")";
+        </script>
+    }
+
+    @if (ViewBag.Error != null && !string.IsNullOrEmpty(ViewBag.Error))
+    {
+        <script>
+            var message = "@ViewBag.Error";
+            alert(message);
+        </script>
+    }
+
+    @if (ViewBag.ClearForm != null && ViewBag.ClearForm == true)
+    {
+        <script>
+            // Clear form fields
+            document.getElementById("bankName").value = "";
+            document.getElementById("accountNo").value = "";
+            document.getElementById("ifscCode").value = "";
+            document.getElementById("RealName").value = "";
+            document.getElementById("TrnPassword").value = "";
+        </script>
+    }
+}else
+{
+    <link rel="stylesheet" href="~/css/settings.css">
+    <div class="app">
+        <div class="article">
+            <div class="nav-bar" style="height: 60px;">
+                <div class="nav-bar-fixed">
+                    <div class="navbar-content">
+                        <div class="navbar-left">
+                            <a href="@Url.Action("Index","User")">
+                                <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                                <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                            </a>
+                            @*<i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                        <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>*@
+                        </div>
+                        <div class="title">
+                            <div style="color: black;">Link Bank Account</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="article-wrap">
+                <div class="article-content">
+                    <div id="bankForm">
+                        <!-- First Div: Real Name -->
+                        <div class="info-item">
+                            <label for="realName" class="item-text">Real Name</label>
+                            <div class="input-area">
+                                <input type="text" id="RealName" name="RealName" value="@Model.RealName" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Second Div: Bank Selection -->
+                        <div class="info-item">
+                            <label for="bankSelect" class="item-text">Bank</label>
+                            <div class="input-area">
+                                <input type="text" id="BankName" name="BankName" value="@Model.BankName" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Third Div: Bank Account Number -->
+                        <div class="info-item">
+                            <label for="accountNumber" class="item-text">Account</label>
+                            <div class="input-area">
+                                <input type="text" id="AccountNo" name="AccountNo" value="@Model.AccountNo" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Fourth Div: IFSC Code -->
+                        <div class="info-item">
+                            <label for="ifscCode" class="item-text">IFSC Code</label>
+                            <div class="input-area">
+                                <input type="text" id="IFSCCode" name="IFSCCode" value="@Model.IFSCCode" readonly>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="article-wrap">
-            <div class="article-content">
-                <form id="bankForm" method="post" asp-action="AddBank">
-                    <!-- First Div: Real Name -->
-                    <div class="info-item">
-                        <label for="realName" class="item-text">Real Name</label>
-                        <div class="input-area">
-                            <input type="text" id="RealName" name="RealName" placeholder="Account Holder Name">
-                        </div>
-                    </div>
-
-                    <!-- Second Div: Bank Selection -->
-                    <div class="info-item">
-                        <label for="bankSelect" class="item-text">Bank</label>
-                        <div class="input-area">
-                            <input type="text" id="BankName" name="BankName" placeholder="Bank Name">
-                        </div>
-                    </div>
-
-                    <!-- Third Div: Bank Account Number -->
-                    <div class="info-item">
-                        <label for="accountNumber" class="item-text">Account</label>
-                        <div class="input-area">
-                            <input type="text" id="AccountNo" name="AccountNo" placeholder="Bank Account Number">
-                        </div>
-                    </div>
-
-                    <!-- Fourth Div: IFSC Code -->
-                    <div class="info-item">
-                        <label for="ifscCode" class="item-text">IFSC Code</label>
-                        <div class="input-area">
-                            <input type="text" id="IFSCCode" name="IFSCCode" placeholder="IFSC code">
-                        </div>
-                    </div>
-
-                    <!-- Fourth Div: IFSC Code -->
-                    <div class="info-item">
-                        <label for="TrnPassword" class="item-text">Trn Password</label>
-                        <div class="input-area">
-                            <input type="password" id="TrnPassword" name="TrnPassword" placeholder="Transaction Password">
-                        </div>
-                    </div>
-                    <div class="center-button">
-                        <button type="submit" id="submitButton">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-@if (ViewBag.Message != null && !string.IsNullOrEmpty(ViewBag.Message))
-{
-    <script>
-        var message = "@ViewBag.Message";
-        alert(message);
-        window.location.href = "@Url.Action("Index","User")";
-    </script>
-}
-
-@if (ViewBag.Error != null && !string.IsNullOrEmpty(ViewBag.Error))
-{
-    <script>
-         var message = "@ViewBag.Error";
-         alert(message);
-    </script>
-}
-
-@if (ViewBag.ClearForm != null && ViewBag.ClearForm == true)
-{
-    <script>
-        // Clear form fields
-        document.getElementById("bankName").value = "";
-        document.getElementById("accountNo").value = "";
-        document.getElementById("ifscCode").value = "";
-        document.getElementById("RealName").value = "";
-        document.getElementById("TrnPassword").value = "";
-    </script>
+    </div>    
 }
 
 

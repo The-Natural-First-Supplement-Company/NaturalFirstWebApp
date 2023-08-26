@@ -39,14 +39,128 @@ namespace NaturalFirstWebApp.Controllers
 
         public IActionResult Recharge()
         {
+            Decimal value = GetWalletAmount();
+            ViewBag.Wallet = value;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Recharge(int Amount,string paymentOption)
+        {
+            TempData["Amount"] = Amount;
+            TempData["PayOption"] = paymentOption;
+            return RedirectToAction("MakePayment");
+        }
+
+        public IActionResult MakePayment()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> MakePayment(RechargeVM recharge)
+        {
+            decimal.TryParse(TempData["Amount"].ToString(), out decimal amt);
+            string option = TempData["PayOption"].ToString();
+
+            recharge.Amount = amt;
+            recharge.PayOption = option;
+            try
+            {
+                // Create an instance of HttpClient using the named client from the factory
+                var client = _httpClientFactory.CreateClient("MyApiClient");
+
+                // Define the endpoint path
+                var endpointPath = "/api/User/RechargeWallet"; // Replace with the actual login endpoint path
+
+                // Prepare the content with parameters
+                var requestData = new 
+                { 
+                    Email = CurrentUser(), 
+                    Amount = recharge.Amount,
+                    PayOption = recharge.PayOption,
+                    PayCode = recharge.PayCode
+                };
+                var json = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Make a POST request to the API
+                var response = await client.PostAsync(endpointPath, content);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                // Deserialize the JSON response into an object
+                var responseData = JsonConvert.DeserializeObject<Common>(jsonResponse);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    ViewBag.msg = responseData.Status;
+                    return View();
+                }
+                else
+                {
+                    ViewBag.msg = responseData.Status;
+                    return View();
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return View();
+            }
+        }
+
+        public IActionResult RechargeHistory()
+        {
+            // Retrieve the user's claims
+            var userClaims = User.Claims.ToList();
+
+            // Retrieve specific claim values
+            ViewBag.Email = userClaims[0].Value;
             return View();
         }
 
         public IActionResult Withdraws()
         {
+            BankDetails bank = new BankDetails();
+            bank = GetBankDetails();
+            return View(bank);
+        }
+
+        [HttpPost]
+        public IActionResult Withdraws(WithdrawVM draw)
+        {
+            var client = _httpClientFactory.CreateClient("MyApiClient");
+
+            // Define the endpoint path
+            var endpointPath = "/api/User/AddWithdrawRequest";
+
+            // Prepare the content with parameters
+            var requestData = new
+            {
+                Email = CurrentUser(),
+                Amount = draw.Amount,
+                TrnPassword = EncryptDecrypt.Encrypt(draw.TrnPassword)
+            };
+            var json = JsonConvert.SerializeObject(requestData);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Make a POST request to the API
+            var response = client.PostAsync(endpointPath, content).Result;
+            var jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+            // Deserialize the JSON response into an object
+            var result = JsonConvert.DeserializeObject<Common>(jsonResponse);
+
+            BankDetails bank = new BankDetails();
+            bank = GetBankDetails();
+            ViewBag.Status = result.Status;
+            ViewBag.StatusId = result.StatusId;
+            return View(bank);
+        }
+        public IActionResult WithdrawHistory()
+        {
             return View();
         }
-        
+
         public IActionResult Salary()
         {
             return View();
@@ -90,22 +204,31 @@ namespace NaturalFirstWebApp.Controllers
 
         public IActionResult AddBank()
         {
-            if(TempData["Message"] != null)
+            if (BankExistsInDB())
             {
-                ViewBag.Message = TempData["Message"];
-                TempData.Remove("Message");
+                BankDetails bank = new BankDetails();
+                bank = GetBankDetails();
+                return View(bank);
             }
-            if(TempData["ClearForm"] != null)
+            else
             {
-                ViewBag.ClearForm = TempData["ClearForm"];
-                TempData.Remove("ClearForm");
+                if (TempData["Message"] != null)
+                {
+                    ViewBag.Message = TempData["Message"];
+                    TempData.Remove("Message");
+                }
+                if (TempData["ClearForm"] != null)
+                {
+                    ViewBag.ClearForm = TempData["ClearForm"];
+                    TempData.Remove("ClearForm");
+                }
+                if (TempData["Error"] != null)
+                {
+                    ViewBag.Error = TempData["Error"].ToString();
+                    TempData.Remove("Error");
+                }
+                return View();
             }
-            if (TempData["Error"] != null)
-            {
-                ViewBag.Error = TempData["Error"].ToString();
-                TempData.Remove("Error");
-            }
-            return View();
         }
 
         [HttpPost]
@@ -129,10 +252,10 @@ namespace NaturalFirstWebApp.Controllers
                     var requestData = new
                     {
                         BankName = bank.BankName,
-                        AccountNo = BCrypt.Net.BCrypt.HashPassword(bank.AccountNo),
-                        IFSCCode = BCrypt.Net.BCrypt.HashPassword(bank.IFSCCode),
+                        AccountNo = EncryptDecrypt.Encrypt(bank.AccountNo),
+                        IFSCCode = EncryptDecrypt.Encrypt(bank.IFSCCode),
                         RealName = bank.RealName,
-                        TrnPassword = BCrypt.Net.BCrypt.HashPassword(bank.TrnPassword),
+                        TrnPassword = EncryptDecrypt.Encrypt(bank.TrnPassword),
                         email = CurrentUser()
                     };
                     var json = JsonConvert.SerializeObject(requestData);
@@ -256,7 +379,6 @@ namespace NaturalFirstWebApp.Controllers
         }
 
         //Reset Password
-        //[Route("{controller}/Me/ResetLoginPassword")]
         public IActionResult PasswordReset()
         {
             ViewBag.Email = CurrentUser();
@@ -276,7 +398,7 @@ namespace NaturalFirstWebApp.Controllers
                     // Define the endpoint path
                     var endpointPath = "/api/Login/ResetPassword"; // Replace with the actual login endpoint path
 
-                    string password = BCrypt.Net.BCrypt.HashPassword(reset.Password);
+                    string password = EncryptDecrypt.Encrypt(reset.Password);
 
                     // Prepare the content with parameters
                     var requestData = new { Email = reset.Email, Password = password };
@@ -310,9 +432,7 @@ namespace NaturalFirstWebApp.Controllers
             return RedirectToAction("Index","User");
         }
 
-
-        //Reset Payment Password
-        //[Route("{controller}/Me/ResetPaymentPassword")]
+        //Reset Transaction Password
         public IActionResult PaymentReset()
         {
             ViewBag.Email = CurrentUser();
@@ -333,7 +453,7 @@ namespace NaturalFirstWebApp.Controllers
                     // Define the endpoint path
                     var endpointPath = "/api/User/ResetPaymentPassword"; // Replace with the actual login endpoint path
 
-                    string password = BCrypt.Net.BCrypt.HashPassword(reset.Password);
+                    string password = EncryptDecrypt.Encrypt(reset.Password);
 
                     // Prepare the content with parameters
                     var requestData = new { Email = reset.Email, Password = password };
@@ -365,6 +485,163 @@ namespace NaturalFirstWebApp.Controllers
                 }
             }
             return RedirectToAction("Index", "User");
+        }
+
+        public IActionResult MyTeam()
+        {
+            return View();
+        }
+
+
+        /*
+         
+        Methods which require calling for showing data
+         
+         */
+
+        public BankDetails GetBankDetails()
+        {
+            BankDetails responseData = new BankDetails();
+            try
+            {
+                // Create an instance of HttpClient using the named client from the factory
+                var client = _httpClientFactory.CreateClient("MyApiClient");
+
+                // Define the endpoint path
+                var endpointPath = "/api/User/GetBankDetails";
+
+                // Prepare the content with parameters
+                var requestData = new
+                {
+                    Email = CurrentUser()
+                };
+                var json = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Make a POST request to the API
+                var response = client.PostAsync(endpointPath, content).Result; // Using .Result
+                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+                // Deserialize the JSON response into an object
+                responseData = JsonConvert.DeserializeObject<BankDetails>(jsonResponse);
+                responseData.AccountNo = EncryptDecrypt.Decrypt(responseData.AccountNo);
+                responseData.IFSCCode = EncryptDecrypt.Decrypt(responseData.IFSCCode);
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Unable to fetch information. Please try again later.";
+            }
+            return responseData;
+        }
+        //Recharge History
+        public async Task<JsonResult> GetHistory()
+        {
+            try
+            {
+                // Create an instance of HttpClient using the named client from the factory
+                var client = _httpClientFactory.CreateClient("MyApiClient");
+
+                // Define the endpoint path
+                var endpointPath = "/api/User/GetRechargeHistory"; // Replace with the actual login endpoint path
+
+                // Prepare the content with parameters
+                var requestData = new
+                {
+                    Email = CurrentUser()
+                };
+                var json = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Make a POST request to the API
+                var response = await client.PostAsync(endpointPath, content);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                // Deserialize the JSON response into an object
+                var responseData = JsonConvert.DeserializeObject<List<RechargeHistory>>(jsonResponse);
+
+                return Json(responseData);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return Json(null);
+            }
+        }
+
+        // Get Wallet Amount
+        public Decimal GetWalletAmount()
+        {
+            var client = _httpClientFactory.CreateClient("MyApiClient");
+
+            // Define the endpoint path
+            var endpointPath = "/api/User/GetWalletBalance"; // Replace with the actual login endpoint path
+
+            // Prepare the content with parameters
+            var requestData = new
+            {
+                Email = CurrentUser()
+            };
+            var json = JsonConvert.SerializeObject(requestData);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Make a POST request to the API
+            var response = client.PostAsync(endpointPath, content).Result;
+            var jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+            // Deserialize the JSON response into an object
+            var responseData = JsonConvert.DeserializeObject<Decimal>(jsonResponse);
+
+            return responseData;
+        }
+
+        public bool BankExistsInDB()
+        {
+            var client = _httpClientFactory.CreateClient("MyApiClient");
+
+            // Define the endpoint path
+            var endpointPath = "/api/User/BankExistsInDB"; // Replace with the actual login endpoint path
+
+            // Prepare the content with parameters
+            var requestData = new
+            {
+                Email = CurrentUser()
+            };
+            var json = JsonConvert.SerializeObject(requestData);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Make a POST request to the API
+            var response = client.PostAsync(endpointPath, content).Result;
+            var jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+            // Deserialize the JSON response into an object
+            var responseData = JsonConvert.DeserializeObject<bool>(jsonResponse);
+
+            return responseData;
+        }
+
+        public Decimal ActualBalance()
+        {
+            var client = _httpClientFactory.CreateClient("MyApiClient");
+
+            // Define the endpoint path
+            var endpointPath = "/api/User/BankExistsInDB"; // Replace with the actual login endpoint path
+
+            // Prepare the content with parameters
+            var requestData = new
+            {
+                Email = CurrentUser()
+            };
+            var json = JsonConvert.SerializeObject(requestData);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Make a POST request to the API
+            var response = client.PostAsync(endpointPath, content).Result;
+            var jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+            // Deserialize the JSON response into an object
+            var responseData = JsonConvert.DeserializeObject<Decimal>(jsonResponse);
+
+            return responseData;
         }
     }
 }

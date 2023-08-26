@@ -1,5 +1,4 @@
-﻿using BCrypt.Net;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NaturalFirstAPI.Model;
@@ -27,7 +26,7 @@ namespace NaturalFirstAPI.Controllers
             {
                 return NotFound();
             }
-            else if (BCrypt.Net.BCrypt.Verify(user.Password, _user.Password))
+            else if (user.Password == EncryptDecrypt.Decrypt(_user.Password))
             {
                 return Ok(_user);
             }

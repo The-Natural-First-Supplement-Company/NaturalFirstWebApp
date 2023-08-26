@@ -1,9 +1,9 @@
-﻿using BCrypt.Net;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NaturalFirstAPI.Model;
 using NaturalFirstAPI.Repository;
+using NaturalFirstWebApp.Models;
 using NaturalFirstWebApp.ViewModels;
 
 namespace NaturalFirstAPI.Controllers
@@ -44,6 +44,139 @@ namespace NaturalFirstAPI.Controllers
         {
             var result = _userRepository.ResetPaymentPassword(reset);
             return Ok(result);
+        }
+
+        [HttpPost]
+        public IActionResult GetWalletBalance(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                Decimal result = _userRepository.GetWalletBalance(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult RechargeWallet(RechargeVM recharge)
+        {
+            if (recharge == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.RechargeWallet(recharge);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult GetRechargeHistory(RechargeVM recharge)
+        {
+            if (recharge == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.GetRecharges(recharge);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult BankExistsInDB(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.IfBankExists(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult GetBankDetails(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.GetBankDetail(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
+        }
+        // Pending Stored Procedure
+        [HttpPost]
+        public IActionResult GetActualBalance(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.GetBankDetail(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult AddWithdrawRequest(WithdrawVM withdraw)
+        {
+            if (withdraw == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.InsertWithdrawRequest(withdraw);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
         }
     }
 }

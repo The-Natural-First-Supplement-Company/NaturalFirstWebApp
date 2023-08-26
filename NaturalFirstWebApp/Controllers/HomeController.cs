@@ -126,7 +126,7 @@ namespace NaturalFirstWebApp.Controllers
                     // Define the endpoint path
                     var endpointPath = "/api/Login/RegisterUser"; // Replace with the actual login endpoint path
 
-                    string password = BCrypt.Net.BCrypt.HashPassword(signUp.Password);
+                    string password = EncryptDecrypt.Encrypt(signUp.Password);
 
                     // Prepare the content with parameters
                     var requestData = new { Email = signUp.Email, Password = password, ReferralCode = signUp.ReferralCode };
@@ -189,7 +189,7 @@ namespace NaturalFirstWebApp.Controllers
                     // Define the endpoint path
                     var endpointPath = "/api/Login/ResetPassword"; // Replace with the actual login endpoint path
 
-                    string password = BCrypt.Net.BCrypt.HashPassword(reset.Password);
+                    string password = EncryptDecrypt.Encrypt(reset.Password);
 
                     // Prepare the content with parameters
                     var requestData = new { Email = reset.Email, Password = password };

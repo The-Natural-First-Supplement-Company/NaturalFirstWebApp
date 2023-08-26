@@ -1,0 +1,309 @@
+﻿* {
+    list-style-type: none;
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+body {
+    height: 100%;
+    font-family: \5fae\8f6f\96c5\9ed1, \5b8b\4f53, Arial;
+    max-width: 640px;
+    margin: 0 auto;
+    background: #b8e5b8;
+    color: #333;
+}
+
+.app {
+    height: 100%;
+    font-size: 1rem;
+    max-width: 640px;
+    margin: 0 auto;
+    display: block;
+}
+
+.article {
+    position: relative;
+    min-height: 100%;
+    color: #fff;
+}
+
+.nav-bar .nav-bar-fixed {
+    z-index: 1000;
+    background-color: #e2ebeb;
+    color: #c45454;
+    max-width: 640px;
+    margin: 0 auto;
+    right: 0;
+    border-radius: 15px;
+}
+
+.nav-bar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    line-height: var(--van-line-height-lg);
+    text-align: center;
+    background: var(--van-nav-bar-background-color);
+    /* -webkit-user-select: none; */
+    user-select: none;
+}
+
+.nav-bar .navbar-content {
+    height: 3rem;
+}
+
+.navbar-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-left {
+    padding: 0 0 0 15px;
+}
+
+.title {
+    max-width: 60%;
+    margin: 0 auto;
+    color: black;
+    font-weight: var(--van-font-weight-bold);
+    font-size: var(--van-nav-bar-title-font-size);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.article-wrap {
+    padding: 0 4%;
+}
+
+.article-content {
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 15px;
+}
+
+.back-text {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+}
+
+/* Responsive CSS */
+@media screen and (max-width: 768px) {
+    .title {
+        max-width: 80%;
+    }
+
+    .article-wrap {
+        padding: 0 10px;
+    }
+
+    .navbar-left {
+        font-size: medium;
+    }
+
+    .back-text {
+        position: relative;
+        top: -1px;
+    }
+
+    .article-content {
+        font-size: 1rem;
+    }
+}
+
+/* Additional responsive CSS for smaller screens (566px and below) */
+@media screen and (max-width: 566px) {
+    .nav-bar-fixed {
+        border-radius: 0;
+    }
+
+    .navbar-content {
+        font-size: small;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .title div {
+        font-size: small;
+    }
+
+    .navbar-left {
+        font-size: small;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .navbar-content {
+        font-size: small;
+    }
+}
+
+.total {
+    color: black;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+@media screen and (max-width: 434px) {
+    .balance {
+        font-size: 15px;
+    }
+}
+
+.member-buttons {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.invalid-button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+.valid-button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #e2ebeb;
+    color: #c45454;
+    cursor: pointer;
+}
+
+.member-table {
+    margin-top: 20px;
+}
+
+    .member-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .member-table th,
+    .member-table td {
+        border: 1px solid #333;
+        padding: 8px;
+        text-align: left;
+        color: #333;
+    }
+
+.view-product-button {
+    display: block;
+    margin: 0 auto;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff69b4; /* Reddish pink color */
+    color: #fff;
+    cursor: pointer;
+}
+
+.no-data-text {
+    text-align: center;
+    opacity: 0.6; /* Adjust the opacity value as needed */
+    margin-top: 10px;
+    color: black
+}
+
+/* Responsive CSS for screen width up to 728px */
+@media screen and (max-width: 728px) {
+    .title {
+        font-size: 1.2rem;
+    }
+
+    .article-content {
+        font-size: 1rem;
+    }
+
+    .invalid-button,
+    .valid-button {
+        font-size: 0.8rem;
+    }
+
+    .view-product-button {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+}
+
+/* Responsive CSS for screen width up to 560px */
+@media screen and (max-width: 560px) {
+    .title {
+        font-size: 1rem;
+    }
+
+    .article-content {
+        font-size: 0.9rem;
+    }
+
+    .invalid-button,
+    .valid-button {
+        font-size: 0.7rem;
+    }
+
+    .view-product-button {
+        padding: 3px 6px;
+        font-size: 0.6rem;
+    }
+}
+
+/* Responsive CSS for screen width up to 400px */
+@media screen and (max-width: 400px) {
+    .title {
+        font-size: 0.8rem;
+    }
+
+    .article-content {
+        font-size: 0.8rem;
+    }
+
+    .invalid-button,
+    .valid-button {
+        font-size: 0.6rem;
+    }
+
+    .view-product-button {
+        padding: 2px 4px;
+        font-size: 0.5rem;
+    }
+}
+
+/* Responsive CSS for screen width up to 280px */
+@media screen and (max-width: 280px) {
+    .title {
+        font-size: 0.7rem;
+    }
+
+    .article-content {
+        font-size: 0.7rem;
+    }
+
+    .invalid-button,
+    .valid-button {
+        font-size: 0.5rem;
+    }
+
+    .view-product-button {
+        padding: 1px 2px;
+        font-size: 0.4rem;
+    }
+}
