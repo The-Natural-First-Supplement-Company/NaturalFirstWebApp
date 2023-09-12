@@ -44,4 +44,7 @@ function generateCaptcha() {
       }
     });
   });
-  
+
+$('#captcha').click(function () {
+    generateCaptcha();
+});

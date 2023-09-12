@@ -1,4 +1,5 @@
-﻿
+﻿@using Microsoft.AspNetCore.Html;
+@model NaturalFirstWebApp.ViewModels.UserProfile;
 @{
     ViewData["Title"] = "Profile";
     Layout = "_User1Layout";
@@ -11,7 +12,7 @@
             <div class="nav-bar-fixed">
                 <div class="navbar-content">
                     <div class="navbar-left" style="padding-left:10px;">
-                        <a href="@Url.Action("Index","User")">
+                        <a href="@Url.Action("Index","User")" style="text-decoration:none;">
                             <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
                             <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
                         </a>
@@ -34,11 +35,11 @@
                         <div class="profile-content">
                             <div class="profile-image">
                                 <!-- Replace with an actual image URL -->
-                                <img src="../images/logo.png" alt="Profile Image">
+                                @ConvertByteArrayToImage(Model.Image)
                             </div>
                             <div class="profile-text">
-                                <p><span id="user-mail">user@example.com</span></p>
-                                <p><span id="user-id">ID : 123456</span></p>
+                                <p><span id="user-mail">@Model.Email</span></p>
+                                <p><span id="user-id">ID : @Model.Id</span></p>
                             </div>
                         </div>
                         <div class="settings-icon">
@@ -53,12 +54,12 @@
                 <div class="wallet">
                     <div class="wallet-section">
                         <div class="wallet-label">Recharge Wallet</div>
-                        <span class="recharge-value">&#x20b9; 100</span>
+                        <span class="recharge-value">&#x20b9; @Model.Recharge</span>
                     </div>
                     <div class="separator"></div>
                     <div class="wallet-section">
                         <div class="wallet-label">Balance Wallet</div>
-                        <span class="balance-value">&#x20b9; 250</span>
+                        <span class="balance-value">&#x20b9; @Model.Balance</span>
                     </div>
                 </div>
             </div>
@@ -67,17 +68,17 @@
             <div class="stats">
                 <div class="stat">
                     <p>Total Earnings</p>
-                    <p><span class="stat-value">123456</span></p>
+                    <p><span class="stat-value">@Model.TotalEarning</span></p>
                 </div>
                 <div class="separator" style="margin-top: inherit;"></div>
                 <div class="stat">
                     <p>Team Income</p>
-                    <p><span class="stat-value">789012</span></p>
+                    <p><span class="stat-value">@Model.TeamIncome</span></p>
                 </div>
                 <div class="separator" style="margin-top: inherit;"></div>
                 <div class="stat">
                     <p>Income Today</p>
-                    <p><span class="stat-value">345678</span></p>
+                    <p><span class="stat-value">@Model.IncomeToday</span></p>
                 </div>
             </div>
 
@@ -126,3 +127,18 @@
     });
 </script>*@
 
+@functions {
+    public IHtmlContent ConvertByteArrayToImage(byte[]? byteArray)
+    {
+        if (byteArray != null && byteArray.Length > 0)
+        {
+            var imageBase64 = Convert.ToBase64String(byteArray);
+            var html = $"<img src='data:image/jpeg;base64,{imageBase64}' />";
+            return new HtmlString(html);
+        }
+        else
+        {
+            return Html.Raw("No Image"); // Or display a placeholder image
+        }
+    }
+}

@@ -2,7 +2,7 @@
     $.ajax({
         type: "Get",
         contentType: "application/json; charset=utf-8",
-        url: '/User/GetHistory',//apiurl + 'api/PatchApi/GetMissing',
+        url: '/User/GetHistoryWithdrawal',//apiurl + 'api/PatchApi/GetMissing',
         //data: josnstr,
         dataType: "json",
         success: function (data) {
@@ -40,7 +40,6 @@
                         data: 'amount',
                         maxWidth: '20px'
                     },
-                    { data: 'trnCode' },
                     {
                         data: 'createdDate',
                         render: function (createdDate) {

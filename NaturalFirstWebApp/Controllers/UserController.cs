@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using System.Text;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Microsoft.AspNetCore.Html;
+using Newtonsoft.Json.Linq;
 
 namespace NaturalFirstWebApp.Controllers
 {
@@ -32,15 +33,10 @@ namespace NaturalFirstWebApp.Controllers
             return View();
         }
 
-        public IActionResult Equipment()
-        {
-            return View();
-        }
-
         public IActionResult Recharge()
         {
             Decimal value = GetWalletAmount();
-            ViewBag.Wallet = value;
+            TempData["Wallet"] = value;
             return View();
         }
 
@@ -122,42 +118,14 @@ namespace NaturalFirstWebApp.Controllers
         {
             BankDetails bank = new BankDetails();
             bank = GetBankDetails();
+            ViewBag.Balance = GetBalanceAmount();
             return View(bank);
         }
 
-        [HttpPost]
-        public IActionResult Withdraws(WithdrawVM draw)
-        {
-            var client = _httpClientFactory.CreateClient("MyApiClient");
-
-            // Define the endpoint path
-            var endpointPath = "/api/User/AddWithdrawRequest";
-
-            // Prepare the content with parameters
-            var requestData = new
-            {
-                Email = CurrentUser(),
-                Amount = draw.Amount,
-                TrnPassword = EncryptDecrypt.Encrypt(draw.TrnPassword)
-            };
-            var json = JsonConvert.SerializeObject(requestData);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            // Make a POST request to the API
-            var response = client.PostAsync(endpointPath, content).Result;
-            var jsonResponse = response.Content.ReadAsStringAsync().Result;
-
-            // Deserialize the JSON response into an object
-            var result = JsonConvert.DeserializeObject<Common>(jsonResponse);
-
-            BankDetails bank = new BankDetails();
-            bank = GetBankDetails();
-            ViewBag.Status = result.Status;
-            ViewBag.StatusId = result.StatusId;
-            return View(bank);
-        }
         public IActionResult WithdrawHistory()
         {
+            // Retrieve specific claim values
+            ViewBag.Email = CurrentUser();
             return View();
         }
 
@@ -167,39 +135,39 @@ namespace NaturalFirstWebApp.Controllers
         }
         
         //Me Options
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            //User responseData = new User();
-            //try
-            //{
-            //    // Create an instance of HttpClient using the named client from the factory
-            //    var client = _httpClientFactory.CreateClient("MyApiClient");
+            try
+            {
+                // Create an instance of HttpClient using the named client from the factory
+                var client = _httpClientFactory.CreateClient("MyApiClient");
 
-            //    //client.DefaultRequestHeaders.Add("Token","");
+                //client.DefaultRequestHeaders.Add("Token","");
 
-            //    // Define the endpoint path
-            //    var endpointPath = "/api/User/GetUserInfo"; // Replace with the actual login endpoint path
+                // Define the endpoint path
+                var endpointPath = "/api/User/GetProfileInfor"; // Replace with the actual login endpoint path
 
-            //    // Prepare the content with parameters
-            //    var requestData = new
-            //    {
-            //        Email = CurrentUser()
-            //    };
-            //    var json = JsonConvert.SerializeObject(requestData);
-            //    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                // Prepare the content with parameters
+                var requestData = new
+                {
+                    Id = GetCurrentUserId()
+                };
+                var json = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            //    // Make a POST request to the API
-            //    var response = await client.PostAsync(endpointPath, content);
-            //    var jsonResponse = await response.Content.ReadAsStringAsync();
-            //    // Deserialize the JSON response into an object
-            //    responseData = JsonConvert.DeserializeObject<User>(jsonResponse);
+                // Make a POST request to the API
+                var response = await client.PostAsync(endpointPath, content);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                // Deserialize the JSON response into an object
+                var responseData = JsonConvert.DeserializeObject<UserProfile>(jsonResponse);
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    ViewBag.Error = "Unable to fetch information. Please try again later.";
-            //}
-            return View();
+                return View(responseData);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Unable to fetch information. Please try again later.";
+                return View(null);
+            }
         }
 
         public IActionResult AddBank()
@@ -381,9 +349,17 @@ namespace NaturalFirstWebApp.Controllers
         //Reset Password
         public IActionResult PasswordReset()
         {
-            ViewBag.Email = CurrentUser();
-            return View();
+            try
+            {
+                string Email = CurrentUser();
+                ViewData["Email"] = Email;
+                return View();
+            }catch(Exception e)
+            {
+                return RedirectToAction("Index","Home");
+            }
         }
+
         [HttpPost]
         public async Task<IActionResult> PasswordReset(ResetPassword reset)
         {
@@ -492,12 +468,63 @@ namespace NaturalFirstWebApp.Controllers
             return View();
         }
 
-
         /*
          
         Methods which require calling for showing data
          
          */
+
+        public JsonResult GetMyTeam([FromQuery]int perc)
+        {
+            var client = _httpClientFactory.CreateClient("MyApiClient");
+
+            // Define the endpoint path
+            var endpointPath = "/api/User/GetMyTeam";
+
+            // Prepare the content with parameters
+            var requestData = new
+            {
+                Percent = perc,
+                UserId = GetCurrentUserId()
+            };
+            var json = JsonConvert.SerializeObject(requestData);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Make a POST request to the API
+            var response = client.PostAsync(endpointPath, content).Result;
+            var jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+            // Deserialize the JSON response into an object
+            var result = JsonConvert.DeserializeObject<List<MyTeamVM>>(jsonResponse);
+            return Json(result);
+        }
+
+        [HttpPost]
+        public JsonResult MakeWithdraws([FromBody] WithdrawVM draw)
+        {
+            var client = _httpClientFactory.CreateClient("MyApiClient");
+
+            // Define the endpoint path
+            var endpointPath = "/api/User/AddWithdrawRequest";
+
+            // Prepare the content with parameters
+            var requestData = new
+            {
+                Email = CurrentUser(),
+                Amount = draw.Amount,
+                TrnPassword = EncryptDecrypt.Encrypt(draw.TrnPassword)
+            };
+            var json = JsonConvert.SerializeObject(requestData);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Make a POST request to the API
+            var response = client.PostAsync(endpointPath, content).Result;
+            var jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+            // Deserialize the JSON response into an object
+            var result = JsonConvert.DeserializeObject<Common>(jsonResponse);
+            return Json(result);
+        }
 
         public BankDetails GetBankDetails()
         {
@@ -568,6 +595,39 @@ namespace NaturalFirstWebApp.Controllers
             }
         }
 
+        public async Task<JsonResult> GetHistoryWithdrawal()
+        {
+            try
+            {
+                // Create an instance of HttpClient using the named client from the factory
+                var client = _httpClientFactory.CreateClient("MyApiClient");
+
+                // Define the endpoint path
+                var endpointPath = "/api/User/GetWithdarwsUser"; // Replace with the actual login endpoint path
+
+                // Prepare the content with parameters
+                var requestData = new
+                {
+                    Email = CurrentUser()
+                };
+                var json = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Make a POST request to the API
+                var response = await client.PostAsync(endpointPath, content);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                // Deserialize the JSON response into an object
+                var responseData = JsonConvert.DeserializeObject<List<Withdraw>>(jsonResponse);
+
+                return Json(responseData);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return Json(null);
+            }
+        }
+
         // Get Wallet Amount
         public Decimal GetWalletAmount()
         {
@@ -575,6 +635,31 @@ namespace NaturalFirstWebApp.Controllers
 
             // Define the endpoint path
             var endpointPath = "/api/User/GetWalletBalance"; // Replace with the actual login endpoint path
+
+            // Prepare the content with parameters
+            var requestData = new
+            {
+                Email = CurrentUser()
+            };
+            var json = JsonConvert.SerializeObject(requestData);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Make a POST request to the API
+            var response = client.PostAsync(endpointPath, content).Result;
+            var jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+            // Deserialize the JSON response into an object
+            var responseData = JsonConvert.DeserializeObject<Decimal>(jsonResponse);
+
+            return responseData;
+        }
+
+        public Decimal GetBalanceAmount()
+        {
+            var client = _httpClientFactory.CreateClient("MyApiClient");
+
+            // Define the endpoint path
+            var endpointPath = "/api/User/GetBalanceAmount"; // Replace with the actual login endpoint path
 
             // Prepare the content with parameters
             var requestData = new

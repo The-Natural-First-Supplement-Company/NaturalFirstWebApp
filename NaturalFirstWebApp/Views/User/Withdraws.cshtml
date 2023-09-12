@@ -4,14 +4,19 @@
     Layout = "_User1Layout";
 }
 <link rel="stylesheet" href="~/css/withdraws.css" />
-
+@if (TempData["StatusId"] != null && (int)TempData["StatusId"] == 1)
+{
+    <script>
+        alert('@TempData["Status"]');
+    </script>
+}
 <div class="app">
     <div class="article">
         <div class="nav-bar" style="height: 60px;">
             <div class="nav-bar-fixed">
                 <div class="navbar-content">
                     <div class="navbar-left">
-                        <a href="@Url.Action("Index","User")">
+                        <a href="@Url.Action("Index","User")" style="text-decoration:none;">
                             <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
                             <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
                         </a>
@@ -20,7 +25,7 @@
                         <div style="color: black;">Withdraws</div>
                     </div>
                     <div class="navbar-right">
-                        <a href="@Url.Action("WithdrawHistory","User")">
+                        <a href="@Url.Action("WithdrawHistory","User")" style="text-decoration:none;">
                             <span class="record-text" style="vertical-align: middle; position: relative;">Records</span>
                         </a>
                     </div>
@@ -30,10 +35,10 @@
         <div class="article-wrap">
             <div class="article-content">
                 <div class="balance">
-                    Balance: <span id="balance">0.00</span>
+                    Balance: <span id="balance">@ViewBag.Balance</span>
                     <span class="all">&nbsp;All&nbsp;</span>
                 </div>
-                <form id="bankForm">
+                <div>
                     <!-- First Div: Real Name -->
                     <div class="info-item"><span id="header">Bank account</span></div>
                     <div class="info-item">
@@ -61,30 +66,29 @@
                     <div class="info-item">
                         <div class="item-text">Amount:<br></div>
                         <div class="send">Rs.</div>
-                        <div class="veri-code"><input type="number" name="Amount" placeholder="Please enter the amount"></div>
+                        <div class="veri-code"><input type="number" min="150" name="Amount" required id="Amount" placeholder="Please enter the amount"></div>
                     </div>
                     <div class="info-item">
                         <div class="item-text">Password:<br></div>
                         <div class="input-new-pswd">
-                            <input type="password" name="TrnPassword" placeholder="Please enter the payment password">
+                            <input type="password" name="TrnPassword" id="TrnPassword" required placeholder="Please enter the payment password">
                         </div>
                     </div>
                     <div class="center-button">
                         <button type="submit" id="submitButton">Submit</button>
                     </div>
-                </form>
+                </div>
             </div>
             <p class="tandc">
-                1: Valid members can apply for withdrawal. The number of withdrawals in unlimited. The withdrawal amount is 110rs.<br>2: IFSC should be 11 characters and 5th character should be 0. If you fill in wrong bank information, your  withdrawal will fail.<br>3: Withdrawal fee: 8%<br>4: Withdrawal time: 1-2 days<br>
+                1: Valid members can apply for withdrawal. The number of withdrawal is unlimited. The minimum withdrawal amount is 150rs.<br />
+                2: IFSC should be 11 characters and 5th character should be 0. If you fill in wrong bank information, your  withdrawal will fail.<br />
+                3: Withdrawal fee: 7%.<br />
+                4: Withdrawal time: 1-3 days<br />
                 <br>
                 <br><br>
             </p>
         </div>
     </div>
 </div>
-@if (ViewBag.StatusId != null && ViewBag.StatusId == 1)
-{
-    <script>
-        alert('@ViewBag.Status');
-    </script>
-}
+
+<script src="~/js/User/Withdraw.js" defer></script>

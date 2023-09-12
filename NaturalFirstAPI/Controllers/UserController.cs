@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NaturalFirstAPI.Model;
 using NaturalFirstAPI.Repository;
-using NaturalFirstWebApp.Models;
-using NaturalFirstWebApp.ViewModels;
+using NaturalFirstAPI.Models;
+using NaturalFirstAPI.ViewModels;
 
 namespace NaturalFirstAPI.Controllers
 {
@@ -170,6 +170,101 @@ namespace NaturalFirstAPI.Controllers
             try
             {
                 var result = _userRepository.InsertWithdrawRequest(withdraw);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult GetWithdarwsUser(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.GetWithdrawalHistoryUser(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult GetPDWallet(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.GetPDWallet(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult GetBalanceAmount(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                Decimal result = _userRepository.GetBalanceForWithdraw(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult GetMyTeam(MyTeamPostVM vm)
+        {
+            if (vm == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.GetMyTeamList(vm);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching wallet balance.");
+            }
+        }
+        
+        [HttpPost]
+        public IActionResult GetProfileInfor(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.GetUserProfile(user);
                 return Ok(result);
             }
             catch (Exception ex)

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NaturalFirstWebApp.ViewModels
+namespace NaturalFirstAPI.ViewModels
 {
     public class ResetPassword
     {

@@ -4,6 +4,7 @@
     {
         public int IdProducts { get; set; }
         public string ProductName { get; set; }
+        public string Description { get; set; }
         public Decimal? InvestAmt { get; set; }
         public int Cycle { get; set; }
         public Decimal? IncomePerDay { get; set; }

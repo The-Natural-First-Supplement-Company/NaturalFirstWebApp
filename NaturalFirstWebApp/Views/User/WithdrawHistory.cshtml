@@ -22,7 +22,7 @@
             <div class="nav-bar-fixed">
                 <div class="navbar-content">
                     <div class="navbar-left">
-                        <a href="@Url.Action("Withdraws","User")">
+                        <a href="@Url.Action("Withdraws","User")" style="text-decoration:none;">
                             <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
                             <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
                         </a>
@@ -40,7 +40,7 @@
                         <thead>
                             <tr>
                                 <th id="amount-column">Amount</th>
-                                <th id="type-column">Code</th>
+                                @*<th id="type-column">Code</th>*@
                                 <th id="datetime-column">Date</th>
                                 <th id="status-column">Status</th>
                             </tr>

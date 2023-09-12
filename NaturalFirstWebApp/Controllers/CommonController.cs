@@ -25,5 +25,17 @@ namespace NaturalFirstWebApp.Controllers
 
             return email;
         }
+
+        [AuthorizationFilter(Roles = "User,Admin")]
+        public int GetCurrentUserId()
+        {
+            // Retrieve the user's claims
+            List<Claim> userClaims = User.Claims.ToList();
+
+            // Retrieve specific claim values
+            var Id = userClaims.FirstOrDefault(claim => claim.Type == "UserId")?.Value;
+
+            return Convert.ToInt32(Id);
+        }
     }
 }

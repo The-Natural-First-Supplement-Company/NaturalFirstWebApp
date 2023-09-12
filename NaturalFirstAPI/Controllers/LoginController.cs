@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NaturalFirstAPI.Model;
 using NaturalFirstAPI.Repository;
-using NaturalFirstWebApp.ViewModels;
+using NaturalFirstAPI.ViewModels;
+//using NaturalFirstWebApp.ViewModels;
 
 namespace NaturalFirstAPI.Controllers
 {

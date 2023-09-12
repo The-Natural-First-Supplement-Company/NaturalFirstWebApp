@@ -26,9 +26,11 @@
             <form class="article-content" asp-action="MakePayment" method="post">
                 <div class="company">
                     <h2><img src="../images/logo.png" alt="logo" /></h2>
-                    <input type="text" id="PayCode" maxlength="12" name="PayCode" placeholder="Enter the Card Number" required>
+                    <input type="text" id="PayCode" maxlength="12" name="PayCode" placeholder="Enter the Transaction Code Here" required>
                 </div>
-
+                <p style="color:black;text-align:center;">
+                    Please provide the 12 digit code that you might have recieved after payment to the QR Code from your bank account.
+                </p>
                 <div class="center-button">
                     <button id="submitButton">Make Payment</button>
                 </div>
@@ -41,7 +43,7 @@
 {
     <script>
         alert("@ViewBag.msg");
-        window.location.href = "~/User/Index";
+        window.location.href = "/User/Index";
     </script>
 }
 
@@ -49,6 +51,6 @@
 {
     <script>
         alert("@ViewBag.msg");
-        window.location.href = "~/User/Payment";
+        window.location.href = "/User/Payment";
     </script>
 }

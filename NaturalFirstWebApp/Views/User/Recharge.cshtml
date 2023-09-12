@@ -28,13 +28,13 @@
         <div class="article-wrap">
             <div class="article-content">
                 <div class="balance">
-                    Balance: <span id="balance">@ViewBag.Wallet</span>
+                    Balance: <span id="balance">@TempData["Wallet"].ToString()</span>
                 </div>
                 <form id="bankForm" method="post" asp-action="Recharge">
                     <div class="info-item">
                         <div class="item-text amount">Amount:<br></div>
                         <div class="veri-code">
-                            <input type="number" placeholder="Please enter the amount" name="Amount" required />
+                            <input type="number" min="0" placeholder="Please enter the amount" name="Amount" required />
                         </div>
                         <div class="send">Rs.</div>
                     </div>

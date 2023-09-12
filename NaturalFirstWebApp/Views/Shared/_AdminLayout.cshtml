@@ -11,10 +11,49 @@
 <body>
     <div>
         @RenderBody()
+        <div class="footer">
+            <div class="tabs">
+                <div>
+                    <a href="@Url.Action("Index","Admin")">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="@Url.Action("Products","Admin")">
+                        <i class="fas fa-tools"></i>
+                        <span>Products</span>
+                    </a>
+                </div>
+                <div>
+                    <a href="@Url.Action("Options","Admin")">
+                        <i class="fas fa-user"></i>
+                        <span>Me</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        var currentUrl = window.location.href;
+
+        // Get all the anchor tags in the tabs
+        var tabLinks = document.querySelectorAll(".tabs a");
+
+        // Loop through the anchor tags to check if their href matches the current URL
+        tabLinks.forEach(function (link) {
+            if (link.href === currentUrl) {
+                // Add the active-link class to the <i> tag within the current tab
+                var icon = link.querySelector("i");
+                icon.classList.add("active-link");
+            }
+        });
+    </script>
 </body>
 </html>

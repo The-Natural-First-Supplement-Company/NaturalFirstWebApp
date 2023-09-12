@@ -269,7 +269,7 @@ body {
         font-size: small;
     }
 
-    .info-item input[type="text"] {
+    .info-item input[type="text"], input[type="number"] {
         font-size: 9.5px;
     }
 
@@ -295,7 +295,7 @@ body {
         font-size: small;
     }
 
-    .info-item input[type="text"] {
+    .info-item input[type="text"], input[type="number"] {
         font-size: 7.5px;
     }
 
@@ -440,7 +440,8 @@ body {
     box-sizing: border-box;
 }
 
-    .veri-code input[type="text"] {
+    .veri-code input[type="text"],
+    .veri-code input[type="number"] {
         width: 100%;
         text-align: right;
         padding: 8px;
@@ -474,7 +475,7 @@ body {
         margin-left: 90px;
     }
 
-        .veri-code input[type="text"] {
+        .veri-code input[type="text"], input[type="number"] {
             font-size: 12px;
         }
 
@@ -497,7 +498,7 @@ body {
         margin-left: -65px;
     }
 
-        .veri-code input[type="text"] {
+        .veri-code input[type="text"], input[type="number"] {
             font-size: 10px;
         }
 
@@ -521,7 +522,7 @@ body {
         margin-left: -55px;
     }
 
-        .veri-code input[type="text"] {
+        .veri-code input[type="text"], input[type="number"] {
             font-size: 8px;
         }
 
@@ -545,7 +546,7 @@ body {
         margin-left: 10px;
     } */
 
-    .veri-code input[type="text"] {
+    .veri-code input[type="text"], input[type="number"] {
         font-size: 8px;
     }
 

@@ -1,0 +1,331 @@
+﻿* {
+    list-style-type: none;
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+body {
+    height: 100%;
+    font-family: \5fae\8f6f\96c5\9ed1, \5b8b\4f53, Arial;
+    max-width: 640px;
+    margin: 0 auto;
+    background: #b8e5b8;
+    color: #333;
+}
+
+.app {
+    height: 100%;
+    font-size: 1rem;
+    max-width: 640px;
+    margin: 0 auto;
+    display: block;
+}
+
+.article {
+    position: relative;
+    min-height: 100%;
+    color: #fff;
+}
+
+.nav-bar .nav-bar-fixed {
+    z-index: 1000;
+    background-color: #e2ebeb;
+    color: #c45454;
+    max-width: 640px;
+    margin: 0 auto;
+    right: 0;
+    border-radius: 15px;
+}
+
+.nav-bar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    line-height: var(--van-line-height-lg);
+    text-align: center;
+    background: var(--van-nav-bar-background-color);
+    /* -webkit-user-select: none; */
+    user-select: none;
+}
+
+.nav-bar .navbar-content {
+    height: 3rem;
+}
+
+.navbar-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-left {
+    padding: 0 0 0 15px;
+}
+
+.title {
+    max-width: 60%;
+    margin: 0 auto;
+    color: black;
+    font-weight: var(--van-font-weight-bold);
+    font-size: var(--van-nav-bar-title-font-size);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.article-wrap {
+    padding: 0 4%;
+}
+
+.article-content {
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 15px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+    .info-item input[type="text"],
+    .info-item input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        font-size: 16px;
+        border: none;
+        border-radius: 0;
+        background: none;
+        color: black;
+        outline: none;
+    }
+
+.item-text {
+    flex: 1;
+    font-size: 18px;
+    color: black;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+#submitButton {
+    width: 200px;
+    background-color: #E10600;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.1s ease-out;
+}
+
+    #submitButton:hover {
+        background-color: #f80505;
+    }
+
+.back-text {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+}
+
+/* Responsive CSS */
+@media screen and (max-width: 768px) {
+    .title {
+        max-width: 80%;
+        /* Adjust the maximum width for smaller screens */
+    }
+
+    .article-wrap {
+        padding: 0 10px;
+        /* Increase padding for smaller screens */
+    }
+
+    .navbar-left {
+        font-size: medium;
+    }
+
+    /* .fas .fa-chevron-right {} */
+
+    .back-text {
+        /* Reduce font size for smaller screens */
+        position: relative;
+        top: -1px;
+        /* Adjust vertical alignment for back text */
+    }
+
+    .article-content {
+        font-size: 1rem;
+        /* Adjust font size for content */
+    }
+}
+
+/* Additional responsive CSS for smaller screens (566px and below) */
+@media screen and (max-width: 566px) {
+    .nav-bar-fixed {
+        border-radius: 0;
+        /* Remove border-radius for smaller screens */
+    }
+
+    .navbar-content {
+        font-size: small;
+    }
+
+    /* .fas .fa-chevron-right {} */
+}
+
+@media screen and (max-width: 415px) {
+    .input-area {
+        margin-left: -100px;
+    }
+
+    .title div {
+        font-size: small;
+    }
+
+    .navbar-left {
+        font-size: small;
+    }
+
+    .info-item input[type="text"],
+    .input-nickname input[type="number"] {
+        font-size: 9.5px;
+    }
+
+    .item-text {
+        font-size: 14px;
+    }
+
+    #submitButton {
+        font-size: medium;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .input-area {
+        margin-left: -100px;
+    }
+
+    .navbar-content {
+        font-size: small;
+    }
+
+    .info-item input[type="text"] {
+        font-size: 8.5px;
+    }
+
+    .item-text {
+        font-size: 12px;
+    }
+
+    #submitButton {
+        font-size: medium;
+        width: 125px;
+    }
+}
+
+.input-nickname {
+    justify-content: flex-start;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: #f7f6f6;
+    border-radius: 10px;
+    padding: 0 5px;
+    margin-left: 100px;
+    box-sizing: border-box;
+}
+
+    .input-nickname input[type="text"],
+    .input-nickname input[type="number"] {
+        width: 100%;
+        text-align: right;
+    }
+
+@media screen and (max-width: 300px) {
+    .input-nickname {
+        margin-left: 40px;
+    }
+
+        .input-nickname input[type="text"] {
+            font-size: 8px;
+        }
+}
+
+.input-image {
+    display: flex;
+    align-items: center;
+}
+
+.file-input {
+    margin-right: -30px;
+}
+
+@media screen and (max-width: 768px) {
+    .file-input {
+        margin-right: -16px;
+    }
+}
+
+@media screen and (max-width: 638px) {
+    .file-input {
+        margin-right: calc(30% - 30px);
+        font-size: x-small;
+    }
+}
+
+@media screen and (max-width: 484px) {
+    .file-input {
+        margin-right: calc(30% - 40px);
+        font-size: xx-small;
+    }
+}
+
+@media screen and (max-width: 304px) {
+    .file-input {
+        margin-right: calc(30% - 40px);
+        font-size: 8px;
+    }
+
+    .input-nickname {
+        margin-left: 20px;
+    }
+
+        .info-item input[type="text"],
+        .input-nickname input[type="number"] {
+            font-size: 9px;
+        }
+}
+
+@media screen and (max-width: 444px) {
+    .file-input {
+        margin-right: calc(30% - 40px);
+        font-size: 8px;
+    }
+
+    .input-nickname {
+        margin-left: 20px;
+    }
+
+        .info-item input[type="text"],
+        .input-nickname input[type="number"] {
+            font-size: 10px;
+        }
+}

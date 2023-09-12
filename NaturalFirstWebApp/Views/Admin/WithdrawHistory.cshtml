@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNetCore.Html;
+@model List<NaturalFirstWebApp.Models.AdminWithdrawVM>
+
+@{
+    ViewData["Title"] = "WithdrawHistory";
+    Layout = "~/Views/Shared/_AdminLayout1.cshtml";
+}
+
+<link href="~/css/admin/withdraw.css" rel="stylesheet" />
+
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Withdraw","Admin")" style="text-decoration:none;">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">Withdraw History</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <div class="article-content">
+                <div class="task">
+                    @if (Model.Count > 0 && Model != null)
+                    {
+                        @foreach (var data in Model)
+                        {
+                            <div class="profile-info">
+                                <div class="profile-info-wrapper profile-info-clickable">
+                                    <div class="profile-content">
+                                        <div class="profile-image">
+                                            <!-- Replace with an actual image URL -->
+                                            @*<img src="../../images/logo.png" alt="Profile Image">*@
+                                            @ConvertByteArrayToImage(data.Image)
+                                        </div>
+                                        <div class="profile-text">
+                                            <p><span id="user-mailLbl">@data.Email</span></p>
+                                            <p><span id="user-idLbl">ID : @data.UserId</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="settings-icon">
+                                        <div class="amount">Amount: <span id="amountLbl">&#x20b9; @data.Amount</span></div>
+                                        @*<div class="status">Transaction Id: <span id="trnId">@data.TrnCode</span></div>*@
+                                        <div class="status">Status: <span id="statusLbl">@data.Status</span></div>
+                                        <div class="date">Date: <span id="dateLbl">@data.CreatedDate.ToString("dd-MM-yyyy hh:mm tt")</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wallet-separator"></div>
+                        }
+                    }
+                </div>
+                <div class="wallet-separator"></div>
+                <div class="no-more">No more!</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@functions {
+    public IHtmlContent ConvertByteArrayToImage(byte[]? byteArray)
+    {
+        if (byteArray != null && byteArray.Length > 0)
+        {
+            var imageBase64 = Convert.ToBase64String(byteArray);
+            var html = $"<img src='data:image/jpeg;base64,{imageBase64}' />";
+            return new HtmlString(html);
+        }
+        else
+        {
+            return Html.Raw("No Image"); // Or display a placeholder image
+        }
+    }
+}

@@ -4,7 +4,7 @@
     Layout = "_User1Layout";
 }
 
-@if(Model == null)
+@if (Model == null)
 {
     <link rel="stylesheet" href="~/css/settings.css">
     <div class="app">
@@ -13,7 +13,7 @@
                 <div class="nav-bar-fixed">
                     <div class="navbar-content">
                         <div class="navbar-left">
-                            <a href="@Url.Action("Index","User")">
+                            <a href="@Url.Action("Index","User")" style="text-decoration:none;">
                                 <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
                                 <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
                             </a>
@@ -105,7 +105,8 @@
             document.getElementById("TrnPassword").value = "";
         </script>
     }
-}else
+}
+else
 {
     <link rel="stylesheet" href="~/css/settings.css">
     <div class="app">
@@ -165,7 +166,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 }
 
 

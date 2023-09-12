@@ -1,0 +1,77 @@
+﻿e
+@{
+    ViewData["Title"] = "AddProducts";
+    Layout = "~/Views/Shared/_AdminLayout1.cshtml";
+}
+
+<link href="~/css/addproducts.css" rel="stylesheet" />
+
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Products","Admin")" style="text-decoration:none;">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">Add Product</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <form method="post" asp-action="AddProducts" enctype="multipart/form-data" class="article-content">
+                <div class="info-item">
+                    <div class="item-text" id="product-name">Product Name</div>
+                    <div class="input-nickname">
+                        <input type="text" placeholder="Product Name" name="ProductName" required>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="item-text" id="invest-value">Invest</div>
+                    <div class="input-nickname">
+                        <input type="number" placeholder="Invest value" name="InvestAmt" required>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="item-text" id="cycle-value">Cycle</div>
+                    <div class="input-nickname">
+                        <input type="number" placeholder="Cycle value" name="Cycle" required>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="item-text" id="total-value">Income</div>
+                    <div class="input-nickname">
+                        <input type="number" placeholder="Income Per Day" name="IncomePerDay" required>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="item-text" id="total-value">Total</div>
+                    <div class="input-nickname">
+                        <input type="number" placeholder="Total value" name="TotalAmt" required>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="item-text" id="product-image">Product Image</div>
+                    <div class="input-image">
+                        <input class="file-input" type="file" id="imageInput" accept="image/*" name="imageFile" style="color: black; text-align: left;" required />
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="item-text" id="product-image">Product Description</div>
+                    <div class="input-image">
+                        <textarea name="Description" type="text" required></textarea>
+                    </div>
+                </div>
+                <div class="center-button">
+                    <button id="submitButton" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

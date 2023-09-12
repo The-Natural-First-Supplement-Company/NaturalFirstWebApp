@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "Options";
+    Layout = "~/Views/Shared/_AdminLayout1.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/settings.css">
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Index","Admin")" style="text-decoration:none;">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                        @*<i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                        <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>*@
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">Security Settings</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <div class="article-content">
+                @* <a href="@Url.Action("Information","Admin")">
+                    <div class="info-item">
+                        <div class="item-text">Personal Information</div>
+                        <div class="item-icon"><img src="../../images/logo.png" alt="Icon"></div>
+                        <div class="item-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </a> *@
+                <a href="@Url.Action("PasswordReset","Admin")">
+                    <div class="info-item">
+                        <div class="item-text">Modify Login Password</div>
+                        <div class="item-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </a>
+                <div class="center-button">
+                    <a href="@Url.Action("Logout","Home")" class="signOutButton">Sign Out</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

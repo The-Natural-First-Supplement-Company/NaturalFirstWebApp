@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Html;
+@model List<NaturalFirstWebApp.Models.Products>
+
+@{
+    ViewData["Title"] = "MyTeamProducts";
+    Layout = "~/Views/Shared/_User1Layout.cshtml";
+}
+
+<link href="~/css/products.css" rel="stylesheet" />
+
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left" style="padding-left:10px;">
+                        <a href="@Url.Action("Index","User")" style="text-decoration:none;">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div>Products</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="article-wrap">
+            <div class="article-content" id="content-holder">
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var product in Model)
+                    {
+                        <div class="option">
+                            <div class="details">
+                                @ConvertByteArrayToImage(product.ProductImage)
+                                <p>
+                                    <span style="font-size: small; color: brown;">@product.ProductName</span> <br>
+                                    Invest: <span style="color: rgb(33, 177, 129);">&#x20b9; @product.InvestAmt</span> <br>
+                                    Cycle: <span style="color: rgb(33, 177, 129);">@product.Cycle</span> <br>
+                                    Income: <span style="color: rgb(33, 177, 129);">&#x20b9; @product.IncomePerDay</span> <br>
+                                    Total: <span style="color: rgb(33, 177, 129);">&#x20b9; @product.TotalAmt</span> <br>
+                                </p>
+                                @* <a style="text-decoration:none;" href="@Url.Action("ProductDetails","Product",null,"https")?id=@product.IdProducts">
+                        <button class="product-details">See Details</button>
+                        </a> *@
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <h3 style="color:black; background-color: white;">No Data To Display</h3>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public IHtmlContent ConvertByteArrayToImage(byte[]? byteArray)
+    {
+        if (byteArray != null && byteArray.Length > 0)
+        {
+            var imageBase64 = Convert.ToBase64String(byteArray);
+            var html = $"<img src='data:image/jpeg;base64,{imageBase64}' />";
+            return new HtmlString(html);
+        }
+        else
+        {
+            return Html.Raw("No Image"); // Or display a placeholder image
+        }
+    }
+}

@@ -9,6 +9,7 @@
         public DateTime? ValidTo { get; set; }
         public int Quantity { get; set; }
         public Decimal? PurchaseAmt{ get; set; }
+        public Decimal? IncomePerDay { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int CreatedBy { get; set; }
     }

@@ -1,4 +1,4 @@
-﻿namespace NaturalFirstWebApp.Models
+﻿namespace NaturalFirstAPI.Models
 {
     public class Withdraw
     {

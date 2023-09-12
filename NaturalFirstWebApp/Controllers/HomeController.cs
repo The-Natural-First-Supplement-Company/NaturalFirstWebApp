@@ -62,7 +62,8 @@ namespace NaturalFirstWebApp.Controllers
                         {
                             new Claim(ClaimTypes.Name, email),
                             new Claim(ClaimTypes.Role, responseData.Role),
-                            new Claim("Referral", responseData.ReferralCode)
+                            new Claim("Referral", responseData.ReferralCode),
+                            new Claim("UserId", responseData.Id.ToString())
                         };
 
                         // Create claims identity
@@ -224,9 +225,11 @@ namespace NaturalFirstWebApp.Controllers
         }
 
         //[ValidateAntiForgeryToken]
+        [AuthorizationFilter(Roles ="Admin,User")]
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
             return RedirectToAction("Index", "Home"); // Redirect to a specific page after logout
         }
 

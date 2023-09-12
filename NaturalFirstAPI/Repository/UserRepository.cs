@@ -6,12 +6,13 @@ using Microsoft.Extensions.Configuration;
 using NaturalFirstAPI.Model;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
-using NaturalFirstWebApp.ViewModels;
+using NaturalFirstAPI.ViewModels;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using NaturalFirstAPI.ViewModels;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Globalization;
-using NaturalFirstWebApp.Models;
+using NaturalFirstAPI.Models;
+using Org.BouncyCastle.Ocsp;
 
 namespace NaturalFirstAPI.Repository
 {
@@ -565,7 +566,7 @@ namespace NaturalFirstAPI.Repository
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.Add(new MySqlParameter("@userEmail", MySqlDbType.VarChar) { Value = withdraw.Email });
                         command.Parameters.Add(new MySqlParameter("@userAmount", MySqlDbType.VarChar) { Value = withdraw.Amount });
-                        command.Parameters.Add(new MySqlParameter("@TrnPassword", MySqlDbType.VarChar) { Value = withdraw.TrnPassword });
+                        command.Parameters.Add(new MySqlParameter("@userPassword", MySqlDbType.VarChar) { Value = withdraw.TrnPassword });
 
                         // Output parameters
                         MySqlParameter statusIdParameter = new MySqlParameter("@StatusId", MySqlDbType.Int32);
@@ -596,6 +597,173 @@ namespace NaturalFirstAPI.Repository
                 }
             }
             return common;
+        }
+
+        public List<Withdraw> GetWithdrawalHistoryUser(User user)
+        {
+            List<Withdraw> data = new List<Withdraw>();
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("sp_GetWithdrawalHistoryForUser", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new MySqlParameter("@userEmail", MySqlDbType.VarChar) { Value = user.Email });
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Withdraw _data = new Withdraw();
+                            _data.IdWithdraw = Convert.ToInt32(reader["IdWithdraw"]);
+                            _data.Amount = (Decimal)reader["Amount"];
+                            _data.Status = Convert.ToInt32(reader["Status"]);
+                            _data.CreatedDate = Convert.ToDateTime(reader["CreatedDate"].ToString());
+                            data.Add(_data);
+                        }
+                    }
+                }
+            }
+            return data;
+        }
+
+        public PDWallet GetPDWallet(User user)
+        {
+            PDWallet data = new PDWallet();
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("sp_GetUserPurchaseWallet", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new MySqlParameter("@userEmail", MySqlDbType.VarChar) { Value = user.Email });
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            data.Balance = reader["Balance"] != DBNull.Value?(Decimal)reader["Balance"]:0;
+                            data.Recharge = reader["Recharge"] != DBNull.Value ? (Decimal)reader["Recharge"] : 0;
+                            //data.Id = (int)reader["Id"] == null?0: (int)reader["Id"];
+                            //data.UserId = (int)reader["UserId"] == null ? 0 : (int)reader["UserId"];
+                            
+                        }
+                    }
+                }
+            }
+            return data;
+        }
+
+        public decimal GetBalanceForWithdraw(User user)
+        {
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    // Execute SQL queries here
+                    // For example, you can use a MySqlCommand to execute queries:
+                    using (MySqlCommand command = new MySqlCommand("sp_GetBalanceForUserWithdrawPage", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(new MySqlParameter("@userEmail", MySqlDbType.VarChar) { Value = user.Email });
+
+                        // Output parameters
+                        MySqlParameter statusIdParameter = new MySqlParameter("@Balance", MySqlDbType.Decimal);
+                        statusIdParameter.Direction = ParameterDirection.Output;
+                        command.Parameters.Add(statusIdParameter);
+
+                        // Execute the stored procedure
+                        command.ExecuteNonQuery();
+
+                        // Retrieve the output parameter values
+                        Decimal balance = (Decimal)statusIdParameter.Value;
+                        return balance;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                    return 0;
+                }
+            }
+        }
+
+        public List<MyTeamVM> GetMyTeamList(MyTeamPostVM myTeam)
+        {
+            List<MyTeamVM> data = new List<MyTeamVM>();
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                string proc = "";
+                if(myTeam.Percent == 10)
+                {
+                    proc = "sp_Get10PercUserListForReferrer";
+                }else if(myTeam.Percent == 5)
+                {
+                    proc = "sp_Get5PercUserListForReferrer";
+                }else if (myTeam.Percent == 3)
+                {
+                    proc = "sp_Get3PercUserListForReferrer";
+                }
+                using (MySqlCommand command = new MySqlCommand(proc, connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new MySqlParameter("@userId", MySqlDbType.Int32) { Value = myTeam.UserId });
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            MyTeamVM team = new MyTeamVM();
+                            team.UserId = (int)reader["UserId"];
+                            team.Email = reader["Email"].ToString();
+                            team.CreatedDate = (DateTime)reader["CreatedDate"];
+                            //data.Id = (int)reader["Id"] == null?0: (int)reader["Id"];
+                            //data.UserId = (int)reader["UserId"] == null ? 0 : (int)reader["UserId"];
+                            data.Add(team);
+                        }
+                    }
+                }
+            }
+            return data;
+        }
+        //{
+        //sp_GetUserMyTeam
+        //}
+        public UserProfile GetUserProfile(User user)
+        {
+            UserProfile _loginUser = new UserProfile();
+
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("sp_GetUserProfileInformation", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new MySqlParameter("@userId", MySqlDbType.VarChar) { Value = user.Id });
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            _loginUser.Id = Convert.ToInt32(reader["Id"]);
+                            _loginUser.Email = reader["Email"].ToString();
+                            _loginUser.Image = reader["Image"] != DBNull.Value ? (byte[])reader["Image"] : null;
+                            _loginUser.Recharge = reader["Recharge"] != DBNull.Value ? Convert.ToDecimal(reader["Recharge"]) : 0;
+                            _loginUser.Balance = Convert.ToDecimal(reader["Balance"]);
+                            _loginUser.TotalEarning = Convert.ToDecimal(reader["TotalEarning"]);
+                            _loginUser.TeamIncome = Convert.ToDecimal(reader["TeamIncome"]);
+                            _loginUser.IncomeToday = Convert.ToDecimal(reader["IncomeToday"]);
+                        }
+                    }
+                }
+            }
+            return _loginUser;
         }
     }
 }

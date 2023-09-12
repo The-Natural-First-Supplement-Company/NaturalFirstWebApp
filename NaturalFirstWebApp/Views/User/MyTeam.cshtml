@@ -10,7 +10,7 @@
             <div class="nav-bar-fixed">
                 <div class="navbar-content">
                     <div class="navbar-left">
-                        <a href="@Url.Action("Index","User")">
+                        <a href="@Url.Action("Index","User")" style="text-decoration:none;">
                             <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
                             <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
                         </a>
@@ -23,16 +23,17 @@
         </div>
         <div class="article-wrap">
             <div class="article-content">
-                <div class="total">
+                @* <div class="total">
                     Total: <span id="total-teams">0</span>
-                </div>
+                </div> *@
                 <div class="member-buttons">
-                    <button class="invalid-button">Invalid Member</button>
-                    <button class="valid-button">Valid Member</button>
+                    <button class="valid-button" id="btnTen">10%</button>
+                    <button class="valid-button" id="btnFive">5%</button>
+                    <button class="valid-button" id="btnThree">3%</button>
                 </div>
                 <!-- Member Table -->
-                <div class="member-table">
-                    <table>
+                <div class="member-table" style="color:black;">
+                    <table id="TenPercTbl" class="table table-bordered" hidden>
                         <thead>
                             <tr>
                                 <th>Account</th>
@@ -40,21 +41,27 @@
                                 <th>Product</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- Rows will be added dynamically using JavaScript -->
-                            <!-- Valid Member Data -->
+                        <tbody></tbody>
+                    </table>
+                    <table id="FivePercTbl" class="table table-bordered" hidden>
+                        <thead>
                             <tr>
-                                <td>Valid Account 1</td>
-                                <td>2023-08-19 10:00 AM</td>
-                                <td><button class="view-product-button" data-product="Product A">View</button></td>
+                                <th>Account</th>
+                                <th>Registration Time</th>
+                                <th>Product</th>
                             </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <table id="ThreePercTbl" class="table table-bordered" hidden>
+                        <thead>
                             <tr>
-                                <td>Valid Account 2</td>
-                                <td>2023-08-19 11:30 AM</td>
-                                <td><button class="view-product-button" data-product="Product B">View</button></td>
+                                <th>Account</th>
+                                <th>Registration Time</th>
+                                <th>Product</th>
                             </tr>
-                            <!-- Add more valid member rows as needed -->
-                        </tbody>
+                        </thead>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -63,3 +70,4 @@
     </div>
 </div>
 
+<script src="/js/User/MyTeam.js" defer></script>

@@ -1,0 +1,164 @@
+﻿@using Microsoft.AspNetCore.Html;
+@model NaturalFirstWebApp.Models.Products
+
+@{
+    ViewData["Title"] = "ProductDetails";
+    Layout = "~/Views/Shared/_User1Layout.cshtml";
+}
+
+<link href="~/css/productdetails.css" rel="stylesheet" />
+<div class="app">
+    <div class="article">
+        <div class="nav-bar" style="height: 60px;">
+            <div class="nav-bar-fixed">
+                <div class="navbar-content">
+                    <div class="navbar-left">
+                        <a href="@Url.Action("Products","Product")" style="text-decoration:none;">
+                            <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
+                            <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div style="color: black;">Product Details</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (Model == null)
+        {
+            <div class="main-content">
+                <p>
+                    This page encountered some error while fetching the records.<br>
+                    Please try again later after sometime.
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="main-content">
+                <div class="intro-image">
+                    @*<img src="../images/Product1.jpg" alt="">*@
+                    <div class="item-image">
+                        @ConvertByteArrayToImage(Model.ProductImage)
+                    </div>
+                    <span id="product-name">@Model.ProductName</span>
+                </div>
+                <div hidden id="ProductId" data-Id="@Model.IdProducts"></div>
+                <div class="options">
+                    <div class="option">
+                        <div class="stat">
+                            <p>Invest</p>
+                            <p><span class="stat-value" id="invest">&#x20b9; @Model.InvestAmt</span></p>
+                        </div>
+                    </div>
+                    <div class="option">
+                        <div class="stat">
+                            <p>Cycle</p>
+                            <p><span class="stat-value" id="cycle"> @Model.Cycle</span></p>
+                        </div>
+                    </div>
+                    <div class="option">
+                        <div class="stat">
+                            <p>Income</p>
+                            <p><span class="stat-value" id="income">&#x20b9; @Model.IncomePerDay</span></p>
+                        </div>
+                    </div>
+                    <div class="option">
+                        <div class="stat">
+                            <p>Total</p>
+                            <p><span class="stat-value" id="total">&#x20b9; @Model.TotalAmt</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="description">
+                    <h3 style="color: black; margin-bottom: 5px;">Product Description<br></h3>
+                    <p>
+                        @Model.Description
+                    </p>
+                    @* <div class="wallet-separator"></div>
+                <p style="color: black;">
+                <br>Business: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut
+                consequuntur ipsa officiis quo rerum error dolores a corporis temporibus et.
+                <br><br>
+                </p> *@
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        }
+    </div>
+</div>
+
+
+<div class="footer">
+    <button class="purchase-button">Purchase</button>
+</div>
+<div class="popup" id="purchase-popup">
+    <div class="popup-content">
+        <div class="wallet">
+            <div class="wallet-section">
+                <div class="wallet-label">Recharge Wallet</div>
+                &#x20b9;<span class="recharge-value" id="recharge-value">100</span>
+            </div>
+            <div class="separator"></div>
+            <div class="wallet-section">
+                <div class="wallet-label">Balance Wallet</div>
+                &#x20b9;<span class="balance-value" id="balance-value">250</span>
+            </div>
+        </div>
+        <div class="div-separator"></div>
+        <div class="price-row">
+            <div class="info-item">
+                <div class="price-title">Price</div>
+                <div class="price-value" id="price">&#x20b9; @Model.InvestAmt</div>
+            </div>
+            <div class="info-item">
+                <div class="total-title">Total</div>
+                <div class="total-value" id="total">
+                    &#x20b9; @Model.InvestAmt
+                </div>
+                <!-- <div class="info-item">
+                    <label for="coupon-select" class="coupon">Coupon</label>
+                    <div class="input-area">
+                        <select id="coupon" name="coupon">
+                            <option value="" disabled selected>Choose a coupon</option>
+                            <option value="coupon1">Coupon 1</option>
+                            <option value="coupon2">Coupon 2</option>
+                            <option value="coupon3">Coupon 3</option>
+                        </select>
+                    </div>
+                </div> -->
+            </div>
+            <div class="buttons">
+                <button class="cancel-button">Cancel</button>
+                <button class="confirm-button">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@functions {
+    public IHtmlContent ConvertByteArrayToImage(byte[]? byteArray)
+    {
+        if (byteArray != null && byteArray.Length > 0)
+        {
+            var imageBase64 = Convert.ToBase64String(byteArray);
+            var html = $"<img src='data:image/jpeg;base64,{imageBase64}' />";
+            return new HtmlString(html);
+        }
+        else
+        {
+            return Html.Raw("No Image"); // Or display a placeholder image
+        }
+    }
+}
+
+<script src="/js/Product/ProductDetails.js"></script>

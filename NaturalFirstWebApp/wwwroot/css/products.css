@@ -32,12 +32,10 @@ body {
     color: #fff;
 }
 
-
-
 .nav-bar .nav-bar-fixed {
     z-index: 1000;
     background-color: #e2ebeb;
-    color: #c45454;
+    color: black;
     max-width: 640px;
     margin: 0 auto;
     right: 0;
@@ -57,7 +55,7 @@ body {
 }
 
 .nav-bar .navbar-content {
-    height: 4rem;
+    height: 3rem;
 }
 
 .navbar-content {
@@ -100,7 +98,7 @@ body {
     border-radius: 2.5rem;
     padding: 3%;
     justify-content: space-around;
-    margin-bottom: 100px;
+    margin-bottom: 115px;
 }
 
 .option {
@@ -220,7 +218,7 @@ body {
         transition: all 0.3s ease;
     }
 
-        .tabs i.fa-tools {
+        .tabs i.fa-shopping-cart {
             color: red;
             transform: scale(1.1);
         }
@@ -273,4 +271,20 @@ body {
         font-size: 1rem; 
         margin-right: 2px;
     } */
+}
+
+@media screen and (max-width: 460px) {
+    .tabs i {
+        font-size: 10pt;
+    }
+}
+
+@media screen and (max-width: 280px) {
+    .tabs i {
+        font-size: small;
+    }
+
+    .footer {
+        font-size: small;
+    }
 }

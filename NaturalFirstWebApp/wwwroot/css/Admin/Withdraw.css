@@ -1,0 +1,451 @@
+﻿* {
+    list-style-type: none;
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+body {
+    height: 100%;
+    font-family: \5fae\8f6f\96c5\9ed1, \5b8b\4f53, Arial;
+    max-width: 640px;
+    margin: 0 auto;
+    background: #b8e5b8;
+    color: #333;
+}
+
+.app {
+    height: 100%;
+    font-size: 1rem;
+    max-width: 640px;
+    margin: 0 auto;
+    display: block;
+}
+
+.article {
+    position: relative;
+    min-height: 100%;
+    color: #fff;
+}
+
+.nav-bar .nav-bar-fixed {
+    z-index: 1000;
+    background-color: #e2ebeb;
+    color: #c45454;
+    max-width: 640px;
+    margin: 0 auto;
+    right: 0;
+    border-radius: 15px;
+}
+
+.nav-bar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    line-height: var(--van-line-height-lg);
+    text-align: center;
+    background: var(--van-nav-bar-background-color);
+    user-select: none;
+    margin-bottom: 10px;
+}
+
+.nav-bar .navbar-content {
+    height: 3rem;
+    padding-left: 15px;
+}
+
+.navbar-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: var(--van-nav-bar-height);
+}
+
+.title {
+    max-width: 60%;
+    margin: 0 auto;
+    color: var(--van-nav-bar-title-text-color);
+    font-weight: var(--van-font-weight-bold);
+    font-size: var(--van-nav-bar-title-font-size);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.article-content {
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 15px;
+}
+
+.profile-info-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.profile-content {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 1;
+    padding-right: 10px;
+}
+
+    /* Style when hovering over the close button */
+    .close-button:hover {
+        color: red; /* Change the color on hover, you can customize this */
+    }
+
+.profile-image img {
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+#user-mail,
+#user-id {
+    font-size: 16px;
+}
+
+.profile-text {
+    color: #333;
+    margin-left: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.settings-icon {
+    position: relative;
+    top: -10px;
+    right: 0;
+    font-size: 18px;
+    color: #333;
+    text-align: right;
+    font-size: 13px;
+    padding-right: 5px;
+    margin-top: 5px;
+}
+
+    .settings-icon span {
+        color: red;
+    }
+
+.popup-text {
+    text-align: right;
+}
+
+.pop-up-content {
+    display: contents;
+}
+
+.wallet-separator {
+    margin-top: 10px;
+    border-top: 1px solid #2f2d2d;
+    ;
+    width: 100%;
+    opacity: 0.2;
+}
+
+.no-more {
+    color: black;
+    text-align: center;
+    opacity: 50%;
+    font-size: small;
+    margin-top: 10px;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 30px;
+    width: 70%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+    .popup.active {
+        display: block;
+        border-radius: 15px;
+        box-shadow: 5px 5px 10px rgb(49, 21, 36);
+    }
+
+        .popup.active:hover {
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s;
+            box-shadow: 3px 3px rgb(158, 110, 136);
+        }
+
+.div-separator {
+    margin-top: 10px;
+    border-top: 1px solid #3f3939;
+    width: 100%;
+    opacity: 0.2;
+}
+
+.succeed-button,
+.denied-button {
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    /* border-radius: 10px; */
+    cursor: pointer;
+    font-size: 16px;
+    flex: 1;
+    text-align: center;
+}
+
+.denied-button {
+    /* margin-right: 10px;  */
+    background-color: #6fd16f;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.succeed-button {
+    background-color: #4caf50;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+    .succeed-button:hover {
+        background-color: #388e3c;
+    }
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.amount-title {
+    flex: 1;
+    font-size: 18px;
+    color: black;
+}
+
+.date-title {
+    flex: 1;
+    font-size: 18px;
+    color: black;
+}
+
+.amount-value,
+.date-time {
+    display: flex;
+    align-items: center;
+    color: #e30c0c;
+    font-size: medium;
+    justify-content: flex-start;
+    font-weight: 400;
+    margin-right: 10px;
+}
+
+.popup-info-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: -8px;
+    padding: 10px;
+}
+
+.popup-image img {
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+/* Responsive CSS */
+@media screen and (max-width: 768px) {
+    .title {
+        max-width: 80%;
+    }
+
+    .article-content {
+        padding: 10px;
+    }
+
+    .profile-text {
+        font-size: 15px;
+    }
+
+    #user-mail,
+    #user-id {
+        font-size: 15px;
+    }
+
+    .settings-icon {
+        font-size: 12px;
+    }
+
+    .popup {
+        width: 80%;
+    }
+
+    .popup-content {
+        font-size: 15px;
+    }
+
+    .article-content {
+        font-size: 1rem;
+        /* Adjust font size for content */
+    }
+
+    .navbar-left {
+        font-size: medium;
+    }
+
+    .popup-image img {
+        width: 60px;
+        height: auto;
+    }
+
+    .amount-title,
+    .amount-value,
+    .date-title,
+    .date-time {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .profile-image img {
+        width: 60px;
+        height: auto;
+    }
+
+    .popup-content {
+        font-size: 13px;
+    }
+
+    .amount-title,
+    .amount-value,
+    .date-title,
+    .date-time {
+        font-size: 14px;
+    }
+
+    .succeed-button, .denied-button {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .article-content {
+        padding: 5px;
+    }
+
+    .profile-image img {
+        width: 40px;
+        height: auto;
+    }
+
+    .profile-text {
+        font-size: 12px;
+    }
+
+    #user-mail,
+    #user-id {
+        font-size: 11px;
+    }
+
+    .settings-icon {
+        font-size: 8.5px;
+    }
+
+    .popup-image img {
+        width: 40px;
+        height: auto;
+    }
+
+    .popup-content {
+        font-size: 12px;
+    }
+
+    .amount-title,
+    .amount-value,
+    .date-title,
+    .date-time {
+        font-size: 12px;
+    }
+
+    .succeed-button, .denied-button {
+        font-size: 14px;
+    }
+
+    .close-button {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .title div {
+        font-size: small;
+    }
+
+    .navbar-left {
+        font-size: small;
+    }
+
+    .no-more {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 280px) {
+    .profile-image img {
+        width: 50px;
+        height: 50px;
+        margin-right: 5px;
+    }
+
+    .profile-text {
+        font-size: 10px;
+    }
+
+    #user-mail,
+    #user-id {
+        font-size: 9px;
+    }
+
+    .settings-icon {
+        font-size: 7.5px;
+    }
+
+    .succeed-button, .denied-button {
+        font-size: 12px;
+    }
+}
