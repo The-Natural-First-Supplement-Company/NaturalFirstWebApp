@@ -513,43 +513,6 @@ namespace NaturalFirstAPI.Repository
             return _bank;
         }
 
-        //Get Balance Details
-        public Decimal GetBalanceDetails(User user)
-        {
-            Decimal result = 0;
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    // Execute SQL queries here
-                    // For example, you can use a MySqlCommand to execute queries:
-                    using (MySqlCommand command = new MySqlCommand("sp_CalculateActualBalanceForWithdraw", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add(new MySqlParameter("@userEmail", MySqlDbType.VarChar) { Value = user.Email });
-
-                        // Output parameters
-                        MySqlParameter statusIdParameter = new MySqlParameter("@result", MySqlDbType.Decimal);
-                        statusIdParameter.Direction = ParameterDirection.Output;
-                        command.Parameters.Add(statusIdParameter);
-
-                        // Execute the stored procedure
-                        command.ExecuteNonQuery();
-
-                        result = (Decimal)statusIdParameter.Value;
-                        return result;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error: " + ex.Message);
-                }
-            }
-            return result;
-        }
-
         public Common InsertWithdrawRequest(WithdrawVM withdraw)
         {
             Common common = null;
@@ -565,7 +528,7 @@ namespace NaturalFirstAPI.Repository
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.Add(new MySqlParameter("@userEmail", MySqlDbType.VarChar) { Value = withdraw.Email });
-                        command.Parameters.Add(new MySqlParameter("@userAmount", MySqlDbType.VarChar) { Value = withdraw.Amount });
+                        command.Parameters.Add(new MySqlParameter("@userAmount", MySqlDbType.Decimal) { Value = withdraw.Amount });
                         command.Parameters.Add(new MySqlParameter("@userPassword", MySqlDbType.VarChar) { Value = withdraw.TrnPassword });
 
                         // Output parameters
@@ -745,7 +708,7 @@ namespace NaturalFirstAPI.Repository
                 using (MySqlCommand command = new MySqlCommand("sp_GetUserProfileInformation", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new MySqlParameter("@userId", MySqlDbType.VarChar) { Value = user.Id });
+                    command.Parameters.Add(new MySqlParameter("@user_Id", MySqlDbType.VarChar) { Value = user.Id });
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {

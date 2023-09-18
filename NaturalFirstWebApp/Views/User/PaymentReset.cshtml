@@ -5,6 +5,8 @@
     Layout = "_User1Layout";
 }
 
+<link rel="stylesheet" href="~/css/settings.css">
+
 <div class="app">
     <div class="article">
         <div class="nav-bar" style="height: 60px;">
@@ -28,14 +30,14 @@
             <form class="article-content" asp-action="" method="post">
                 <div class="info-item">
                     <div class="item-text">Email</div>
-                    <input class="item-value"  type="text" name="Email" value="@ViewBag.Email" readonly/>
+                    <div class="item-value" id="Email">@ViewData["Email"]</div>
 
                     @*<div class="item-value" name="Email">@ViewBag.Email</div>*@
                 </div>
                 <div class="info-item">
                     <div class="item-text">Code</div>
                     <div class="veri-code"><input type="text" placeholder="Verification Code" id="verification-code" name="VerificationCode" /></div>
-                    <div class="send"><button onclick="sendVerificationCode()">Send</button></div>
+                    <div class="send"><button type="button" id="BtnSendMail">Send</button></div>
                 </div>
                 <div class="info-item">
                     <div class="item-text">Password</div>
@@ -59,4 +61,4 @@
     </div>
 </div>
 
-<script src="~/js/user/reset_payment_password.js"></script>
+<script src="~/js/user/reset_payment_password.js" defer></script>

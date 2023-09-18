@@ -1,4 +1,6 @@
 ﻿using Google.Apis.Gmail.v1.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
@@ -309,11 +311,12 @@ namespace NaturalFirstWebApp.Controllers
             }
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-
-
-
-
+            return RedirectToAction("Index", "Home"); // Redirect to a specific page after logout
+        }
 
         /// <summary>
         /// below methods are called by JQuery ajax methods;

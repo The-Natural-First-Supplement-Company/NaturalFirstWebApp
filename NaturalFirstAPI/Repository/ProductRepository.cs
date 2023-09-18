@@ -186,10 +186,10 @@ namespace NaturalFirstAPI.Repository
             {
                 connection.Open();
 
-                using (MySqlCommand command = new MySqlCommand("sp_GetProductList", connection))
+                using (MySqlCommand command = new MySqlCommand("sp_GetTeamProductById", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new MySqlParameter("@userId", MySqlDbType.Int32) { Value = user.Id });
+                    command.Parameters.Add(new MySqlParameter("@user_id", MySqlDbType.Int32) { Value = user.Id });
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {

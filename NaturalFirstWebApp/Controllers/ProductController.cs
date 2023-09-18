@@ -182,8 +182,8 @@ namespace NaturalFirstWebApp.Controllers
         }
 
         [AuthorizationFilter(Roles = "User")]
-        [HttpPost]
-        public async Task<IActionResult> MyTeamProducts(int userId)
+        
+        public async Task<IActionResult> MyTeamProducts([FromQuery]int userId)
         {
             try
             {

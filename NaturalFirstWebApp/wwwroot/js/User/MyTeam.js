@@ -111,7 +111,7 @@ function GetMyTeam(percent) {
                     //    }
                     //},
                     {
-                        data: 'Email',
+                        data: 'email',
                         maxWidth: '20px'
                     },
                     {
@@ -121,9 +121,9 @@ function GetMyTeam(percent) {
                         }
                     },
                     {
-                        data: 'UserId',
-                        render: function (UserId) {
-                            return '<a href="/Product/MyTeamProducts?userId='+UserId+'" style="text-decoration:none;"><button class="view-product-button" data-product="Product B">View</button></a>';
+                        data: 'userId',
+                        render: function (userId) {
+                            return '<a href="/Product/MyTeamProducts?userId=' + userId +'" style="text-decoration:none;"><button class="view-product-button" data-product="Product B">View</button></a>';
                         }
                     },
                 ],

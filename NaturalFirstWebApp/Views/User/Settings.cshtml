@@ -9,7 +9,7 @@
             <div class="nav-bar-fixed">
                 <div class="navbar-content">
                     <div class="navbar-left">
-                        <a href="@Url.Action("Index","User")" style="text-decoration:none;">
+                        <a href="@Url.Action("Profile","User")" style="text-decoration:none;">
                             <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
                             <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
                         </a>
@@ -37,7 +37,7 @@
                         <div class="item-arrow"><i class="fas fa-chevron-right"></i></div>
                     </div>
                 </a>
-                <a href="@Url.Action("PasswordReset","User")">
+                <a href="@Url.Action("PaymentReset","User")">
                     <div class="info-item">
                         <div class="item-text">Modify Payment Password</div>
                         <div class="item-arrow"><i class="fas fa-chevron-right"></i></div>
@@ -50,7 +50,7 @@
                     </div>
                 </a>
                 <div class="center-button">
-                    <a href="@Url.Action("Logout","Home")" class="signOutButton">Sign Out</a>
+                    <a href="@Url.Action("Logout","User")" class="signOutButton">Sign Out</a>
                 </div>
             </div>
 

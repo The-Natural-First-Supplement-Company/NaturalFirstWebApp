@@ -363,6 +363,8 @@ namespace NaturalFirstWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> PasswordReset(ResetPassword reset)
         {
+            string Email = CurrentUser();
+            ViewData["Email"] = Email;
             ResetPassword rp = new ResetPassword();
             if (ModelState.IsValid && reset.VerificationCode == TempData["VerificationCode"].ToString())
             {
@@ -405,19 +407,25 @@ namespace NaturalFirstWebApp.Controllers
                     return View(rp);
                 }
             }
-            return RedirectToAction("Index","User");
+            else
+            {
+                return View(reset);
+            }
         }
 
         //Reset Transaction Password
         public IActionResult PaymentReset()
         {
-            ViewBag.Email = CurrentUser();
+            string Email = CurrentUser();
+            ViewData["Email"] = Email;
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> PaymentReset(ResetPassword reset)
         {
+            string Email = CurrentUser();
+            ViewData["Email"] = Email;
             ResetPassword rp = new ResetPassword();
             if (ModelState.IsValid && reset.VerificationCode == TempData["VerificationCode"].ToString())
             {
@@ -457,15 +465,30 @@ namespace NaturalFirstWebApp.Controllers
                 {
                     ViewBag.StatudId = 0;
                     ViewBag.msg = ex.Message;
-                    return View(rp);
+                    return View(reset);
                 }
             }
-            return RedirectToAction("Index", "User");
+            else
+            {
+                return View(reset);
+            }
         }
 
         public IActionResult MyTeam()
         {
             return View();
+        }
+
+        public IActionResult Income()
+        {
+            return View();
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Index", "Home"); // Redirect to a specific page after logout
         }
 
         /*

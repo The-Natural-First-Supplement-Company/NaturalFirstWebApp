@@ -5,16 +5,20 @@ $(document).ready(function () {
     $('#wait-time').hide();
 });
 
+$('#BtnSendMail').click(function () {
+    sendVerificationCode();
+});
+
+
 function sendVerificationCode() {
     // Disable the button temporarily and start the timer
-    const sendVerificationBtn = document.getElementById('send-verification-btn');
+    const sendVerificationBtn = document.getElementById('BtnSendMail');
     sendVerificationBtn.disabled = true;
     timer = setInterval(updateWaitingTime, 1000);
 
     $.ajax({
-        url: "/Home/SendOTP",
+        url: "/Home/SendOTP?email=" + $('#Email').text(),
         type: "GET",
-        data: { email: $('#Email').val() },
         dataType: "json",
         success: function (response) {
             code = response;
@@ -35,7 +39,7 @@ function updateWaitingTime() {
         waitTimeElement.textContent = `Please wait ${waitingTime} seconds for the next verification code.`;
     } else {
         // Enable the button and reset the waiting time
-        const sendVerificationBtn = document.getElementById('send-verification-btn');
+        const sendVerificationBtn = document.getElementById('BtnSendMail');
         sendVerificationBtn.disabled = false;
         waitingTime = 60;
         clearInterval(timer);

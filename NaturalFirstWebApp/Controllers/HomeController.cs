@@ -172,6 +172,7 @@ namespace NaturalFirstWebApp.Controllers
             }
             else
             {
+                ViewBag.StatudId = null;
                 return View(reset);
             }
         }
@@ -222,15 +223,6 @@ namespace NaturalFirstWebApp.Controllers
                 }
             }
             return View(rp);
-        }
-
-        //[ValidateAntiForgeryToken]
-        [AuthorizationFilter(Roles ="Admin,User")]
-        public IActionResult Logout()
-        {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            return RedirectToAction("Index", "Home"); // Redirect to a specific page after logout
         }
 
         [HttpGet]

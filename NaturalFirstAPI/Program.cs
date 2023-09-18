@@ -21,18 +21,19 @@ namespace NaturalFirstAPI
 
             builder.Services.AddCors(c =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                c.AddPolicy("AllowSpecificOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                //c.AddPolicy("AllowSpecificOrigin", options => options.WithOrigins("https://naturalfirst.in").AllowAnyMethod().AllowAnyHeader());
             });
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
+            //if (app.Environment.IsDevelopment())
+            //{
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI();
+            //}
+            app.UseCors("AllowSpecificOrigin");
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

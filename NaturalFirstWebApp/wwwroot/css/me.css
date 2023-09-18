@@ -127,7 +127,6 @@ body {
 }
 
 .settings-icon {
-
     position: relative;
     top: -10px;
     right: 0;
@@ -135,10 +134,10 @@ body {
     color: #333;
 }
 
-.settings-icon i {
-    color: #777070;
-    padding-right: 15px;
-}
+    .settings-icon i {
+        color: #777070;
+        padding-right: 15px;
+    }
 
 .wallet-separator {
     margin-top: 10px;
@@ -197,9 +196,9 @@ body {
     padding: 15px;
 }
 
-.stat p {
-    padding: 5px;
-}
+    .stat p {
+        padding: 5px;
+    }
 
 .stat-value {
     color: #f94140;
@@ -216,8 +215,21 @@ body {
     position: relative;
     color: black;
     margin-top: 20px;
-    margin-bottom: 100px;
 }
+
+.images-temp {
+    margin-top: 5px;
+    margin-bottom: 100px;
+    padding: 1rem 0;
+}
+
+    .images-temp img {
+        box-sizing: border-box;
+        width: 100%;
+        height: auto;
+        border: 0;
+        display: block;
+    }
 
 .footer {
     color: #ffffff;
@@ -242,29 +254,29 @@ body {
     align-items: center;
 }
 
-.tabs div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+    .tabs div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-.tabs span {
-    margin-top: 5px;
-}
+    .tabs span {
+        margin-top: 5px;
+    }
 
-.tabs i {
-    font-size: 24px;
-    padding: 10px;
-    border-radius: 50%;
-    background-color: #f0f0f0;
-    color: #333;
-    transition: all 0.3s ease;
-}
+    .tabs i {
+        font-size: 24px;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: #f0f0f0;
+        color: #333;
+        transition: all 0.3s ease;
+    }
 
-.tabs i.fa-user {
-    color: red;
-    transform: scale(1.1);
-}
+        .tabs i.fa-user {
+            color: red;
+            transform: scale(1.1);
+        }
 
 .popup {
     position: fixed;
@@ -279,37 +291,36 @@ body {
     display: none;
 }
 
-.popup.active {
-    display: block;
-    border-radius: 15px;
-    box-shadow: 5px 5px 10px rgb(49, 21, 36);
-    width: max-content;
-}
+    .popup.active {
+        display: block;
+        border-radius: 15px;
+        box-shadow: 5px 5px 10px rgb(49, 21, 36);
+    }
 
-.popup.active:hover {
-    transform: translate(-50%, -50%);
-    transition: transform 0.2s;
-    box-shadow: 3px 3px rgb(158, 110, 136);
-}
+        .popup.active:hover {
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s;
+            box-shadow: 3px 3px rgb(158, 110, 136);
+        }
 
 .popup-content {
     text-align: center;
     font-size: 18px;
 }
 
-.popup-content a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: #333;
-    margin-top: 10px;
-}
+    .popup-content a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #333;
+        margin-top: 10px;
+    }
 
-.popup-content i {
-    font-size: 24px;
-    margin-right: 10px;
-}
+    .popup-content i {
+        font-size: 24px;
+        margin-right: 10px;
+    }
 
 .close-button {
     display: block;
@@ -322,9 +333,9 @@ body {
     cursor: pointer;
 }
 
-.close-button:hover {
-    background-color: #d32f2f;
-}
+    .close-button:hover {
+        background-color: #d32f2f;
+    }
 
 /* @media screen and (max-width: 768px) {
     .title {
@@ -369,13 +380,13 @@ body {
         font-size: 14px;
     }
 
-    .popup-content a {
-        font-size: 14px;
-    }
+        .popup-content a {
+            font-size: 14px;
+        }
 
-    .popup-content i {
-        font-size: 20px;
-    }
+        .popup-content i {
+            font-size: 20px;
+        }
 
     .close-button {
         max-width: 100px;
@@ -426,11 +437,9 @@ body {
 
     .footer {
         font-size: small;
-
     }
 
     .tabs i {
         font-size: small;
     }
-
 }

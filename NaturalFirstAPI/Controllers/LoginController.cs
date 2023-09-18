@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MySqlX.XDevAPI.Common;
 using NaturalFirstAPI.Model;
 using NaturalFirstAPI.Repository;
 using NaturalFirstAPI.ViewModels;
@@ -22,46 +23,64 @@ namespace NaturalFirstAPI.Controllers
         [HttpPost]
         public IActionResult VerifyUser(User user)
         {
-            var _user = _userRepository.GetUserLogin(user);
-            if (_user == null)
+            if (user == null)
             {
-                return NotFound();
+                return BadRequest("Invalid user data");
             }
-            else if (user.Password == EncryptDecrypt.Decrypt(_user.Password))
+            try
             {
-                return Ok(_user);
+                var _user = _userRepository.GetUserLogin(user);
+                if(user.Password == EncryptDecrypt.Decrypt(_user.Password))
+                {
+                    return Ok(_user);
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
-            else
-            {
-                return Unauthorized();
+            catch(Exception ex) {
+                return StatusCode(500, "An error occurred while performing operation.");
             }
         }
 
         [HttpPost]
         public IActionResult RegisterUser(User user)
         {
-            var _common = _userRepository.AddNewUser(user);
-            if (_common.StatusId == 1)
+            //https://localhost:7198/Home/SignUp?ejai2
+            if (user == null)
             {
-                return Ok(_common);
+                return BadRequest("Invalid user data.");
             }
-            else
+            try
             {
-                return BadRequest(_common);
+                var result = _userRepository.AddNewUser(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while performing operation.");
             }
         }
 
         [HttpPost]
         public IActionResult ResetPassword(ResetPassword reset)
         {
-            var _common = _userRepository.ResetPassword(reset);
-            if (_common.StatusId == 1)
+
+            if (reset == null)
             {
-                return Ok(_common);
+                return BadRequest("Invalid user data.");
             }
-            else
+            try
             {
-                return BadRequest(_common);
+                var result = _userRepository.ResetPassword(reset);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while performing operation.");
             }
         }
 

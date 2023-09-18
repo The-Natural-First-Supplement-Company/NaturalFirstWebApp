@@ -16,6 +16,7 @@ namespace NaturalFirstWebApp
             builder.Services.AddSession(options =>
             {
                 options.Cookie.HttpOnly = true;
+                options.IdleTimeout = TimeSpan.FromDays(2);
             });
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -26,6 +27,8 @@ namespace NaturalFirstWebApp
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Use appropriate setting based on your HTTPS configuration
                 options.LoginPath = "/Home/Index"; // Redirect to login page if authentication fails
                 options.LogoutPath = "/Home/Logout"; // Redirect to logout page
+                options.ExpireTimeSpan = TimeSpan.FromDays(2); // Set the desired expiration time
+                options.SlidingExpiration = true; // Extend the expiration on each request
             });
 
             string apiUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");
