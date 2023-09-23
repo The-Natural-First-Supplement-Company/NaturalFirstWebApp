@@ -1,0 +1,384 @@
+﻿* {
+    list-style-type: none;
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+body {
+    height: 100%;
+    font-family: \5fae\8f6f\96c5\9ed1, \5b8b\4f53, Arial;
+    max-width: 640px;
+    margin: 0 auto;
+    background: #b8e5b8;
+    color: #333;
+}
+
+.app {
+    height: 100%;
+    font-size: 1rem;
+    max-width: 640px;
+    margin: 0 auto;
+    display: block;
+}
+
+.article {
+    position: relative;
+    min-height: 100%;
+    color: #fff;
+}
+
+.nav-bar .nav-bar-fixed {
+    z-index: 1000;
+    background-color: #e2ebeb;
+    color: #c45454;
+    max-width: 640px;
+    margin: 0 auto;
+    right: 0;
+    border-radius: 15px;
+}
+
+.nav-bar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    line-height: var(--van-line-height-lg);
+    text-align: center;
+    background: var(--van-nav-bar-background-color);
+    user-select: none;
+    margin-bottom: 10px;
+}
+
+.nav-bar .navbar-content {
+    height: 3rem;
+}
+
+.navbar-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-left {
+    padding: 0 0 0 15px;
+}
+
+.title {
+    max-width: 60%;
+    margin: 0 auto;
+    color: var(--van-nav-bar-title-text-color);
+    font-weight: var(--van-font-weight-bold);
+    font-size: var(--van-nav-bar-title-font-size);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.back-text {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+}
+
+.content {
+    padding: 0 4%;
+    background-color: #b8e5b8;
+    max-height: calc(100vh - 60px);
+    /* overflow-y: auto; */
+    position: relative;
+    top: -0.1rem;
+    right: 0;
+    bottom: 4.2rem;
+    overflow-y: auto;
+    left: 0;
+}
+
+    .content::-webkit-scrollbar {
+        display: none;
+    }
+
+.total {
+    padding: 5px;
+    background: white;
+    border-radius: 10px;
+}
+
+.profile-info-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.profile-content {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}
+
+.profile-image img {
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+/* #user-mail {
+    font-size: large;
+} */
+
+.profile-text {
+    color: #333;
+    margin-left: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.settings-icon {
+    position: relative;
+    top: -10px;
+    right: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+    .settings-icon i {
+        color: #777070;
+        padding-right: 15px;
+    }
+
+.detail {
+    background-color: #3582da;
+    color: #f0f0f0;
+    margin-right: 20px;
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.arrow {
+    border: solid #f0f0f0;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.historybutton {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.record {
+    background-color: #f44336;
+    color: #f0f0f0;
+    margin-right: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.assets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+}
+
+.asset-label {
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.asset-value {
+    margin: 5px 0;
+    color: #f94140;
+}
+
+.stats {
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 450px;
+}
+
+    .stats::-webkit-scrollbar {
+        display: none;
+    }
+
+.profile-info {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.close-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Responsive CSS */
+@media screen and (max-width: 768px) {
+    .title {
+        max-width: 80%;
+    }
+
+    .navbar-left {
+        font-size: medium;
+    }
+
+    .back-text {
+        /* Reduce font size for smaller screens */
+        position: relative;
+        top: -1px;
+        /* Adjust vertical alignment for back text */
+    }
+
+    .content {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .content {
+        padding: 5px;
+    }
+
+    .asset-label {
+        font-size: 15px;
+    }
+
+    .asset-value {
+        font-size: 13px;
+    }
+
+    .profile-text {
+        font-size: 13px;
+    }
+
+    .profile-image img {
+        height: 60px;
+        margin-right: 5px;
+    }
+
+    .detail {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 566px) {
+    .nav-bar-fixed {
+        border-radius: 0;
+        /* Remove border-radius for smaller screens */
+    }
+
+    .record {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .title div {
+        font-size: small;
+    }
+
+    .navbar-left {
+        font-size: small;
+    }
+
+    .profile-content {
+        padding-left: 5px;
+    }
+
+    .record {
+        font-size: 11px;
+    }
+
+    .asset-label {
+        font-size: 15px;
+    }
+
+    .asset-value {
+        font-size: 13px;
+    }
+
+    .profile-text {
+        font-size: 13px;
+    }
+
+    .profile-image img {
+        height: 60px;
+        width: 60px;
+        margin-right: 2px;
+    }
+
+    .detail {
+        font-size: 11px;
+        margin-right: 5px;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .navbar-content {
+        font-size: small;
+    }
+}
+
+@media screen and (max-width: 280px) {
+    .profile-image img {
+        width: 50px;
+        height: 50px;
+        margin-right: 5px;
+    }
+
+    .profile-text {
+        color: #333;
+        margin-left: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: x-small;
+    }
+
+    #user-mail {
+        font-size: small;
+    }
+
+    .settings-icon i {
+        padding-right: 10px;
+    }
+
+    .wallet {
+        font-size: small;
+    }
+
+    .stats {
+        font-size: small;
+    }
+
+    .customer-service {
+        font-size: small;
+    }
+
+    .footer {
+        font-size: small;
+    }
+
+    .tabs i {
+        font-size: small;
+    }
+}

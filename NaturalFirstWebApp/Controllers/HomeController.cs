@@ -233,6 +233,30 @@ namespace NaturalFirstWebApp.Controllers
             return code;
         }
 
+        public async Task<IActionResult> DailyIncome()
+        {
+            try
+            {
+                // Create an instance of HttpClient using the named client from the factory
+                var client = _httpClientFactory.CreateClient("MyApiClient");
+
+                // Define the endpoint path
+                var endpointPath = "/api/Admin/UpdateDaily"; // Replace with the actual login endpoint path
+
+                // Make a POST request to the API
+                var response = await client.GetAsync(endpointPath);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                // Deserialize the JSON response into an object
+                var responseData = JsonConvert.DeserializeObject<Common>(jsonResponse);
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
+            }
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

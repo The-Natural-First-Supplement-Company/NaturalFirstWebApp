@@ -279,5 +279,38 @@ namespace NaturalFirstAPI.Repository
             }
             return lst;
         }
+
+        public Common UpdateDailyIncome()
+        {
+            Common common = new Common();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    using (MySqlCommand command = new MySqlCommand("spAdmin_UpdateDailyIncome", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("@StatusId", MySqlDbType.Int32).Direction = ParameterDirection.Output;
+                        command.Parameters.Add("@Status", MySqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+
+                        // Execute the stored procedure
+                        command.ExecuteNonQuery();
+
+                        // Retrieve the output parameter values
+                        common.StatusId = (int)command.Parameters["@StatusId"].Value;
+                        common.Status = command.Parameters["@Status"].Value.ToString();
+                    }
+                }
+                return common;
+            }
+            catch(Exception ex)
+            {
+                common.StatusId = 0;
+                common.Status = ex.Message;
+                return common;
+            }
+        }
     }
 }

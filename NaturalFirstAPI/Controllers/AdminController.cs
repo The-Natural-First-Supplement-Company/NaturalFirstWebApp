@@ -135,5 +135,20 @@ namespace NaturalFirstAPI.Controllers
                 return StatusCode(500, "An error occurred while fetching all products.");
             }
         }
+
+        [HttpGet]
+        public IActionResult UpdateDaily()
+        {
+            try
+            {
+                var result = _adminRepository.UpdateDailyIncome();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching all products.");
+            }
+        }
     }
 }

@@ -728,5 +728,80 @@ namespace NaturalFirstAPI.Repository
             }
             return _loginUser;
         }
+
+        public List<IncomeVM> GetPendingIncome(User user)
+        {
+            List<IncomeVM> data = new List<IncomeVM>();
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("sp_UserDailyPendingIncome", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new MySqlParameter("@user_id", MySqlDbType.Int32) { Value = user.Id });
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IncomeVM team = new IncomeVM();
+                            team.wbHistoryId = (int)reader["wbHistoryId"];
+                            team.ProductImage = reader["ProductImage"] != DBNull.Value ? (byte[])reader["ProductImage"] : null;
+                            team.Amount = (Decimal)reader["Amount"];
+                            team.ProductName = reader["ProductName"].ToString();
+                            team.wdStatus = (int)reader["wdStatus"];
+                            team.Total = (Decimal)reader["Total"];
+                            team.ProductCount = Convert.ToInt32(reader["ProductCount"]);
+                            data.Add(team);
+                        }
+                    }
+                }
+            }
+            return data;
+        }
+
+        public Common UpdateIncome(IncomeVM income)
+        {
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    // Execute SQL queries here
+                    // For example, you can use a MySqlCommand to execute queries:
+                    using (MySqlCommand command = new MySqlCommand("sp_UpdateUserIncomeStatus", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(new MySqlParameter("@user_id", MySqlDbType.VarChar) { Value = income.UserId });
+                        command.Parameters.Add(new MySqlParameter("@wd_h_id", MySqlDbType.Decimal) { Value = income.wbHistoryId });
+                        
+                        // Output parameters
+                        // Add output parameters to the command
+                        command.Parameters.Add("@StatusId", MySqlDbType.Int32).Direction = ParameterDirection.Output;
+                        command.Parameters.Add("@Status", MySqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+
+                        // Execute the stored procedure
+                        command.ExecuteNonQuery();
+
+                        // Retrieve the output parameter values
+                        int statusId = (int)command.Parameters["@StatusId"].Value;
+                        string status = command.Parameters["@Status"].Value.ToString();
+
+                        Common common = new Common
+                        {
+                            StatusId = statusId,
+                            Status = status
+                        };
+                        return common;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                    return new Common { Status = ex.Message, StatusId = 0 };
+                }
+            }
+        }
     }
 }

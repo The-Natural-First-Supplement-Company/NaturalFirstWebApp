@@ -89,6 +89,10 @@ body {
     left: 0;
 }
 
+    .content::-webkit-scrollbar {
+        display: none;
+    }
+
 .profile-details {
     padding: 5px;
     background: white;

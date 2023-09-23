@@ -15,6 +15,10 @@ body {
     background-color: #b8e5b8;
 }
 
+body::-webkit-scrollbar{
+    display:none;
+}
+
 .navbar {
     background-color: #b8e5b8;
     color: #b8e5b8;
@@ -73,6 +77,10 @@ body {
     bottom: 4.2rem;
     overflow-y: auto;
     left: 0;
+}
+
+.main-content::-webkit-scrollbar{
+    display:none;
 }
 
 .intro-image img {
@@ -313,7 +321,7 @@ body {
     color: #fff;
     margin: 0 auto;
     right: 0;
-    height: 4.2rem;
+    height: 2.2rem;
     box-shadow: #d8d8d8 0 0 3px;
 }
 

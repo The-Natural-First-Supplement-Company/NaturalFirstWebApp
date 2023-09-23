@@ -484,6 +484,11 @@ namespace NaturalFirstWebApp.Controllers
             return View();
         }
 
+        public IActionResult IncomeHistory()
+        {
+            return View();
+        }
+
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -618,6 +623,40 @@ namespace NaturalFirstWebApp.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<JsonResult> GetPendingIncome()
+        {
+            try
+            {
+                // Create an instance of HttpClient using the named client from the factory
+                var client = _httpClientFactory.CreateClient("MyApiClient");
+
+                // Define the endpoint path
+                var endpointPath = "/api/User/FetchPendingIncome"; // Replace with the actual login endpoint path
+
+                // Prepare the content with parameters
+                var requestData = new
+                {
+                    Id = GetCurrentUserId()
+                };
+                var json = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Make a POST request to the API
+                var response = await client.PostAsync(endpointPath, content);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                // Deserialize the JSON response into an object
+                var responseData = JsonConvert.DeserializeObject<List<IncomeVM>>(jsonResponse);
+
+                return Json(responseData);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return Json(null);
+            }
+        }
+
         public async Task<JsonResult> GetHistoryWithdrawal()
         {
             try
@@ -647,6 +686,42 @@ namespace NaturalFirstWebApp.Controllers
             catch (Exception ex)
             {
                 ViewBag.Error = ex.Message;
+                return Json(null);
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateIncomeStatus([FromBody] IncomeVM income)
+        {
+            try
+            {
+                // Create an instance of HttpClient using the named client from the factory
+                var client = _httpClientFactory.CreateClient("MyApiClient");
+
+                // Define the endpoint path
+                var endpointPath = "/api/User/UpdateIncomeReceive"; // Replace with the actual login endpoint path
+
+
+                // Prepare the content with parameters
+                var requestData = new {
+                    UserId = GetCurrentUserId(),
+                    wbHistoryId = income.wbHistoryId
+                };
+                var json = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Make a POST request to the API
+                var response = await client.PostAsync(endpointPath, content);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                // Deserialize the JSON response into an object
+                var responseData = JsonConvert.DeserializeObject<Common>(jsonResponse);
+
+                return Json(responseData);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.StatudId = 0;
+                ViewBag.msg = ex.Message;
                 return Json(null);
             }
         }

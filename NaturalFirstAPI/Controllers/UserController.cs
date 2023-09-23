@@ -273,5 +273,43 @@ namespace NaturalFirstAPI.Controllers
                 return StatusCode(500, "An error occurred while fetching wallet balance.");
             }
         }
+
+        [HttpPost]
+        public IActionResult FetchPendingIncome(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.GetPendingIncome(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching today income.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateIncomeReceive(IncomeVM inc)
+        {
+            if (inc == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.UpdateIncome(inc);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while updating income.");
+            }
+        }
     }
 }
