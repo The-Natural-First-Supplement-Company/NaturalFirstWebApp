@@ -16,19 +16,21 @@ namespace NaturalFirstWebApp
             builder.Services.AddSession(options =>
             {
                 options.Cookie.HttpOnly = true;
-                options.IdleTimeout = TimeSpan.FromDays(30);
+                options.IdleTimeout = TimeSpan.FromDays(360);
+                options.Cookie.IsEssential = true;
             });
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Use appropriate setting based on your HTTPS configuration
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; // Use appropriate setting based on your HTTPS configuration
                 options.LoginPath = "/Home/Index"; // Redirect to login page if authentication fails
                 options.LogoutPath = "/Home/Logout"; // Redirect to logout page
-                options.ExpireTimeSpan = TimeSpan.FromDays(30); // Set the desired expiration time
+                options.ExpireTimeSpan = TimeSpan.FromDays(365); // Set the desired expiration time
                 options.SlidingExpiration = true; // Extend the expiration on each request
+                options.Cookie.IsEssential = true;
             });
 
             string apiUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");

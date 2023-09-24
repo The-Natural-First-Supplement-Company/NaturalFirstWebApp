@@ -312,5 +312,95 @@ namespace NaturalFirstAPI.Repository
                 return common;
             }
         }
+
+        public List<User> GetActiveUserList()
+        {
+            List<User> lst = new List<User>();
+
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("spAdmin_GetActiveList", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            User usr = new User
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                Email = reader["Email"].ToString(),
+                                ProfilePic = reader["ProfilePic"] != DBNull.Value ? (byte[])reader["ProfilePic"] : null,
+                                NickName = reader["NickName"] != DBNull.Value ? reader["NickName"].ToString() : "",
+                                CreatedDate = (DateTime)reader["CreatedDate"]
+                            };
+                            lst.Add(usr);
+                        }
+                    }
+                }
+            }
+            return lst;
+        }
+
+        public List<User> GetInactiveUserList()
+        {
+            List<User> lst = new List<User>();
+
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("spAdmin_GetInActiveList", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            User usr = new User
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                Email = reader["Email"].ToString(),
+                                ProfilePic = reader["ProfilePic"] != DBNull.Value ? (byte[])reader["ProfilePic"] : null,
+                                NickName = reader["NickName"] != DBNull.Value ? reader["NickName"].ToString() : "",
+                                CreatedDate = (DateTime)reader["CreatedDate"]
+                            };
+                            lst.Add(usr);
+                        }
+                    }
+                }
+            }
+            return lst;
+        }
+
+        public Common UpdateUserStatus(User user)
+        {
+            Common common = new Common();
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (MySqlCommand command = new MySqlCommand("spAdmin_UpdateUserStatus", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new MySqlParameter("@user_id", MySqlDbType.VarChar) { Value = user.Id });
+                    command.Parameters.Add(new MySqlParameter("@active", MySqlDbType.VarChar) { Value = user.isActive });
+                    command.Parameters.Add("@StatusId", MySqlDbType.Int32).Direction = ParameterDirection.Output;
+                    command.Parameters.Add("@Status", MySqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
+
+                    // Execute the stored procedure
+                    command.ExecuteNonQuery();
+
+                    // Retrieve the output parameter values
+                    common.StatusId = (int)command.Parameters["@StatusId"].Value;
+                    common.Status = command.Parameters["@Status"].Value.ToString();
+                }
+            }
+            return common;
+        }
     }
 }

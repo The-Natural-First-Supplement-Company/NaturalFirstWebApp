@@ -34,8 +34,10 @@ function SubmitForm() {
 
 function validateForm() {
     let result = true;
+    let msg = '';
     if ($('#TrnPassword').val() == '' || $('#TrnPassword').val() == null) {
         $('#TrnPassword').addClass("blank-field");
+        msg += "Please provide transaction password.\n";
         result = false;
     } else {
         $('#TrnPassword').removeClass("blank-field");
@@ -43,10 +45,18 @@ function validateForm() {
 
     if ($('#Amount').val() == '' || $('#Amount').val() == null) {
         $('#Amount').addClass("blank-field");
+        msg += "Please provide amount.\n";
         result = false;
     } else {
         $('#Amount').removeClass("blank-field");
     }
-    alert("Please provide required fields.");
+
+    if ($('#Amount').val() < 140) {
+        msg += "Withdrawal amount cannot be less than 140.";
+        result = false;
+    }
+    if (msg != '') {
+        alert(msg);
+    }
     return result;
 }

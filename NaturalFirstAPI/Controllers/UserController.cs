@@ -294,15 +294,34 @@ namespace NaturalFirstAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateIncomeReceive(IncomeVM inc)
+        public IActionResult UpdateIncomeReceive([FromBody] IncomeVM vM)
         {
-            if (inc == null)
+            if (vM.user_id == 0 && vM.wbHistoryId == 0)
             {
                 return BadRequest("Invalid user data.");
             }
             try
             {
-                var result = _userRepository.UpdateIncome(inc);
+                var result = _userRepository.UpdateIncome(vM.wbHistoryId,vM.user_id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while updating income.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult GetIncomeHistoryUser(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest("Invalid user data.");
+            }
+            try
+            {
+                var result = _userRepository.GetIncomeHistory(user.Id);
                 return Ok(result);
             }
             catch (Exception ex)

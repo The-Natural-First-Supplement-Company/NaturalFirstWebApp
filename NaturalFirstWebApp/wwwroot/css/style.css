@@ -18,6 +18,12 @@ body {
     border-radius: 5px;
 }
 
+.login-container{
+    background-image:url("../images/pic7.jpeg");
+    background-size:contain;
+    background-repeat:round;
+}
+
 .company img {
     border-radius: 10px;
     max-width: 250px;

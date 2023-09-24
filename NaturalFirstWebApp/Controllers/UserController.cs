@@ -118,7 +118,7 @@ namespace NaturalFirstWebApp.Controllers
         {
             BankDetails bank = new BankDetails();
             bank = GetBankDetails();
-            ViewBag.Balance = GetBalanceAmount();
+            TempData["Balance"] = GetBalanceAmount();
             return View(bank);
         }
 
@@ -691,7 +691,7 @@ namespace NaturalFirstWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> UpdateIncomeStatus([FromBody] IncomeVM income)
+        public async Task<JsonResult> UpdateStatus(int HistoryId)
         {
             try
             {
@@ -704,8 +704,8 @@ namespace NaturalFirstWebApp.Controllers
 
                 // Prepare the content with parameters
                 var requestData = new {
-                    UserId = GetCurrentUserId(),
-                    wbHistoryId = income.wbHistoryId
+                    wbHistoryId = HistoryId,
+                    user_id = GetCurrentUserId()
                 };
                 var json = JsonConvert.SerializeObject(requestData);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -722,6 +722,39 @@ namespace NaturalFirstWebApp.Controllers
             {
                 ViewBag.StatudId = 0;
                 ViewBag.msg = ex.Message;
+                return Json(null);
+            }
+        }
+
+        public async Task<JsonResult> GetIncomeHistory()
+        {
+            try
+            {
+                // Create an instance of HttpClient using the named client from the factory
+                var client = _httpClientFactory.CreateClient("MyApiClient");
+
+                // Define the endpoint path
+                var endpointPath = "/api/User/GetIncomeHistoryUser"; // Replace with the actual login endpoint path
+
+                // Prepare the content with parameters
+                var requestData = new
+                {
+                    Id = GetCurrentUserId()
+                };
+                var json = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Make a POST request to the API
+                var response = await client.PostAsync(endpointPath, content);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                // Deserialize the JSON response into an object
+                var responseData = JsonConvert.DeserializeObject<List<IncomeVM>>(jsonResponse);
+
+                return Json(responseData);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
                 return Json(null);
             }
         }

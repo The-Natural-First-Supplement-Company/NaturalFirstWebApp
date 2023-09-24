@@ -25,6 +25,11 @@ namespace NaturalFirstWebApp.Controllers
         }
         public IActionResult Index()
         {
+            // Retrieve the user's claims
+            var userClaims = User.Claims.ToList();
+
+            // Retrieve specific claim values
+            ViewBag.Referral = userClaims.FirstOrDefault(c => c.Type == "Referral")?.Value;
             return View();
         }
 
@@ -311,6 +316,16 @@ namespace NaturalFirstWebApp.Controllers
             }
         }
 
+        public IActionResult Users()
+        {
+            return View();
+        }
+
+        public IActionResult InActiveUser()
+        {
+            return View();
+        }
+
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -455,6 +470,94 @@ namespace NaturalFirstWebApp.Controllers
             var result = JsonConvert.DeserializeObject<Common>(jsonResponse);
 
             return Json(result);
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetActiveUser()
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient("MyApiClient");
+
+                // Define the endpoint path
+                var endpointPath = "/api/Admin/GetActiveUser"; // Replace with the actual endpoint path
+
+                // Make a GET request to the API
+                var response = await client.GetAsync(endpointPath);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                // Deserialize the JSON response into a WithdrawDetail object
+                var responseData = JsonConvert.DeserializeObject<List<User>>(jsonResponse);
+                return Json(responseData);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return Json(null);
+            }
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetInActiveUser()
+        {
+            try
+            {
+                var client = _httpClientFactory.CreateClient("MyApiClient");
+
+                // Define the endpoint path
+                var endpointPath = "/api/Admin/GetInActiveUser"; // Replace with the actual endpoint path
+
+                // Make a GET request to the API
+                var response = await client.GetAsync(endpointPath);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                // Deserialize the JSON response into a WithdrawDetail object
+                var responseData = JsonConvert.DeserializeObject<List<User>>(jsonResponse);
+                return Json(responseData);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = ex.Message;
+                return Json(null);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateUserStatus([FromBody]User user)
+        {
+            try
+            {
+                // Create an instance of HttpClient using the named client from the factory
+                var client = _httpClientFactory.CreateClient("MyApiClient");
+
+                // Define the endpoint path
+                var endpointPath = "/api/Admin/UpdateUserStatus"; // Replace with the actual login endpoint path
+
+                // Prepare the content with parameters
+                var requestData = new 
+                { 
+                    Id = user.Id, 
+                    isActive = user.isActive
+                };
+                var json = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Make a POST request to the API
+                var response = await client.PostAsync(endpointPath, content);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                // Deserialize the JSON response into an object
+                var responseData = JsonConvert.DeserializeObject<Common>(jsonResponse);
+
+                return Json(responseData);
+            }
+            catch (Exception ex)
+            {
+                Common common = new Common
+                {
+                    Status = ex.Message,
+                    StatusId = 0
+                };
+                return Json(common);
+            }
         }
     }
 }

@@ -35,13 +35,13 @@
                     </a>
                 </div>
                 <div class="option">
-                    <a href="#">
+                    <a href="@Url.Action("Users","Admin")">
                         <i class="fas fa-users"></i>
-                        <div>My Teams</div>
+                        <div>Users</div>
                     </a>
                 </div>
                 <div class="option">
-                    <a href="#">
+                    <a href="#" onclick="ShowInvite()">
                         <i class="fas fa-envelope-open-text"></i>
                         <div>Invitation</div>
                     </a>
@@ -58,4 +58,80 @@
         <!-- </div> -->
     </div>
 </div>
+
+<div class="popup-mask">
+    <div class="popup">
+        <div class="popup-content" style="padding: 0 0.1rem 0.5rem 0.1rem;">
+            <div class="text-danger" style="text-align: center;padding-bottom: 0px;margin-bottom: -20px;color: red;" id="linkMsg"></div>
+            <div class="copy">
+                <div class="left">
+                    <div class="text">Invitation link</div>
+                    <span class="code" id="link">@Url.Action("SignUp","Home",null,"https")?@ViewBag.Referral</span>
+                </div>
+                <img id="copy-link" src="../images/copy.png" alt="">
+            </div>
+            @*<div class="copy">
+                <div class="left">
+                    <div class="text">Invitation code</div>
+                    <span class="code" id="invi-code">@ViewBag.Referral</span>
+                </div>
+                <img id="copycode" src="../images/copy.png" alt="">
+            </div>*@
+            <button class="close-button" onclick="CloseInvite()">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    const popupMask = document.querySelector('.popup-mask');
+    const popup = document.querySelector('.popup');
+
+    // Get references to the copy images and code spans
+    const copyLinkImage = document.getElementById('copy-link');
+    const copyCodeImage = document.getElementById('copycode');
+    const linkCodeSpan = document.getElementById('link');
+    const codeCodeSpan = document.getElementById('invi-code');
+
+
+    // Function to copy text to clipboard
+    function copyTextToClipboard(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        var messageDiv = $('#linkMsg');
+        messageDiv.text("Link copied!");
+        messageDiv.fadeIn();
+        setTimeout(function () {
+            messageDiv.fadeOut();
+        }, 2000);
+    }
+
+    // Add an event listener to the "Invitation" option
+    function ShowInvite() {
+        // Show the popup
+        popupMask.style.display = 'block'; // Show the mask
+        popup.classList.add('active'); // Show the popup content
+    };
+
+    // Add an event listener to the close button
+    function CloseInvite() {
+        // Hide the popup
+        popupMask.style.display = 'none'; // Hide the mask
+        popup.classList.remove('active'); // Hide the popup content
+    };
+
+    // Add event listener to the copy link image
+    copyLinkImage.addEventListener('click', () => {
+        copyTextToClipboard(linkCodeSpan.textContent);
+    });
+
+    // Add event listener to the copy code image
+    copyCodeImage.addEventListener('click', () => {
+        copyTextToClipboard(codeCodeSpan.textContent);
+    });
+</script>
 <script src="script.js"></script>

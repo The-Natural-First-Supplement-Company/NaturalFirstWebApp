@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    $("#loader").show();
     GetInformation();
 });
 
@@ -37,6 +38,7 @@ function GetInformation() {
                 }
                 $('#AssetTotal').text(response[0].productCount);
                 $('#TotalCost').text(response[0].total);
+                $("#loader").hide();
             }
             
         },
@@ -49,18 +51,18 @@ function GetInformation() {
 function Submit(id) {
     //let val = $('#btnSubmit'+id).attr("data-id"+id);
     //alert("Code Pending For This Opton.");
-
-    let parm = {
-        "wbHistoryId": $('#btnSubmit' + id).attr('data-id' + id)
-    };
-    let josnstr = JSON.stringify(parm);
+    let val = $('#btnSubmit' + id).attr('data-id' + id);
+    //let parm = {
+    //    "wbHistoryId": $('#btnSubmit' + id).attr('data-id' + id)
+    //};
+    //let josnstr = JSON.stringify(parm);
     $.ajax({
-        url: "/User/UpdateIncomeStatus",
+        url: "/User/UpdateStatus?HistoryId="+val,
         type: "POST",
         dataType: "json",
-        data: josnstr,
+        //data: josnstr,
+        //data: { "wbHistoryId": $('#btnSubmit' + id).attr('data-id' + id) },
         contentType: "application/json; charset=utf-8",
-        async: false,
         success: function (response) {
             alert(response.status);
         },

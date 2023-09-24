@@ -760,7 +760,7 @@ namespace NaturalFirstAPI.Repository
             return data;
         }
 
-        public Common UpdateIncome(IncomeVM income)
+        public Common UpdateIncome(int wbHistoryId,int user_id)
         {
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
@@ -773,8 +773,8 @@ namespace NaturalFirstAPI.Repository
                     using (MySqlCommand command = new MySqlCommand("sp_UpdateUserIncomeStatus", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add(new MySqlParameter("@user_id", MySqlDbType.VarChar) { Value = income.UserId });
-                        command.Parameters.Add(new MySqlParameter("@wd_h_id", MySqlDbType.Decimal) { Value = income.wbHistoryId });
+                        command.Parameters.Add(new MySqlParameter("@user_id", MySqlDbType.VarChar) { Value = user_id });
+                        command.Parameters.Add(new MySqlParameter("@wd_h_id", MySqlDbType.Decimal) { Value = wbHistoryId });
                         
                         // Output parameters
                         // Add output parameters to the command
@@ -803,5 +803,38 @@ namespace NaturalFirstAPI.Repository
                 }
             }
         }
+
+        public List<IncomeVM> GetIncomeHistory(int Id)
+        {
+            List<IncomeVM> data = new List<IncomeVM>();
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (MySqlCommand command = new MySqlCommand("sp_UserGetIncomeHistory", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new MySqlParameter("@user_id", MySqlDbType.Int32) { Value = Id });
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IncomeVM team = new IncomeVM();
+                            team.wbHistoryId = (int)reader["wbHistoryId"];
+                            team.ProductImage = reader["ProductImage"] != DBNull.Value ? (byte[])reader["ProductImage"] : null;
+                            team.Amount = (Decimal)reader["Amount"];
+                            team.ProductName = reader["ProductName"].ToString();
+                            team.Remarks = reader["Remarks"].ToString();
+                            team.wdStatus = (int)reader["wdStatus"];
+                            team.Total = (Decimal)reader["Total"];
+                            team.ProductCount = Convert.ToInt32(reader["ProductCount"]);
+                            data.Add(team);
+                        }
+                    }
+                }
+            }
+            return data;
+        }
+
     }
 }

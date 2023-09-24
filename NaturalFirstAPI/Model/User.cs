@@ -10,6 +10,7 @@
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int UpdatedBy { get; set; }
+        public int isActive{ get; set; }
         public string? ReferredBy { get; set; }
         public string? Role { get; set; }
         public byte[]? ProfilePic { get; set; }

@@ -1,22 +1,26 @@
 ﻿
 @{
-    ViewData["Title"] = "IncomeHistory";
-    Layout = "~/Views/Shared/_User1Layout.cshtml";
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_AdminLayout1.cshtml";
 }
-<link href="~/css/Record.css" rel="stylesheet" />
+
+<link href="~/css/Income.css" rel="stylesheet" />
 
 <div class="app">
     <div class="article">
         <div class="nav-bar" style="height: 60px;">
             <div class="nav-bar-fixed">
                 <div class="navbar-content">
-                    <a href="@Url.Action("Income","User")" style="text-decoration:none; margin-left:10px;">
+                    <a href="@Url.Action("Index","Admin")" style="text-decoration:none; margin-left:10px;">
                         <i class="fas fa-chevron-left" style="vertical-align: middle;"></i>
                         <span class="back-text" style="vertical-align: middle; position: relative;">Back</span>
                     </a>
                     <div class="title">
-                        <div style="color: black;">Income History</div>
+                        <div style="color: black;">Income</div>
                     </div>
+                    <a href="@Url.Action("InActiveUser","Admin")" style="text-decoration:none; margin-right:10px;">
+                        <span class="back-text" style="vertical-align: middle; position: relative;">History</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -27,13 +31,12 @@
             </div> *@
             <!-- Stats -->
             <div class="stats" id="ContainDiv">
-
             </div>
         </div>
     </div>
 </div>
-
 <div id="loader" class="loader-container">
     <div class="loader"></div>
 </div>
-<script src="~/js/User/IncomeHistory.js" defer></script>
+
+<script src="~/js/admin/Active.js" defer></script>

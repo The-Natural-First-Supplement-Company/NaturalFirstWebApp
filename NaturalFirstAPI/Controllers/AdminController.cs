@@ -150,5 +150,49 @@ namespace NaturalFirstAPI.Controllers
                 return StatusCode(500, "An error occurred while fetching all products.");
             }
         }
+
+        [HttpGet]
+        public IActionResult GetActiveUser()
+        {
+            try
+            {
+                var result = _adminRepository.GetActiveUserList();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching all products.");
+            }
+        }
+        [HttpGet]
+        public IActionResult GetInActiveUser()
+        {
+            try
+            {
+                var result = _adminRepository.GetInactiveUserList();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching all products.");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateUserStatus(User user)
+        {
+            try
+            {
+                var result = _adminRepository.UpdateUserStatus(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "An error occurred while fetching all products.");
+            }
+        }
     }
 }

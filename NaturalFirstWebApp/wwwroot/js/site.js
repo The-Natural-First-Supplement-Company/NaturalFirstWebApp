@@ -30,3 +30,10 @@ function ByteArrayToImage(byteArray) {
     return img;
     */
 };
+
+function convertUtcToIst(utcDate) {
+    var utcDateTime = new Date(utcDate);
+    var istOffset = 5.5 * 60 * 60 * 1000; // IST offset is UTC+5:30 in milliseconds
+    var istDateTime = new Date(utcDateTime.getTime() + istOffset);
+    return istDateTime;
+}

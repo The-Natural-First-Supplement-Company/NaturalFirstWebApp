@@ -35,7 +35,7 @@ body {
 .nav-bar .nav-bar-fixed {
     z-index: 1000;
     background-color: #e2ebeb;
-    color: black;
+    color: #000000;
     max-width: 640px;
     margin: 0 auto;
     right: 0;
@@ -135,7 +135,9 @@ body {
         }
 
     .option .details img {
-        max-width: 60%;
+        /*max-width: 60%;*/
+        max-width: 130px;
+        max-height: 100px;
         border-radius: 10px;
         /* max-height: 58%; */
     }
@@ -286,5 +288,77 @@ body {
 
     .footer {
         font-size: small;
+    }
+}
+
+/* @media screen and (max-width: 600px) {
+    .option {
+        width: 180px;
+        height: 232px;
+    }
+} */
+
+@media screen and (max-width: 600px) {
+    .option {
+        width: 236px;
+        max-height: 232px;
+        margin-bottom: 70px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .option {
+        width: 200px;
+        max-height: 232px;
+        margin-bottom: 50px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .option {
+        width: 185px;
+        max-height: 232px;
+        margin-bottom: 25px;
+    }
+
+    .details .product-details {
+        width: 8rem;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .option {
+        width: 165px;
+        max-height: 240px;
+        margin-bottom: 15px;
+    }
+
+    .details .product-details {
+        width: 7rem;
+    }
+}
+
+@media screen and (max-width: 385px) {
+    .option {
+        width: 140px;
+        max-height: 232px;
+        margin-bottom: 0px;
+        margin-top: -15px;
+    }
+}
+
+@media screen and (max-width: 327px) {
+    .option {
+        width: 120px;
+        max-height: 232px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 280px) {
+    .option {
+        width: 115px;
+        max-height: 232px;
+        margin-bottom: 5px;
     }
 }
