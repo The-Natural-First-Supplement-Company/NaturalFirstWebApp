@@ -31,7 +31,7 @@ namespace NaturalFirstWebApp.Models
                 {
                     client.UseDefaultCredentials = false;
                     client.Credentials = new NetworkCredential(_smtpUsername, _smtpPassword);
-                    client.EnableSsl = true;
+                    client.EnableSsl = _smtpSSL;
                     //if(_smtpPort == 25)
                     //{
                     //    client.EnableSsl = false; 

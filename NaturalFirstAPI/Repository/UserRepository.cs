@@ -27,7 +27,7 @@ namespace NaturalFirstAPI.Repository
         //Login for User and Admin
         public User GetUserLogin(User user)
         {
-            User _loginUser = null;
+            User _loginUser = new User();
 
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
@@ -42,19 +42,15 @@ namespace NaturalFirstAPI.Repository
                     {
                         if (reader.Read())
                         {
-                            _loginUser = new User
-                            {
-                                Id = Convert.ToInt32(reader["Id"]),
-                                Email = reader["Email"].ToString(),
-                                ReferralCode = reader["ReferralCode"].ToString(),
-                                Password = reader["Password"].ToString(),
-                                Role = reader["Role"].ToString()
-                            };
+                            _loginUser.Id = Convert.ToInt32(reader["Id"]);
+                            _loginUser.Email = reader["Email"].ToString();
+                            _loginUser.ReferralCode = reader["ReferralCode"].ToString();
+                            _loginUser.Password = reader["Password"].ToString();
+                            _loginUser.Role = reader["Role"].ToString();
                         }
                     }
                 }
             }
-
             return _loginUser;
         }
         //Register New User

@@ -60,11 +60,11 @@ function sendVerificationCode() {
         let isButtonDisabled = false;
         if (!isButtonDisabled) {
             isButtonDisabled = true;
-            $(this).prop("disabled", true);
+            $("#send-verification-btn").prop("disabled", true);
 
             setTimeout(function () {
                 isButtonDisabled = false;
-                $("#disable-button").prop("disabled", false);
+                $("#send-verification-btn").prop("disabled", false);
             }, 15000); // 60 seconds in milliseconds
         }
     } else {
@@ -84,13 +84,14 @@ function SignUp() {
         data: { signUp : _data },
         dataType: "json",
         success: function (response) {
-            if (response.StatusId === 1) {
-                alert(response);
-                $('#Back2Home').click();
+            if (response.statusId === 1) {
+                alert(response.status);
+                window.location.href = "/Home";
             }
             else
             {
-                alert(response);
+                alert(response.status);
+                window.location.href = "/Home";
             }
         },
         error: function (xhr, status, error) {

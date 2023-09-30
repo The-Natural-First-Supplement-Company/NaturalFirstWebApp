@@ -30,7 +30,7 @@ namespace NaturalFirstAPI.Controllers
             try
             {
                 var _user = _userRepository.GetUserLogin(user);
-                if(user.Password == EncryptDecrypt.Decrypt(_user.Password))
+                if(_user != null && user.Password == EncryptDecrypt.Decrypt(_user.Password))
                 {
                     return Ok(_user);
                 }
