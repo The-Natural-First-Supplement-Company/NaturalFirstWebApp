@@ -45,7 +45,7 @@ namespace NaturalFirstAPI.Repository
                             Product _prd = new Product();
                             _prd.IdProducts = Convert.ToInt32(reader["IdProducts"]);
                             _prd.ProductName = reader["ProductName"].ToString();
-                            _prd.Cycle = (int)reader["Cycle"];
+                            _prd.Cycle = Convert.ToInt32(reader["Cycle"]);
                             _prd.ProductImage = reader["ProductImage"] != DBNull.Value ? (byte[])reader["ProductImage"] : null;
                             _prd.IncomePerDay = (Decimal)reader["IncomePerDay"];
                             _prd.InvestAmt = (Decimal)reader["InvestAmt"];
@@ -77,7 +77,7 @@ namespace NaturalFirstAPI.Repository
                         {
                             _prd.IdProducts = Convert.ToInt32(reader["IdProducts"]);
                             _prd.ProductName = reader["ProductName"].ToString();
-                            _prd.Cycle = (int)reader["Cycle"];
+                            _prd.Cycle = Convert.ToInt32(reader["Cycle"]);
                             _prd.ProductImage = reader["ProductImage"] != DBNull.Value ? (byte[])reader["ProductImage"] : null;
                             _prd.IncomePerDay = (Decimal)reader["IncomePerDay"];
                             _prd.InvestAmt = (Decimal)reader["InvestAmt"];
@@ -116,7 +116,7 @@ namespace NaturalFirstAPI.Repository
                         command.ExecuteNonQuery();
 
                         // Retrieve the output parameter values
-                        int statusId = (int)command.Parameters["@StatusId"].Value;
+                        int statusId = Convert.ToInt32(command.Parameters["@StatusId"].Value);
                         string status = command.Parameters["@Status"].Value.ToString();
 
                         common.StatusId = statusId;
@@ -163,7 +163,7 @@ namespace NaturalFirstAPI.Repository
                         command.ExecuteNonQuery();
 
                         // Retrieve the output parameter values
-                        int statusId = (int)command.Parameters["@StatusId"].Value;
+                        int statusId = Convert.ToInt32(command.Parameters["@StatusId"].Value);
                         string status = command.Parameters["@Status"].Value.ToString();
 
                         common.StatusId = statusId;
@@ -198,7 +198,7 @@ namespace NaturalFirstAPI.Repository
                             Product _prd = new Product();
                             _prd.IdProducts = Convert.ToInt32(reader["IdProducts"]);
                             _prd.ProductName = reader["ProductName"].ToString();
-                            _prd.Cycle = (int)reader["Cycle"];
+                            _prd.Cycle = Convert.ToInt32(reader["Cycle"]);
                             _prd.ProductImage = reader["ProductImage"] != DBNull.Value ? (byte[])reader["ProductImage"] : null;
                             _prd.IncomePerDay = (Decimal)reader["IncomePerDay"];
                             _prd.InvestAmt = (Decimal)reader["InvestAmt"];

@@ -58,6 +58,7 @@ function Submit(id) {
         success: function (response) {
             alert(response.status);
             $("#loader").show();
+            $('#ContainDiv').html('');
             GetList();
         },
         error: function (xhr, status, error) {

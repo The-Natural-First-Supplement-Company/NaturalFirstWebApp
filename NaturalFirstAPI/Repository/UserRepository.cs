@@ -741,11 +741,11 @@ namespace NaturalFirstAPI.Repository
                         while (reader.Read())
                         {
                             IncomeVM team = new IncomeVM();
-                            team.wbHistoryId = (int)reader["wbHistoryId"];
+                            team.wbHistoryId = Convert.ToInt32(reader["wbHistoryId"]);
                             team.ProductImage = reader["ProductImage"] != DBNull.Value ? (byte[])reader["ProductImage"] : null;
                             team.Amount = (Decimal)reader["Amount"];
                             team.ProductName = reader["ProductName"].ToString();
-                            team.wdStatus = (int)reader["wdStatus"];
+                            team.wdStatus = Convert.ToInt32(reader["wdStatus"]);
                             team.Total = (Decimal)reader["Total"];
                             team.ProductCount = Convert.ToInt32(reader["ProductCount"]);
                             data.Add(team);

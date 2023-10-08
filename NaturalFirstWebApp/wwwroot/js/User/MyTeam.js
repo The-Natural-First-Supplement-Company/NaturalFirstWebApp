@@ -117,7 +117,7 @@ function GetMyTeam(percent) {
                     {
                         data: 'createdDate',
                         render: function (createdDate) {
-                            return moment(createdDate).format('DD-MM-YYYY hh:mm');
+                            return moment(createdDate).format('DD-MM-YYYY HH:mm');
                         }
                     },
                     {

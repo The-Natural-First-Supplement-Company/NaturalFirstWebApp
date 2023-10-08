@@ -17,7 +17,10 @@ function GetInformation() {
                 if (response[0].wbHistoryId == 0) {
                     $('#AssetTotal').text(response[0].productCount);
                     $('#TotalCost').text(response[0].total);
-                } else {
+                    $("#loader").hide();
+                }
+                else
+                {
                     // Iterate through the result here
                     for (var i = 0; i < response.length; i++) {
                         var item = response[i];
@@ -72,6 +75,9 @@ function Submit(id) {
         contentType: "application/json; charset=utf-8",
         success: function (response) {
             alert(response.status);
+            $('#ContainDiv').html('');
+            $("#loader").show();
+            GetInformation();
         },
         error: function (xhr, status, error) {
             console.error("Error:", error);

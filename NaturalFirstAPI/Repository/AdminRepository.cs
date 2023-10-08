@@ -43,7 +43,7 @@ namespace NaturalFirstAPI.Repository
                                 CreatedDate = (DateTime)reader["CreatedDate"],
                                 Status = reader["Status"].ToString(),
                                 TrnCode = reader["TrnCode"].ToString(),
-                                UserId = (int)reader["UserId"]
+                                UserId = Convert.ToInt32(reader["UserId"])
                             };
                             lst.Add(recharge);
                         }
@@ -77,7 +77,7 @@ namespace NaturalFirstAPI.Repository
                             recharge.CreatedDate = (DateTime)reader["CreatedDate"];
                             recharge.Status = reader["Status"].ToString();
                             recharge.TrnCode = reader["TrnCode"].ToString();
-                            recharge.UserId = (int)reader["UserId"];
+                            recharge.UserId = Convert.ToInt32(reader["UserId"]);
                         }
                     }
                 }
@@ -106,7 +106,7 @@ namespace NaturalFirstAPI.Repository
                     command.ExecuteNonQuery();
 
                     // Retrieve the output parameter values
-                    common.StatusId = (int)command.Parameters["@StatusId"].Value;
+                    common.StatusId = Convert.ToInt32(command.Parameters["@StatusId"].Value);
                     common.Status = command.Parameters["@Status"].Value.ToString();
                 }
             }
@@ -138,7 +138,7 @@ namespace NaturalFirstAPI.Repository
                                 Amount = (Decimal)reader["Amount"],
                                 CreatedDate = (DateTime)reader["CreatedDate"],
                                 Status = reader["Status"].ToString(),
-                                UserId = (int)reader["UserId"]
+                                UserId = Convert.ToInt32(reader["UserId"])
                             };
                             lst.Add(recharge);
                         }
@@ -174,7 +174,7 @@ namespace NaturalFirstAPI.Repository
                             data.BankAccount = reader["BankAccount"].ToString();
                             data.RealName = reader["RealName"].ToString();
                             data.IFSCCode = reader["IFSCCode"].ToString();
-                            data.UserId = (int)reader["UserId"];
+                            data.UserId = Convert.ToInt32(reader["UserId"]) ;
                         }
                     }
                 }
@@ -202,7 +202,7 @@ namespace NaturalFirstAPI.Repository
                     command.ExecuteNonQuery();
 
                     // Retrieve the output parameter values
-                    common.StatusId = (int)command.Parameters["@StatusId"].Value;
+                    common.StatusId = Convert.ToInt32(command.Parameters["@StatusId"].Value);
                     common.Status = command.Parameters["@Status"].Value.ToString();
                 }
             }
@@ -235,7 +235,7 @@ namespace NaturalFirstAPI.Repository
                                 CreatedDate = (DateTime)reader["CreatedDate"],
                                 Status = reader["Status"].ToString(),
                                 TrnCode = reader["TrnCode"].ToString(),
-                                UserId = (int)reader["UserId"]
+                                UserId = Convert.ToInt32(reader["UserId"])
                             };
                             lst.Add(recharge);
                         }
@@ -270,7 +270,7 @@ namespace NaturalFirstAPI.Repository
                                 Amount = (Decimal)reader["Amount"],
                                 CreatedDate = (DateTime)reader["CreatedDate"],
                                 Status = reader["Status"].ToString(),
-                                UserId = (int)reader["UserId"]
+                                UserId = Convert.ToInt32(reader["UserId"])  
                             };
                             lst.Add(recharge);
                         }
@@ -299,7 +299,7 @@ namespace NaturalFirstAPI.Repository
                         command.ExecuteNonQuery();
 
                         // Retrieve the output parameter values
-                        common.StatusId = (int)command.Parameters["@StatusId"].Value;
+                        common.StatusId = Convert.ToInt32(command.Parameters["@StatusId"].Value);
                         common.Status = command.Parameters["@Status"].Value.ToString();
                     }
                 }
@@ -396,7 +396,7 @@ namespace NaturalFirstAPI.Repository
                     command.ExecuteNonQuery();
 
                     // Retrieve the output parameter values
-                    common.StatusId = (int)command.Parameters["@StatusId"].Value;
+                    common.StatusId = Convert.ToInt32(command.Parameters["@StatusId"].Value);
                     common.Status = command.Parameters["@Status"].Value.ToString();
                 }
             }
